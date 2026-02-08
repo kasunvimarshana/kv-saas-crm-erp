@@ -2,20 +2,22 @@
 
 namespace Modules\Sales\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Core\Traits\{Translatable, Tenantable, Auditable};
+use Modules\Core\Traits\Auditable;
+use Modules\Core\Traits\Tenantable;
+use Modules\Core\Traits\Translatable;
 
 /**
  * Lead Entity
- * 
+ *
  * Represents a potential customer or sales opportunity.
  * Part of the CRM pipeline for converting leads to customers.
  */
 class Lead extends Model
 {
-    use HasFactory, SoftDeletes, Translatable, Tenantable, Auditable;
+    use Auditable, HasFactory, SoftDeletes, Tenantable, Translatable;
 
     /**
      * The attributes that are mass assignable.
@@ -97,9 +99,6 @@ class Lead extends Model
 
     /**
      * Convert lead to customer.
-     *
-     * @param array $customerData
-     * @return Customer
      */
     public function convertToCustomer(array $customerData): Customer
     {
@@ -117,8 +116,6 @@ class Lead extends Model
 
     /**
      * Check if lead is qualified.
-     *
-     * @return bool
      */
     public function isQualified(): bool
     {
@@ -127,8 +124,6 @@ class Lead extends Model
 
     /**
      * Check if lead is won.
-     *
-     * @return bool
      */
     public function isWon(): bool
     {

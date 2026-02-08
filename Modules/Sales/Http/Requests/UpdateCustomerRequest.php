@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Update Customer Request
- * 
+ *
  * Validates data for updating an existing customer.
  */
 class UpdateCustomerRequest extends FormRequest

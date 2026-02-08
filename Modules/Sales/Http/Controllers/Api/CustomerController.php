@@ -5,22 +5,20 @@ namespace Modules\Sales\Http\Controllers\Api;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Sales\Repositories\Contracts\CustomerRepositoryInterface;
-use Modules\Sales\Http\Resources\CustomerResource;
 use Modules\Sales\Http\Requests\StoreCustomerRequest;
 use Modules\Sales\Http\Requests\UpdateCustomerRequest;
+use Modules\Sales\Http\Resources\CustomerResource;
+use Modules\Sales\Repositories\Contracts\CustomerRepositoryInterface;
 
 /**
  * Customer API Controller
- * 
+ *
  * Handles API requests for customer management.
  */
 class CustomerController extends Controller
 {
     /**
      * CustomerController constructor.
-     *
-     * @param CustomerRepositoryInterface $customerRepository
      */
     public function __construct(
         protected CustomerRepositoryInterface $customerRepository
@@ -28,9 +26,6 @@ class CustomerController extends Controller
 
     /**
      * Display a listing of customers.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -43,9 +38,6 @@ class CustomerController extends Controller
 
     /**
      * Store a newly created customer.
-     *
-     * @param StoreCustomerRequest $request
-     * @return JsonResponse
      */
     public function store(StoreCustomerRequest $request): JsonResponse
     {
@@ -58,17 +50,14 @@ class CustomerController extends Controller
 
     /**
      * Display the specified customer.
-     *
-     * @param int $id
-     * @return JsonResponse
      */
     public function show(int $id): JsonResponse
     {
         $customer = $this->customerRepository->findById($id);
 
-        if (!$customer) {
+        if (! $customer) {
             return response()->json([
-                'message' => 'Customer not found'
+                'message' => 'Customer not found',
             ], 404);
         }
 
@@ -77,10 +66,6 @@ class CustomerController extends Controller
 
     /**
      * Update the specified customer.
-     *
-     * @param UpdateCustomerRequest $request
-     * @param int $id
-     * @return JsonResponse
      */
     public function update(UpdateCustomerRequest $request, int $id): JsonResponse
     {
@@ -91,30 +76,24 @@ class CustomerController extends Controller
 
     /**
      * Remove the specified customer.
-     *
-     * @param int $id
-     * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
     {
         $deleted = $this->customerRepository->delete($id);
 
-        if (!$deleted) {
+        if (! $deleted) {
             return response()->json([
-                'message' => 'Customer not found'
+                'message' => 'Customer not found',
             ], 404);
         }
 
         return response()->json([
-            'message' => 'Customer deleted successfully'
+            'message' => 'Customer deleted successfully',
         ], 200);
     }
 
     /**
      * Search customers.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function search(Request $request): JsonResponse
     {

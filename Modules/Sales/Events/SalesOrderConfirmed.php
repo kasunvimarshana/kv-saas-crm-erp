@@ -9,7 +9,7 @@ use Modules\Sales\Entities\SalesOrder;
 
 /**
  * Sales Order Confirmed Event
- * 
+ *
  * Fired when a sales order is confirmed.
  * Other modules can listen to this event and react accordingly.
  */

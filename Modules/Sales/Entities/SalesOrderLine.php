@@ -2,19 +2,20 @@
 
 namespace Modules\Sales\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Core\Traits\{Tenantable, Auditable};
+use Illuminate\Database\Eloquent\Model;
+use Modules\Core\Traits\Auditable;
+use Modules\Core\Traits\Tenantable;
 
 /**
  * Sales Order Line Entity
- * 
+ *
  * Represents a line item in a sales order.
  * Contains product, quantity, pricing, and tax information.
  */
 class SalesOrderLine extends Model
 {
-    use HasFactory, Tenantable, Auditable;
+    use Auditable, HasFactory, Tenantable;
 
     /**
      * The table associated with the model.
@@ -81,16 +82,14 @@ class SalesOrderLine extends Model
 
     /**
      * Calculate line totals.
-     *
-     * @return void
      */
     public function calculateTotals(): void
     {
         $subtotal = $this->quantity * $this->unit_price;
-        $discountAmount = $this->discount_percent > 0 
+        $discountAmount = $this->discount_percent > 0
             ? $subtotal * ($this->discount_percent / 100)
             : $this->discount_amount;
-        
+
         $amountAfterDiscount = $subtotal - $discountAmount;
         $taxAmount = $amountAfterDiscount * ($this->tax_percent / 100);
         $lineTotal = $amountAfterDiscount + $taxAmount;
@@ -112,13 +111,13 @@ class SalesOrderLine extends Model
         static::saving(function ($line) {
             if ($line->isDirty(['quantity', 'unit_price', 'discount_percent', 'discount_amount', 'tax_percent'])) {
                 $subtotal = $line->quantity * $line->unit_price;
-                $discountAmount = $line->discount_percent > 0 
+                $discountAmount = $line->discount_percent > 0
                     ? $subtotal * ($line->discount_percent / 100)
                     : $line->discount_amount;
-                
+
                 $amountAfterDiscount = $subtotal - $discountAmount;
                 $taxAmount = $amountAfterDiscount * ($line->tax_percent / 100);
-                
+
                 $line->discount_amount = $discountAmount;
                 $line->tax_amount = $taxAmount;
                 $line->line_total = $amountAfterDiscount + $taxAmount;

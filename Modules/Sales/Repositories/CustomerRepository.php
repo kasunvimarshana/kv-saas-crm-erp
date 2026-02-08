@@ -2,22 +2,20 @@
 
 namespace Modules\Sales\Repositories;
 
-use Modules\Core\Repositories\BaseRepository;
-use Modules\Sales\Repositories\Contracts\CustomerRepositoryInterface;
-use Modules\Sales\Entities\Customer;
 use Illuminate\Database\Eloquent\Collection;
+use Modules\Core\Repositories\BaseRepository;
+use Modules\Sales\Entities\Customer;
+use Modules\Sales\Repositories\Contracts\CustomerRepositoryInterface;
 
 /**
  * Customer Repository Implementation
- * 
+ *
  * Handles all customer data access operations.
  */
 class CustomerRepository extends BaseRepository implements CustomerRepositoryInterface
 {
     /**
      * CustomerRepository constructor.
-     *
-     * @param Customer $model
      */
     public function __construct(Customer $model)
     {
