@@ -17,7 +17,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "nwidart/laravel-modules": "^11.0",
-        "stancl/tenancy": "^4.0",
+        "stancl/tenancy": "^3.9",
         "spatie/laravel-permission": "^6.0",
         "spatie/laravel-translatable": "^6.0",
         "spatie/laravel-activitylog": "^4.0",
@@ -77,7 +77,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true
         }
     },
     "minimum-stability": "stable",
