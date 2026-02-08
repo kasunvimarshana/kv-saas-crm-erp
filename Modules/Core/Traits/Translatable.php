@@ -4,39 +4,122 @@ declare(strict_types=1);
 
 namespace Modules\Core\Traits;
 
-use Spatie\Translatable\HasTranslations as SpatieHasTranslations;
-
 /**
  * Translatable Trait
  *
- * Provides multi-language support for model attributes using Spatie's
- * laravel-translatable package. This follows the analysis from polymorphic
- * translatable models and uses a proven, stable LTS package.
+ * Provides multi-language support for model attributes using native Laravel features.
+ * Stores translations as JSON in the database without external dependencies.
  *
  * Usage:
  * 1. Add trait to your model: use Translatable;
- * 2. Define translatable attributes: public $translatable = ['name', 'description'];
- * 3. Use setTranslation/getTranslation methods or access attributes directly
+ * 2. Define translatable attributes: protected $translatable = ['name', 'description'];
+ * 3. Cast translatable attributes to array in your model
+ *
+ * Migration example:
+ * $table->json('name')->nullable();
  *
  * Example:
  * $product->setTranslation('name', 'en', 'Product Name');
  * $product->setTranslation('name', 'es', 'Nombre del Producto');
  * $name = $product->getTranslation('name', 'es');
- *
- * @link https://github.com/spatie/laravel-translatable
+ * $name = $product->getTranslation('name'); // Uses current app locale
  */
 trait Translatable
 {
-    use SpatieHasTranslations;
-
     /**
      * Get the list of translatable attributes.
-     * This is used by Spatie's package.
      *
      * @return array<string>
      */
     public function getTranslatableAttributes(): array
     {
         return $this->translatable ?? [];
+    }
+
+    /**
+     * Get a translation for a specific attribute and locale.
+     *
+     * @param string $attribute
+     * @param string|null $locale
+     * @return string|null
+     */
+    public function getTranslation(string $attribute, ?string $locale = null): ?string
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        if (! $this->isTranslatableAttribute($attribute)) {
+            return $this->getAttribute($attribute);
+        }
+
+        $translations = $this->getTranslations($attribute);
+
+        return $translations[$locale] ?? $translations[config('app.fallback_locale')] ?? null;
+    }
+
+    /**
+     * Get all translations for a specific attribute.
+     *
+     * @param string $attribute
+     * @return array<string, string>
+     */
+    public function getTranslations(string $attribute): array
+    {
+        if (! $this->isTranslatableAttribute($attribute)) {
+            return [$this->getAttribute($attribute)];
+        }
+
+        $value = $this->getAttributeValue($attribute);
+
+        return is_array($value) ? $value : [];
+    }
+
+    /**
+     * Set a translation for a specific attribute and locale.
+     *
+     * @param string $attribute
+     * @param string $locale
+     * @param string $value
+     * @return self
+     */
+    public function setTranslation(string $attribute, string $locale, string $value): self
+    {
+        if (! $this->isTranslatableAttribute($attribute)) {
+            $this->setAttribute($attribute, $value);
+
+            return $this;
+        }
+
+        $translations = $this->getTranslations($attribute);
+        $translations[$locale] = $value;
+
+        $this->setAttribute($attribute, $translations);
+
+        return $this;
+    }
+
+    /**
+     * Check if an attribute is translatable.
+     *
+     * @param string $attribute
+     * @return bool
+     */
+    public function isTranslatableAttribute(string $attribute): bool
+    {
+        return in_array($attribute, $this->getTranslatableAttributes());
+    }
+
+    /**
+     * Get attribute value with automatic translation.
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function getAttribute($key)
+    {
+        if (! $this->isTranslatableAttribute($key)) {
+            return parent::getAttribute($key);
+        }
+
+        return $this->getTranslation($key);
     }
 }
