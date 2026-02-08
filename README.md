@@ -8,6 +8,18 @@ This repository contains comprehensive architectural documentation and conceptua
 
 ### Core Documentation
 
+- **[RESOURCE_ANALYSIS.md](RESOURCE_ANALYSIS.md)** - Comprehensive analysis of all resources including:
+  - Clean Architecture & SOLID Principles (Robert C. Martin)
+  - Modular Design & Plugin Architecture principles
+  - Odoo ERP architecture and manifest system
+  - Laravel Multi-Tenant Architecture (Emmy Awards case study)
+  - Polymorphic Translatable Models implementation
+  - Laravel Modular Systems (nWidart/laravel-modules)
+  - OpenAPI/Swagger API documentation standards
+  - ERP concepts and core module architecture
+  - Synthesis and integration of all patterns
+  - Technology stack recommendations
+
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** - Comprehensive architecture documentation covering:
   - Clean Architecture & SOLID Principles
   - Hexagonal Architecture (Ports & Adapters)
@@ -169,17 +181,20 @@ This project follows industry best practices for enterprise software development
 
 ## Resources & Inspiration
 
-This architecture is inspired by and builds upon:
+This architecture is inspired by and builds upon comprehensive analysis of industry-leading resources:
 
-- **Clean Architecture** by Robert C. Martin (Uncle Bob)
-- **Domain-Driven Design** by Eric Evans
-- **Odoo ERP** - Open source ERP/CRM system with modular plugin architecture
-- **Emmy Awards' Orthicon Platform** - Multi-tenant Laravel architecture case study
+- **Clean Architecture** by Robert C. Martin (Uncle Bob) - Clean Coder Blog
+- **SOLID Principles** - Foundation for maintainable software design
+- **Domain-Driven Design** by Eric Evans - Rich domain models
+- **Odoo ERP** - Open source ERP/CRM with modular plugin architecture and manifest system
+- **Emmy Awards' Orthicon Platform** - Laravel multi-tenant architecture handling 570% traffic spikes
+- **Laravel Modular Systems** - nWidart/laravel-modules and Sevalla patterns
+- **Polymorphic Translatable Models** - Advanced Laravel multi-language patterns
+- **OpenAPI/Swagger 3.1** - Industry standard API documentation
+- **Modular Design & Plugin Architecture** - Software engineering best practices
 - **Enterprise SaaS best practices** from Azure, AWS, and GCP
-- **SOLID Principles** and design patterns
-- **Laravel ecosystem** - Proven packages and patterns
-- **Modular design principles** from Wikipedia and industry leaders
-- **OpenAPI/Swagger** for API documentation standards
+
+For detailed analysis of each resource, see [RESOURCE_ANALYSIS.md](RESOURCE_ANALYSIS.md).
 
 ## License
 
