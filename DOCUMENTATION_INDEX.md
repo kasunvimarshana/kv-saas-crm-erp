@@ -19,6 +19,7 @@ This repository contains comprehensive architectural documentation and conceptua
 | **[ARCHITECTURE.md](ARCHITECTURE.md)** | System architecture, Clean Architecture, SOLID principles, DDD | 27KB | 882 |
 | **[RESOURCE_ANALYSIS.md](RESOURCE_ANALYSIS.md)** | Comprehensive analysis of 15+ resources, integration patterns | 250KB+ | 2,090+ |
 | **[ENHANCED_CONCEPTUAL_MODEL.md](ENHANCED_CONCEPTUAL_MODEL.md)** | Laravel-specific implementation patterns | 49KB | 1,400+ |
+| **[INTEGRATION_GUIDE.md](INTEGRATION_GUIDE.md)** | Complete integration guide with request lifecycle, event flows | 39KB | 900+ |
 
 ### 💾 Domain & Data Models
 
@@ -40,6 +41,7 @@ This repository contains comprehensive architectural documentation and conceptua
 | Document | Description | Size | Lines |
 |----------|-------------|------|-------|
 | **[MODULE_DEVELOPMENT_GUIDE.md](MODULE_DEVELOPMENT_GUIDE.md)** | Complete guide to building modules | 100KB+ | 850+ |
+| **[MODULE_DEPENDENCY_GRAPH.md](MODULE_DEPENDENCY_GRAPH.md)** | Visual module dependency mapping and flow diagrams | 20KB | 500+ |
 | **[LARAVEL_IMPLEMENTATION_TEMPLATES.md](LARAVEL_IMPLEMENTATION_TEMPLATES.md)** | Ready-to-use code templates for Laravel implementation | 47KB | 900+ |
 | **[ADDITIONAL_RESOURCE_ANALYSIS.md](ADDITIONAL_RESOURCE_ANALYSIS.md)** | Laravel filesystem, file uploads, packages, reference implementations | 32KB | 850+ |
 | **[openapi-template.yaml](openapi-template.yaml)** | OpenAPI 3.1 specification template | 50KB+ | 500+ |
@@ -263,15 +265,17 @@ php artisan l5-swagger:generate
 
 | Metric | Value |
 |--------|-------|
-| **Total Documents** | 12 |
-| **Total Lines** | 9,200+ |
-| **Total Size** | 330KB+ |
-| **Code Examples** | 150+ |
-| **Concepts Defined** | 250+ |
-| **Patterns Documented** | 65+ |
+| **Total Documents** | 13 |
+| **Total Lines** | 10,200+ |
+| **Total Size** | 370KB+ |
+| **Code Examples** | 175+ |
+| **Concepts Defined** | 270+ |
+| **Patterns Documented** | 75+ |
 | **Entity Types** | 40+ |
 | **Resources Analyzed** | 17+ |
-| **Ready-to-Use Templates** | 35+ |
+| **Ready-to-Use Templates** | 40+ |
+| **Event Flow Diagrams** | 15+ |
+| **Module Dependencies** | Fully mapped |
 
 ---
 
