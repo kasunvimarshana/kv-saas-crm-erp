@@ -96,7 +96,7 @@ class LeadFactory extends Factory
     /**
      * Indicate that the lead is new.
      */
-    public function new(): static
+    public function newLead(): static
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'new',

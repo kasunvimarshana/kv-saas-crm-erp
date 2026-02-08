@@ -100,7 +100,7 @@ $customers = Customer::factory()->individual()->count(10)->create(['tenant_id' =
 
 **Default State:**
 - Unique lead number
-- Random status (new, contacted, qualified, proposal, negotiation, won, lost)
+- Random status (new, contacted, qualified, negotiation, won, lost)
 - Appropriate stage and probability based on status
 - Contact information
 - Expected revenue and close date
@@ -109,7 +109,7 @@ $customers = Customer::factory()->individual()->count(10)->create(['tenant_id' =
 
 **State Methods:**
 ```php
-Lead::factory()->new()->create();                 // Create new lead (10-20% probability)
+Lead::factory()->newLead()->create();             // Create new lead (10-20% probability)
 Lead::factory()->qualified()->create();           // Create qualified lead (40-60% probability)
 Lead::factory()->won()->create();                // Create won lead (100% probability)
 Lead::factory()->lost()->create();               // Create lost lead (0% probability)

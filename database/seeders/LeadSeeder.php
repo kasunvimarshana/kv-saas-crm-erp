@@ -26,7 +26,7 @@ class LeadSeeder extends Seeder
         $customers = Customer::where('tenant_id', 1)->limit(3)->get();
 
         // Create new leads
-        Lead::factory()->new()->count(3)->create([
+        Lead::factory()->newLead()->count(3)->create([
             'tenant_id' => 1,
         ]);
 
