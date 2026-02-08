@@ -286,7 +286,7 @@ class SalesOrderResource extends JsonResource {
             'order_number' => $this->order_number,
             'total' => $this->total,
             'customer' => new CustomerResource($this->whenLoaded('customer')),
-            'created_at' => $this->created_at->toISOString(),
+            'created_at' => $this->created_at->toIso8601String(),
         ];
     }
 }
