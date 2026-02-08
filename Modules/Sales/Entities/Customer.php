@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Traits\Auditable;
 use Modules\Core\Traits\Tenantable;
 use Modules\Core\Traits\Translatable;
+use Modules\Sales\Database\Factories\CustomerFactory;
 
 /**
  * Customer Entity
@@ -125,5 +126,13 @@ class Customer extends Model
             ->sum('total_amount');
 
         return ($totalOutstanding + $amount) <= $this->credit_limit;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): CustomerFactory
+    {
+        return CustomerFactory::new();
     }
 }

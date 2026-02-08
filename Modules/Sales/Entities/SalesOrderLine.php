@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Traits\Auditable;
 use Modules\Core\Traits\Tenantable;
+use Modules\Sales\Database\Factories\SalesOrderLineFactory;
 
 /**
  * Sales Order Line Entity
@@ -127,5 +128,13 @@ class SalesOrderLine extends Model
         static::saved(function ($line) {
             $line->salesOrder->calculateTotals();
         });
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): SalesOrderLineFactory
+    {
+        return SalesOrderLineFactory::new();
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Traits\Auditable;
 use Modules\Core\Traits\Tenantable;
 use Modules\Core\Traits\Translatable;
+use Modules\Sales\Database\Factories\LeadFactory;
 
 /**
  * Lead Entity
@@ -128,5 +129,13 @@ class Lead extends Model
     public function isWon(): bool
     {
         return $this->status === 'won';
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): LeadFactory
+    {
+        return LeadFactory::new();
     }
 }

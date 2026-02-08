@@ -5,6 +5,7 @@ namespace Modules\Tenancy\Entities;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Traits\Auditable;
+use Modules\Tenancy\Database\Factories\TenantFactory;
 
 /**
  * Tenant Model
@@ -121,5 +122,13 @@ class Tenant extends Model
         $settings = $this->settings ?? [];
         data_set($settings, $key, $value);
         $this->update(['settings' => $settings]);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): TenantFactory
+    {
+        return TenantFactory::new();
     }
 }

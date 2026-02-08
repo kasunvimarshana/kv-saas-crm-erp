@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Traits\Auditable;
 use Modules\Core\Traits\Tenantable;
 use Modules\Core\Traits\Translatable;
+use Modules\Sales\Database\Factories\SalesOrderFactory;
 
 /**
  * Sales Order Entity
@@ -151,5 +152,13 @@ class SalesOrder extends Model
     public function isPaid(): bool
     {
         return $this->payment_status === 'paid';
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): SalesOrderFactory
+    {
+        return SalesOrderFactory::new();
     }
 }
