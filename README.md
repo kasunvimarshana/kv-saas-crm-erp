@@ -68,6 +68,12 @@ This repository contains comprehensive architectural documentation and conceptua
   - Lessons learned from industry leaders
   - Implementation recommendations
 
+- **[MODULE_DEVELOPMENT_GUIDE.md](MODULE_DEVELOPMENT_GUIDE.md)** - Practical guide for module development
+- **[LARAVEL_IMPLEMENTATION_TEMPLATES.md](LARAVEL_IMPLEMENTATION_TEMPLATES.md)** - Ready-to-use code templates
+- **[ADDITIONAL_RESOURCE_ANALYSIS.md](ADDITIONAL_RESOURCE_ANALYSIS.md)** - Laravel filesystem, file uploads, packages
+- **[INTEGRATION_GUIDE.md](INTEGRATION_GUIDE.md)** - Comprehensive system integration guide
+- **[MODULE_DEPENDENCY_GRAPH.md](MODULE_DEPENDENCY_GRAPH.md)** - Visual module dependency mapping
+
 ## Key Features
 
 ### Multi-Dimensional Support
