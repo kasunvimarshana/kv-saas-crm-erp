@@ -2,7 +2,37 @@
 
 Dynamic, enterprise-grade SaaS ERP with a modular, maintainable architecture. Fully supports multi-tenant, multi-organization, multi-vendor, multi-branch, multi-location, multi-currency, multi-language, multi-time-zone, and multi-unit operations with nested structures. Designed for global scalability, complex workflows, long-term maintainability.
 
-## Documentation
+## 🚀 Quick Start
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/kasunvimarshana/kv-saas-crm-erp.git
+cd kv-saas-crm-erp
+
+# Copy environment file
+cp .env.example .env
+
+# Start Docker containers
+docker-compose up -d
+
+# Install dependencies
+docker-compose exec app composer install
+
+# Generate application key
+docker-compose exec app php artisan key:generate
+
+# Run migrations
+docker-compose exec app php artisan migrate
+
+# Access the application
+# Web: http://localhost:8000
+# API: http://localhost:8000/api
+# Mailhog: http://localhost:8025
+```
+
+## 📖 Documentation
 
 This repository contains comprehensive architectural documentation and conceptual models derived from industry best practices:
 
