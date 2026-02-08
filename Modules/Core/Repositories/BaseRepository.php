@@ -1,29 +1,52 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Core\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Core\Repositories\Contracts\BaseRepositoryInterface;
 
 /**
  * Base Repository Implementation
- * 
+ *
  * Provides a base implementation of the repository pattern for all entity repositories.
- * Implements common CRUD operations and query methods.
+ * Implements common CRUD operations and query methods following Clean Architecture principles.
+ *
+ * This implementation:
+ * - Abstracts database operations from business logic
+ * - Provides consistent interface across all repositories
+ * - Enables easy testing and mocking
+ * - Supports both integer and UUID primary keys
+ *
+ * Usage:
+ * 1. Extend this class in your module's repository
+ * 2. Inject your model in the constructor
+ * 3. Add domain-specific query methods
+ *
+ * Example:
+ * class CustomerRepository extends BaseRepository {
+ *     public function __construct(Customer $model) {
+ *         parent::__construct($model);
+ *     }
+ *
+ *     public function findActiveCustomers(): Collection {
+ *         return $this->model->where('status', 'active')->get();
+ *     }
+ * }
  */
 abstract class BaseRepository implements BaseRepositoryInterface
 {
     /**
-     * @var Model
+     * The model instance.
      */
-    protected $model;
+    protected Model $model;
 
     /**
      * BaseRepository constructor.
-     *
-     * @param Model $model
      */
     public function __construct(Model $model)
     {
@@ -33,7 +56,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findById(int $id): ?Model
+    public function findById(int|string $id): ?Model
     {
         return $this->model->find($id);
     }
@@ -73,31 +96,31 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function update(int $id, array $data): Model
+    public function update(int|string $id, array $data): Model
     {
         $model = $this->findById($id);
-        
-        if (!$model) {
-            throw new \Exception("Model with ID {$id} not found.");
+
+        if (! $model) {
+            throw new ModelNotFoundException("Model with ID {$id} not found.");
         }
-        
+
         $model->update($data);
-        
+
         return $model->fresh();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function delete(int $id): bool
+    public function delete(int|string $id): bool
     {
         $model = $this->findById($id);
-        
-        if (!$model) {
+
+        if (! $model) {
             return false;
         }
-        
-        return $model->delete();
+
+        return (bool) $model->delete();
     }
 
     /**
@@ -114,5 +137,23 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function findWherePaginated(array $criteria, int $perPage = 15, array $columns = ['*']): LengthAwarePaginator
     {
         return $this->model->where($criteria)->paginate($perPage, $columns);
+    }
+
+    /**
+     * Get the model instance.
+     */
+    public function getModel(): Model
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set the model instance.
+     */
+    public function setModel(Model $model): self
+    {
+        $this->model = $model;
+
+        return $this;
     }
 }

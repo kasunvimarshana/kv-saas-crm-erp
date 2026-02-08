@@ -1,92 +1,125 @@
 <?php
 
-namespace Modules\Core\Traits;
+declare(strict_types=1);
 
-use Illuminate\Database\Eloquent\Builder;
+namespace Modules\Core\Traits;
 
 /**
  * Translatable Trait
- * 
- * Provides multi-language support for model attributes following the pattern
- * from polymorphic translatable models analysis.
+ *
+ * Provides multi-language support for model attributes using native Laravel features.
+ * Stores translations as JSON in the database without external dependencies.
+ *
+ * Usage:
+ * 1. Add trait to your model: use Translatable;
+ * 2. Define translatable attributes: protected $translatable = ['name', 'description'];
+ * 3. Cast translatable attributes to array in your model
+ *
+ * Migration example:
+ * $table->json('name')->nullable();
+ *
+ * Example:
+ * $product->setTranslation('name', 'en', 'Product Name');
+ * $product->setTranslation('name', 'es', 'Nombre del Producto');
+ * $name = $product->getTranslation('name', 'es');
+ * $name = $product->getTranslation('name'); // Uses current app locale
  */
 trait Translatable
 {
     /**
-     * The attributes that should be translatable.
+     * Get the list of translatable attributes.
      *
-     * @var array
+     * @return array<string>
      */
-    protected $translatable = [];
-
-    /**
-     * Boot the translatable trait for a model.
-     *
-     * @return void
-     */
-    public static function bootTranslatable()
+    public function getTranslatableAttributes(): array
     {
-        // Register event listeners for model events
+        return $this->translatable ?? [];
     }
 
     /**
-     * Get a translated attribute.
+     * Get a translation for a specific attribute and locale.
      *
-     * @param string $key
+     * @param string $attribute
      * @param string|null $locale
-     * @return mixed
+     * @return string|null
      */
-    public function translate(string $key, ?string $locale = null)
+    public function getTranslation(string $attribute, ?string $locale = null): ?string
     {
         $locale = $locale ?? app()->getLocale();
-        
-        return $this->translations()
-            ->where('locale', $locale)
-            ->where('attribute', $key)
-            ->value('value') ?? $this->getAttribute($key);
+
+        if (! $this->isTranslatableAttribute($attribute)) {
+            return $this->getAttribute($attribute);
+        }
+
+        $translations = $this->getTranslations($attribute);
+
+        return $translations[$locale] ?? $translations[config('app.fallback_locale')] ?? null;
     }
 
     /**
-     * Get all translations for the model.
+     * Get all translations for a specific attribute.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @param string $attribute
+     * @return array<string, string>
      */
-    public function translations()
+    public function getTranslations(string $attribute): array
     {
-        return $this->morphMany('App\Models\Translation', 'translatable');
+        if (! $this->isTranslatableAttribute($attribute)) {
+            return [$this->getAttribute($attribute)];
+        }
+
+        $value = $this->getAttributeValue($attribute);
+
+        return is_array($value) ? $value : [];
     }
 
     /**
-     * Set a translated attribute.
+     * Set a translation for a specific attribute and locale.
      *
-     * @param string $key
-     * @param mixed $value
-     * @param string|null $locale
-     * @return void
+     * @param string $attribute
+     * @param string $locale
+     * @param string $value
+     * @return self
      */
-    public function setTranslation(string $key, $value, ?string $locale = null)
+    public function setTranslation(string $attribute, string $locale, string $value): self
     {
-        $locale = $locale ?? app()->getLocale();
-        
-        $this->translations()->updateOrCreate(
-            [
-                'locale' => $locale,
-                'attribute' => $key,
-            ],
-            [
-                'value' => $value,
-            ]
-        );
+        if (! $this->isTranslatableAttribute($attribute)) {
+            $this->setAttribute($attribute, $value);
+
+            return $this;
+        }
+
+        $translations = $this->getTranslations($attribute);
+        $translations[$locale] = $value;
+
+        $this->setAttribute($attribute, $translations);
+
+        return $this;
     }
 
     /**
      * Check if an attribute is translatable.
      *
-     * @param string $key
+     * @param string $attribute
      * @return bool
      */
-    public function isTranslatableAttribute(string $key): bool
+    public function isTranslatableAttribute(string $attribute): bool
     {
-        return in_array($key, $this->translatable);
+        return in_array($attribute, $this->getTranslatableAttributes());
+    }
+
+    /**
+     * Get attribute value with automatic translation.
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function getAttribute($key)
+    {
+        if (! $this->isTranslatableAttribute($key)) {
+            return parent::getAttribute($key);
+        }
+
+        return $this->getTranslation($key);
     }
 }

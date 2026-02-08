@@ -2,19 +2,19 @@
 
 namespace Modules\Tenancy\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Traits\Auditable;
 
 /**
  * Tenant Model
- * 
+ *
  * Represents a tenant in the multi-tenant system.
  * Each tenant has isolated data and configuration.
  */
 class Tenant extends Model
 {
-    use HasFactory, Auditable;
+    use Auditable, HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -52,8 +52,6 @@ class Tenant extends Model
 
     /**
      * Check if tenant is active.
-     *
-     * @return bool
      */
     public function isActive(): bool
     {
@@ -62,8 +60,6 @@ class Tenant extends Model
 
     /**
      * Check if tenant is on trial.
-     *
-     * @return bool
      */
     public function onTrial(): bool
     {
@@ -72,8 +68,6 @@ class Tenant extends Model
 
     /**
      * Check if tenant subscription is active.
-     *
-     * @return bool
      */
     public function hasActiveSubscription(): bool
     {
@@ -92,8 +86,6 @@ class Tenant extends Model
 
     /**
      * Activate the tenant.
-     *
-     * @return void
      */
     public function activate(): void
     {
@@ -102,8 +94,6 @@ class Tenant extends Model
 
     /**
      * Suspend the tenant.
-     *
-     * @return void
      */
     public function suspend(): void
     {
@@ -113,8 +103,7 @@ class Tenant extends Model
     /**
      * Get a setting value.
      *
-     * @param string $key
-     * @param mixed $default
+     * @param  mixed  $default
      * @return mixed
      */
     public function getSetting(string $key, $default = null)
@@ -125,9 +114,7 @@ class Tenant extends Model
     /**
      * Set a setting value.
      *
-     * @param string $key
-     * @param mixed $value
-     * @return void
+     * @param  mixed  $value
      */
     public function setSetting(string $key, $value): void
     {
