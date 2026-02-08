@@ -8,6 +8,6 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('tenancy')->group(function() {
+Route::prefix('tenancy')->group(function () {
     // Tenant routes
 });

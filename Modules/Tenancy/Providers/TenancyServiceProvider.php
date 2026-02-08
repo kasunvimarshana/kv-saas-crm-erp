@@ -3,7 +3,6 @@
 namespace Modules\Tenancy\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Route;
 
 class TenancyServiceProvider extends ServiceProvider
 {
@@ -16,8 +15,6 @@ class TenancyServiceProvider extends ServiceProvider
 
     /**
      * Boot the application events.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -29,8 +26,6 @@ class TenancyServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -39,15 +34,13 @@ class TenancyServiceProvider extends ServiceProvider
 
     /**
      * Register config.
-     *
-     * @return void
      */
     protected function registerConfig(): void
     {
         $this->publishes([
             module_path('Tenancy', 'Config/config.php') => config_path('tenancy.php'),
         ], 'tenancy-config');
-        
+
         $this->mergeConfigFrom(
             module_path('Tenancy', 'Config/config.php'), 'tenancy'
         );
@@ -55,8 +48,6 @@ class TenancyServiceProvider extends ServiceProvider
 
     /**
      * Register views.
-     *
-     * @return void
      */
     public function registerViews(): void
     {
@@ -65,7 +56,7 @@ class TenancyServiceProvider extends ServiceProvider
         $sourcePath = module_path('Tenancy', 'Resources/views');
 
         $this->publishes([
-            $sourcePath => $viewPath
+            $sourcePath => $viewPath,
         ], ['views', 'tenancy-views']);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), 'tenancy');
@@ -73,8 +64,6 @@ class TenancyServiceProvider extends ServiceProvider
 
     /**
      * Register translations.
-     *
-     * @return void
      */
     public function registerTranslations(): void
     {
@@ -89,8 +78,6 @@ class TenancyServiceProvider extends ServiceProvider
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
     public function provides(): array
     {
@@ -99,17 +86,16 @@ class TenancyServiceProvider extends ServiceProvider
 
     /**
      * Get the publishable view paths.
-     *
-     * @return array
      */
     private function getPublishableViewPaths(): array
     {
         $paths = [];
         foreach ($this->app['config']->get('view.paths') as $path) {
-            if (is_dir($path . '/modules/tenancy')) {
-                $paths[] = $path . '/modules/tenancy';
+            if (is_dir($path.'/modules/tenancy')) {
+                $paths[] = $path.'/modules/tenancy';
             }
         }
+
         return $paths;
     }
 }
