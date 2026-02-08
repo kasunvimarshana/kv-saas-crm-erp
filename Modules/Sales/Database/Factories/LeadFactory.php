@@ -26,7 +26,7 @@ class LeadFactory extends Factory
      */
     public function definition(): array
     {
-        $status = fake()->randomElement(['new', 'contacted', 'qualified', 'proposal', 'negotiation', 'won', 'lost']);
+        $status = fake()->randomElement(['new', 'contacted', 'qualified', 'negotiation', 'won', 'lost']);
         $stage = $this->getStageFromStatus($status);
         $probability = $this->getProbabilityFromStatus($status);
 
@@ -75,7 +75,7 @@ class LeadFactory extends Factory
             'new' => 'new',
             'contacted' => 'contacted',
             'qualified' => 'qualified',
-            'proposal', 'negotiation' => 'proposal',
+            'negotiation' => 'negotiation',
             'won', 'lost' => 'closed',
             default => 'new',
         };
@@ -90,7 +90,6 @@ class LeadFactory extends Factory
             'new' => fake()->numberBetween(10, 20),
             'contacted' => fake()->numberBetween(20, 30),
             'qualified' => fake()->numberBetween(40, 60),
-            'proposal' => fake()->numberBetween(60, 75),
             'negotiation' => fake()->numberBetween(75, 90),
             'won' => 100,
             'lost' => 0,
@@ -155,7 +154,7 @@ class LeadFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'negotiation',
-            'stage' => 'proposal',
+            'stage' => 'negotiation',
             'probability' => fake()->numberBetween(75, 90),
             'expected_close_date' => fake()->dateTimeBetween('now', '+1 month'),
         ]);
