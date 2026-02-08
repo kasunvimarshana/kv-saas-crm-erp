@@ -126,7 +126,7 @@ class LeadService extends BaseService
             // Prepare customer data from lead if not provided
             if (! $customerData) {
                 $customerData = [
-                    'name' => $lead->contact_name ?: $lead->company,
+                    'name' => $lead->contact_name ?? $lead->company,
                     'legal_name' => $lead->company,
                     'type' => 'company',
                     'email' => $lead->contact_email,

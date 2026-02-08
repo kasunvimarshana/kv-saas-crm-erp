@@ -80,8 +80,8 @@ class TenantSeeder extends Seeder
             'domain' => 'globalenterprises.example.com',
         ]);
 
-        // Create additional random tenants
-        Tenant::factory()->count(1)->create();
+        // Create additional random tenant
+        Tenant::factory()->create();
 
         $this->command->info('Tenants seeded successfully!');
     }

@@ -72,12 +72,8 @@ class LeadFactory extends Factory
     private function getStageFromStatus(string $status): string
     {
         return match ($status) {
-            'new' => 'new',
-            'contacted' => 'contacted',
-            'qualified' => 'qualified',
-            'negotiation' => 'negotiation',
             'won', 'lost' => 'closed',
-            default => 'new',
+            default => $status,
         };
     }
 
