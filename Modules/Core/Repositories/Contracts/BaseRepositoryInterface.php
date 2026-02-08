@@ -1,93 +1,87 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Core\Repositories\Contracts;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Base Repository Interface
- * 
- * Defines the contract for all repository implementations following the Repository Pattern.
- * This ensures consistency across all data access layers in the application.
+ *
+ * Defines the contract for all repository implementations following the Repository Pattern
+ * from Domain-Driven Design. This ensures consistency across all data access layers and
+ * enables the Dependency Inversion Principle from SOLID.
+ *
+ * This interface abstracts data access, allowing:
+ * - Easy testing with mock implementations
+ * - Swapping data sources without changing business logic
+ * - Consistent API across all repositories
+ *
+ * @see https://martinfowler.com/eaaCatalog/repository.html
  */
 interface BaseRepositoryInterface
 {
     /**
      * Find a model by its primary key.
-     *
-     * @param int $id
-     * @return Model|null
      */
-    public function findById(int $id): ?Model;
+    public function findById(int|string $id): ?Model;
 
     /**
      * Find a model by specific criteria.
      *
-     * @param array $criteria
-     * @return Model|null
+     * @param  array<string, mixed>  $criteria
      */
     public function findBy(array $criteria): ?Model;
 
     /**
      * Get all models.
      *
-     * @param array $columns
-     * @return Collection
+     * @param  array<string>  $columns
      */
     public function all(array $columns = ['*']): Collection;
 
     /**
      * Get paginated models.
      *
-     * @param int $perPage
-     * @param array $columns
-     * @return LengthAwarePaginator
+     * @param  array<string>  $columns
      */
     public function paginate(int $perPage = 15, array $columns = ['*']): LengthAwarePaginator;
 
     /**
      * Create a new model.
      *
-     * @param array $data
-     * @return Model
+     * @param  array<string, mixed>  $data
      */
     public function create(array $data): Model;
 
     /**
      * Update a model.
      *
-     * @param int $id
-     * @param array $data
-     * @return Model
+     * @param  array<string, mixed>  $data
      */
-    public function update(int $id, array $data): Model;
+    public function update(int|string $id, array $data): Model;
 
     /**
      * Delete a model.
-     *
-     * @param int $id
-     * @return bool
      */
-    public function delete(int $id): bool;
+    public function delete(int|string $id): bool;
 
     /**
      * Find models matching criteria.
      *
-     * @param array $criteria
-     * @param array $columns
-     * @return Collection
+     * @param  array<string, mixed>  $criteria
+     * @param  array<string>  $columns
      */
     public function findWhere(array $criteria, array $columns = ['*']): Collection;
 
     /**
      * Find models matching criteria with pagination.
      *
-     * @param array $criteria
-     * @param int $perPage
-     * @param array $columns
-     * @return LengthAwarePaginator
+     * @param  array<string, mixed>  $criteria
+     * @param  array<string>  $columns
      */
     public function findWherePaginated(array $criteria, int $perPage = 15, array $columns = ['*']): LengthAwarePaginator;
 }

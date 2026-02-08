@@ -1,92 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Core\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
+use Spatie\Translatable\HasTranslations as SpatieHasTranslations;
 
 /**
  * Translatable Trait
- * 
- * Provides multi-language support for model attributes following the pattern
- * from polymorphic translatable models analysis.
+ *
+ * Provides multi-language support for model attributes using Spatie's
+ * laravel-translatable package. This follows the analysis from polymorphic
+ * translatable models and uses a proven, stable LTS package.
+ *
+ * Usage:
+ * 1. Add trait to your model: use Translatable;
+ * 2. Define translatable attributes: public $translatable = ['name', 'description'];
+ * 3. Use setTranslation/getTranslation methods or access attributes directly
+ *
+ * Example:
+ * $product->setTranslation('name', 'en', 'Product Name');
+ * $product->setTranslation('name', 'es', 'Nombre del Producto');
+ * $name = $product->getTranslation('name', 'es');
+ *
+ * @link https://github.com/spatie/laravel-translatable
  */
 trait Translatable
 {
-    /**
-     * The attributes that should be translatable.
-     *
-     * @var array
-     */
-    protected $translatable = [];
+    use SpatieHasTranslations;
 
     /**
-     * Boot the translatable trait for a model.
+     * Get the list of translatable attributes.
+     * This is used by Spatie's package.
      *
-     * @return void
+     * @return array<string>
      */
-    public static function bootTranslatable()
+    public function getTranslatableAttributes(): array
     {
-        // Register event listeners for model events
-    }
-
-    /**
-     * Get a translated attribute.
-     *
-     * @param string $key
-     * @param string|null $locale
-     * @return mixed
-     */
-    public function translate(string $key, ?string $locale = null)
-    {
-        $locale = $locale ?? app()->getLocale();
-        
-        return $this->translations()
-            ->where('locale', $locale)
-            ->where('attribute', $key)
-            ->value('value') ?? $this->getAttribute($key);
-    }
-
-    /**
-     * Get all translations for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function translations()
-    {
-        return $this->morphMany('App\Models\Translation', 'translatable');
-    }
-
-    /**
-     * Set a translated attribute.
-     *
-     * @param string $key
-     * @param mixed $value
-     * @param string|null $locale
-     * @return void
-     */
-    public function setTranslation(string $key, $value, ?string $locale = null)
-    {
-        $locale = $locale ?? app()->getLocale();
-        
-        $this->translations()->updateOrCreate(
-            [
-                'locale' => $locale,
-                'attribute' => $key,
-            ],
-            [
-                'value' => $value,
-            ]
-        );
-    }
-
-    /**
-     * Check if an attribute is translatable.
-     *
-     * @param string $key
-     * @return bool
-     */
-    public function isTranslatableAttribute(string $key): bool
-    {
-        return in_array($key, $this->translatable);
+        return $this->translatable ?? [];
     }
 }

@@ -4,14 +4,14 @@ return [
     'name' => 'Core',
     'version' => '1.0.0',
     'description' => 'Core module providing base classes, interfaces, and shared functionality for the entire system',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Module Settings
     |--------------------------------------------------------------------------
     */
     'enabled' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Default Settings
