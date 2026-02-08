@@ -6,6 +6,8 @@ Dynamic, enterprise-grade SaaS ERP with a modular, maintainable architecture. Fu
 
 This repository contains comprehensive architectural documentation and conceptual models derived from industry best practices:
 
+**📚 [Complete Documentation Index](DOCUMENTATION_INDEX.md)** - Navigate all documentation organized by role, topic, and learning path
+
 ### Core Documentation
 
 - **[RESOURCE_ANALYSIS.md](RESOURCE_ANALYSIS.md)** - Comprehensive analysis of all resources including:
