@@ -13,7 +13,9 @@ use Modules\Sales\Http\Controllers\Api\CustomerController;
 */
 
 Route::prefix('v1')->middleware(['auth:sanctum', 'tenant'])->group(function () {
+    // Customer search must be before resource routes
+    Route::get('customers/search', [CustomerController::class, 'search'])->name('customers.search');
+    
     // Customer routes
     Route::apiResource('customers', CustomerController::class);
-    Route::get('customers/search', [CustomerController::class, 'search'])->name('customers.search');
 });
