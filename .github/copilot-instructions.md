@@ -41,6 +41,176 @@ This is **kv-saas-crm-erp** - a dynamic, enterprise-grade SaaS ERP/CRM system wi
 - **Mock Framework**: Mockery 1.6+
 - **Error Handling**: spatie/laravel-ignition 2.4+
 
+## Build, Test & Validation Commands
+
+**IMPORTANT**: Always run these commands to validate your changes before finalizing a pull request.
+
+### Setup & Dependencies
+```bash
+# Install PHP dependencies
+composer install
+
+# Install and update dependencies
+composer update
+
+# Generate application key (if needed)
+php artisan key:generate
+
+# Clear all caches
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+```
+
+### Code Style & Formatting
+```bash
+# Format code using Laravel Pint (REQUIRED before commit)
+./vendor/bin/pint
+
+# Check code style without fixing
+./vendor/bin/pint --test
+```
+
+### Running Tests
+```bash
+# Run all tests
+php artisan test
+
+# Run specific test suite
+php artisan test --testsuite=Unit
+php artisan test --testsuite=Feature
+php artisan test --testsuite=Core
+php artisan test --testsuite=Sales
+php artisan test --testsuite=Tenancy
+
+# Run tests with coverage
+php artisan test --coverage
+
+# Run specific test file
+php artisan test tests/Unit/ExampleTest.php
+
+# Run tests in parallel (faster)
+php artisan test --parallel
+```
+
+### Database Operations
+```bash
+# Run migrations
+php artisan migrate
+
+# Rollback migrations
+php artisan migrate:rollback
+
+# Refresh database (drops all tables and re-runs migrations)
+php artisan migrate:fresh
+
+# Seed database
+php artisan db:seed
+
+# Refresh database with seeding
+php artisan migrate:fresh --seed
+```
+
+### Module-Specific Commands
+```bash
+# List all modules
+php artisan module:list
+
+# Enable a module
+php artisan module:enable ModuleName
+
+# Disable a module
+php artisan module:disable ModuleName
+
+# Create a new module
+php artisan module:make ModuleName
+
+# Run module migrations
+php artisan module:migrate ModuleName
+
+# Run module seeder
+php artisan module:seed ModuleName
+```
+
+### API Documentation
+```bash
+# Generate Swagger/OpenAPI documentation
+php artisan l5-swagger:generate
+
+# Publish Swagger assets
+php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"
+```
+
+### Validation Workflow
+Before finalizing any pull request, run this validation sequence:
+
+```bash
+# 1. Format code
+./vendor/bin/pint
+
+# 2. Clear caches
+php artisan config:clear && php artisan cache:clear
+
+# 3. Run all tests
+php artisan test
+
+# 4. Generate API documentation (if API changes were made)
+php artisan l5-swagger:generate
+```
+
+### Docker-Based Development
+If using Docker (recommended for consistency):
+
+```bash
+# Start containers
+docker-compose up -d
+
+# Run commands inside container
+docker-compose exec app composer install
+docker-compose exec app php artisan test
+docker-compose exec app ./vendor/bin/pint
+
+# Stop containers
+docker-compose down
+```
+
+## Project Structure
+
+Understanding the directory structure helps navigate the codebase efficiently:
+
+```
+├── .github/                    # GitHub configuration
+│   └── copilot-instructions.md # This file
+├── Modules/                    # All business modules
+│   ├── Core/                   # Core shared functionality
+│   ├── Sales/                  # Sales & CRM module
+│   ├── Tenancy/                # Multi-tenancy module
+│   └── {ModuleName}/          # Each module follows same structure:
+│       ├── Config/             # Module configuration
+│       ├── Database/           # Migrations, seeders, factories
+│       ├── Entities/           # Eloquent models (domain entities)
+│       ├── Http/               # Controllers, requests, resources
+│       ├── Providers/          # Service providers
+│       ├── Repositories/       # Repository implementations
+│       ├── Routes/             # API and web routes
+│       ├── Services/           # Application services
+│       ├── Tests/              # Module-specific tests
+│       └── module.json         # Module manifest
+├── app/                        # Laravel application core
+├── bootstrap/                  # Laravel bootstrap
+├── config/                     # Application configuration
+├── database/                   # Global migrations/seeders
+├── public/                     # Public assets
+├── resources/                  # Views, frontend assets
+├── routes/                     # Global routes
+├── storage/                    # File storage, logs, cache
+├── tests/                      # Application-level tests
+├── composer.json              # PHP dependencies
+├── phpunit.xml                # PHPUnit configuration
+└── docker-compose.yml         # Docker configuration
+```
+
 ## Architectural Principles
 
 ### 1. Clean Architecture
