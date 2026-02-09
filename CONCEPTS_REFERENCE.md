@@ -1,5 +1,12 @@
 # Concepts & Relationships Reference
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document provides a comprehensive reference of all concepts, patterns, architectural principles, and relationships extracted from analysis of Clean Architecture, Domain-Driven Design, Odoo ERP, and enterprise SaaS best practices.

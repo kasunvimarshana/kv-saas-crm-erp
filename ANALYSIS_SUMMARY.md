@@ -1,5 +1,12 @@
 # Analysis Summary
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document summarizes the comprehensive analysis performed on multiple resources to extract concepts, architecture, modules, entities, and relationships for building the kv-saas-crm-erp system.

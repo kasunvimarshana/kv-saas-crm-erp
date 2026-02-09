@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Customer Resource
- * 
+ *
  * Transforms customer data for API responses.
  */
 class CustomerResource extends JsonResource

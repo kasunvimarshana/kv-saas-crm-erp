@@ -2,20 +2,23 @@
 
 namespace Modules\Sales\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Core\Traits\{Translatable, Tenantable, Auditable};
+use Modules\Core\Traits\Auditable;
+use Modules\Core\Traits\Tenantable;
+use Modules\Core\Traits\Translatable;
+use Modules\Sales\Database\Factories\CustomerFactory;
 
 /**
  * Customer Entity
- * 
+ *
  * Represents a customer in the sales system.
  * Supports multi-language names and tenant isolation.
  */
 class Customer extends Model
 {
-    use HasFactory, SoftDeletes, Translatable, Tenantable, Auditable;
+    use Auditable, HasFactory, SoftDeletes, Tenantable, Translatable;
 
     /**
      * The attributes that are mass assignable.
@@ -103,8 +106,6 @@ class Customer extends Model
 
     /**
      * Check if customer is active.
-     *
-     * @return bool
      */
     public function isActive(): bool
     {
@@ -113,13 +114,10 @@ class Customer extends Model
 
     /**
      * Check if customer has credit available.
-     *
-     * @param float $amount
-     * @return bool
      */
     public function hasCreditAvailable(float $amount): bool
     {
-        if (!$this->credit_limit) {
+        if (! $this->credit_limit) {
             return true;
         }
 
@@ -128,5 +126,13 @@ class Customer extends Model
             ->sum('total_amount');
 
         return ($totalOutstanding + $amount) <= $this->credit_limit;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): CustomerFactory
+    {
+        return CustomerFactory::new();
     }
 }

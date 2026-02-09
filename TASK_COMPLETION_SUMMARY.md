@@ -1,5 +1,12 @@
 # Task Completion Summary: Resource Analysis & Conceptual Model Implementation
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Task Statement
 
 **Objective:** Act as a Senior Full-Stack Engineer and Principal Systems Architect to analyze provided resources, extract concepts, architecture, modules, entities, and relationships, focusing solely on observation and learning to build a comprehensive conceptual model. Rely primarily on native Laravel and Vue features, or on stable, well-supported LTS libraries, avoiding experimental, deprecated, or abandoned dependencies.

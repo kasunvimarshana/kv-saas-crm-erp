@@ -1,5 +1,12 @@
 # Implementation Status
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document tracks the implementation progress of the KV SaaS ERP/CRM system based on the comprehensive conceptual documentation.

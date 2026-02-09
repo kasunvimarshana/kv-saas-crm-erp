@@ -1,5 +1,12 @@
 # Comprehensive Resource Analysis
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document provides a detailed analysis of all resources referenced in the project requirements, extracting key concepts, architectural patterns, modules, entities, and relationships to build a comprehensive conceptual model for the kv-saas-crm-erp system.

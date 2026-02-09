@@ -1,5 +1,12 @@
 # Implementation Summary
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Project: KV SaaS ERP/CRM System
 
 **Date**: February 8, 2026  

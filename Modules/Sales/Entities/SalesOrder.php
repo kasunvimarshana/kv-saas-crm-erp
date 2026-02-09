@@ -2,20 +2,23 @@
 
 namespace Modules\Sales\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Core\Traits\{Translatable, Tenantable, Auditable};
+use Modules\Core\Traits\Auditable;
+use Modules\Core\Traits\Tenantable;
+use Modules\Core\Traits\Translatable;
+use Modules\Sales\Database\Factories\SalesOrderFactory;
 
 /**
  * Sales Order Entity
- * 
+ *
  * Represents a sales order from a customer.
  * Central entity in the order-to-cash process.
  */
 class SalesOrder extends Model
 {
-    use HasFactory, SoftDeletes, Translatable, Tenantable, Auditable;
+    use Auditable, HasFactory, SoftDeletes, Tenantable, Translatable;
 
     /**
      * The attributes that are mass assignable.
@@ -111,14 +114,12 @@ class SalesOrder extends Model
 
     /**
      * Calculate and update totals.
-     *
-     * @return void
      */
     public function calculateTotals(): void
     {
         $subtotal = $this->lines()->sum('line_total');
         $taxAmount = $this->lines()->sum('tax_amount');
-        
+
         $this->update([
             'subtotal' => $subtotal,
             'tax_amount' => $taxAmount,
@@ -128,21 +129,17 @@ class SalesOrder extends Model
 
     /**
      * Confirm the sales order.
-     *
-     * @return void
      */
     public function confirm(): void
     {
         $this->update(['status' => 'confirmed']);
-        
+
         // Fire event
         event(new \Modules\Sales\Events\SalesOrderConfirmed($this));
     }
 
     /**
      * Check if order is confirmed.
-     *
-     * @return bool
      */
     public function isConfirmed(): bool
     {
@@ -151,11 +148,17 @@ class SalesOrder extends Model
 
     /**
      * Check if order is paid.
-     *
-     * @return bool
      */
     public function isPaid(): bool
     {
         return $this->payment_status === 'paid';
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): SalesOrderFactory
+    {
+        return SalesOrderFactory::new();
     }
 }

@@ -1,5 +1,12 @@
 # Architecture Documentation
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document provides a comprehensive conceptual model for the kv-saas-crm-erp system, derived from analysis of industry best practices, Clean Architecture principles, Domain-Driven Design patterns, and successful ERP/CRM implementations like Odoo.

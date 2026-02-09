@@ -4,17 +4,23 @@ namespace Modules\Sales\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Sales\Repositories\Contracts\CustomerRepositoryInterface;
+use Modules\Sales\Repositories\Contracts\LeadRepositoryInterface;
+use Modules\Sales\Repositories\Contracts\SalesOrderLineRepositoryInterface;
+use Modules\Sales\Repositories\Contracts\SalesOrderRepositoryInterface;
 use Modules\Sales\Repositories\CustomerRepository;
+use Modules\Sales\Repositories\LeadRepository;
+use Modules\Sales\Repositories\SalesOrderLineRepository;
+use Modules\Sales\Repositories\SalesOrderRepository;
 
 class SalesServiceProvider extends ServiceProvider
 {
     /**
-     * @var string $moduleName
+     * @var string
      */
     protected $moduleName = 'Sales';
 
     /**
-     * @var string $moduleNameLower
+     * @var string
      */
     protected $moduleNameLower = 'sales';
 
@@ -39,11 +45,27 @@ class SalesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-        
+        $this->app->register(EventServiceProvider::class);
+
         // Register repositories
         $this->app->bind(
             CustomerRepositoryInterface::class,
             CustomerRepository::class
+        );
+
+        $this->app->bind(
+            LeadRepositoryInterface::class,
+            LeadRepository::class
+        );
+
+        $this->app->bind(
+            SalesOrderRepositoryInterface::class,
+            SalesOrderRepository::class
+        );
+
+        $this->app->bind(
+            SalesOrderLineRepositoryInterface::class,
+            SalesOrderLineRepository::class
         );
     }
 
@@ -55,7 +77,7 @@ class SalesServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
+            module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower.'.php'),
         ], 'config');
         $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
@@ -69,13 +91,13 @@ class SalesServiceProvider extends ServiceProvider
      */
     public function registerViews()
     {
-        $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
+        $viewPath = resource_path('views/modules/'.$this->moduleNameLower);
 
         $sourcePath = module_path($this->moduleName, 'Resources/views');
 
         $this->publishes([
-            $sourcePath => $viewPath
-        ], ['views', $this->moduleNameLower . '-module-views']);
+            $sourcePath => $viewPath,
+        ], ['views', $this->moduleNameLower.'-module-views']);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
     }
@@ -87,7 +109,7 @@ class SalesServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
+        $langPath = resource_path('lang/modules/'.$this->moduleNameLower);
 
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
@@ -112,10 +134,11 @@ class SalesServiceProvider extends ServiceProvider
     {
         $paths = [];
         foreach (\Config::get('view.paths') as $path) {
-            if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
-                $paths[] = $path . '/modules/' . $this->moduleNameLower;
+            if (is_dir($path.'/modules/'.$this->moduleNameLower)) {
+                $paths[] = $path.'/modules/'.$this->moduleNameLower;
             }
         }
+
         return $paths;
     }
 }

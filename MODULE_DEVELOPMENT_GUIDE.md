@@ -1,5 +1,12 @@
 # Module Development Guide
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This guide provides practical instructions for developing modules in the kv-saas-crm-erp system using Laravel and the nWidart/laravel-modules package with Odoo-inspired patterns.

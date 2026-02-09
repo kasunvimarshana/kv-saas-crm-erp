@@ -1,5 +1,12 @@
 # Enhanced Conceptual Model: Laravel-Based Modular SaaS ERP/CRM
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document extends the existing architectural documentation by integrating Laravel-specific implementation patterns, Odoo-inspired modular plugin architecture, polymorphic translatable models, and proven multi-tenant SaaS strategies from real-world implementations like the Emmy Awards' Orthicon platform.

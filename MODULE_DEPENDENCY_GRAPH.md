@@ -1,5 +1,12 @@
 # Module Dependency Graph
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document visualizes the dependencies and relationships between all modules in the kv-saas-crm-erp system, showing how they interact through events, shared services, and data flows.

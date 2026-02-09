@@ -1,5 +1,12 @@
 # Project Completion Summary
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Task Overview
 
 **Objective**: Analyze all resources to extract concepts, architecture, modules, entities, and relationships, focusing exclusively on observation and learning to build a comprehensive conceptual model.

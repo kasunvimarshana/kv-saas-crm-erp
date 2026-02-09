@@ -4,14 +4,14 @@ return [
     'name' => 'Sales',
     'version' => '1.0.0',
     'description' => 'Sales and CRM module for managing customers, leads, opportunities, and sales orders',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Module Settings
     |--------------------------------------------------------------------------
     */
     'enabled' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Default Settings

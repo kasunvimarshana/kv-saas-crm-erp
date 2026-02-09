@@ -1,5 +1,12 @@
 # Project Structure Overview
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## KV SaaS ERP/CRM - Modular Architecture
 
 ```

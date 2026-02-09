@@ -1,5 +1,12 @@
 # Domain Models Reference
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document provides detailed specifications of the core domain models, entities, value objects, and their relationships within the kv-saas-crm-erp system.

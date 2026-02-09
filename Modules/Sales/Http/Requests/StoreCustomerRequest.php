@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Store Customer Request
- * 
+ *
  * Validates data for creating a new customer.
  */
 class StoreCustomerRequest extends FormRequest
