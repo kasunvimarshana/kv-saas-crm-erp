@@ -132,6 +132,38 @@ class Lead extends Model
     }
 
     /**
+     * Scope a query to only include qualified leads.
+     */
+    public function scopeQualified($query)
+    {
+        return $query->where('stage', 'qualified');
+    }
+
+    /**
+     * Scope a query to only include new leads.
+     */
+    public function scopeNew($query)
+    {
+        return $query->where('status', 'new');
+    }
+
+    /**
+     * Scope a query to only include won leads.
+     */
+    public function scopeWon($query)
+    {
+        return $query->where('status', 'won');
+    }
+
+    /**
+     * Scope a query to only include lost leads.
+     */
+    public function scopeLost($query)
+    {
+        return $query->where('status', 'lost');
+    }
+
+    /**
      * Create a new factory instance for the model.
      */
     protected static function newFactory(): LeadFactory
