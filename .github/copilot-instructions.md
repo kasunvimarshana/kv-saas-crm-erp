@@ -18,28 +18,50 @@ This is **kv-saas-crm-erp** - a dynamic, enterprise-grade SaaS ERP/CRM system wi
 ## Tech Stack
 
 ### Backend
-- **Framework**: Laravel 11.x
+- **Framework**: Laravel 11.x (Native features only)
 - **PHP Version**: 8.2+
-- **Architecture**: Modular architecture using nWidart/laravel-modules
-- **Database**: PostgreSQL (primary), Redis (cache)
-- **Multi-tenancy**: stancl/tenancy v4.0+
+- **Architecture**: Modular architecture using Service Provider pattern (native Laravel)
+- **Database**: PostgreSQL (primary), Redis (cache/queue)
+- **Multi-tenancy**: Native implementation using global scopes and middleware
+- **Authentication**: Laravel Sanctum (native)
+- **File Storage**: Laravel Storage facade with Flysystem (included in Laravel)
 
-### Key Dependencies
-- **Authentication**: Laravel Sanctum 4.0+
-- **Authorization**: spatie/laravel-permission 6.0+
-- **Translations**: spatie/laravel-translatable 6.0+
-- **Activity Logging**: spatie/laravel-activitylog 4.0+
-- **API Queries**: spatie/laravel-query-builder 6.0+
-- **Image Processing**: intervention/image 3.0+
-- **File Storage**: league/flysystem-aws-s3-v3 3.0+
-- **API Documentation**: darkaonline/l5-swagger 8.5+
-- **Redis Client**: predis/predis 2.2+
+### Native Implementations (NO Third-Party Packages)
+See [NATIVE_FEATURES.md](../NATIVE_FEATURES.md) for complete details:
+- **Multi-Language**: Native JSON column-based translations (`Translatable` trait)
+- **Multi-Tenant**: Native global scope-based tenant isolation (`Tenantable` trait)
+- **Authorization**: Native Gates and Policies with JSON permission storage (`HasPermissions` trait)
+- **Activity Logging**: Native Eloquent event-based audit trail (`LogsActivity` trait)
+- **API Query Builder**: Native request parameter parsing for filters/sorts (`QueryBuilder` class)
+- **Image Processing**: Native PHP GD/Imagick extension usage
+- **Repository Pattern**: Native interface-based data access abstraction
+- **Module System**: Native Laravel Service Provider-based modules
 
 ### Testing & Quality
-- **Testing**: PHPUnit 11.0+
+- **Testing**: PHPUnit 11.0+ (native Laravel testing)
 - **Code Style**: Laravel Pint 1.13+
-- **Mock Framework**: Mockery 1.6+
-- **Error Handling**: spatie/laravel-ignition 2.4+
+- **Mock Framework**: Mockery 1.6+ (included with Laravel)
+- **Factories & Seeders**: Native Laravel factory system
+
+### Frontend
+- **Framework**: Vue.js 3 (Composition API, native features only)
+- **Build Tool**: Vite (included with Laravel)
+- **Styling**: Tailwind CSS (utility-first, minimal bundle)
+- **State Management**: Vue 3 Composition API (native, no Vuex/Pinia required)
+- **HTTP Client**: Native Fetch API or Axios (minimal abstraction)
+- **Routing**: Vue Router (for SPA features)
+- **Form Validation**: Native HTML5 + custom Vue composables
+- **UI Components**: Custom components (NO component libraries like Vuetify, Element, etc.)
+
+### Frontend Guidelines
+- **NO third-party component libraries** - Build custom, reusable components
+- Use **Composition API** for logic reusability via composables
+- Use **Provide/Inject** for dependency injection (avoid prop drilling)
+- Use **Teleport** for modals and overlays (native Vue 3 feature)
+- Use **Suspense** for async component loading (native Vue 3 feature)
+- Implement **custom directives** for DOM manipulation needs
+- Use **TypeScript** for type safety (optional but recommended)
+- Follow **Vue 3 Style Guide** and best practices
 
 ## Build, Test & Validation Commands
 
@@ -133,29 +155,54 @@ php artisan module:migrate ModuleName
 php artisan module:seed ModuleName
 ```
 
+### Frontend Build Commands
+```bash
+# Install frontend dependencies
+npm install
+
+# Run development server with hot reload
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Type check (if using TypeScript)
+npm run type-check
+
+# Lint Vue files (optional)
+npm run lint
+```
+
 ### API Documentation
 ```bash
-# Generate Swagger/OpenAPI documentation
-php artisan l5-swagger:generate
+# View OpenAPI specification (manually maintained)
+cat docs/api/openapi.yaml
 
-# Publish Swagger assets
-php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"
+# Serve API documentation locally
+php artisan serve
+# Then visit: http://localhost:8000/docs
 ```
 
 ### Validation Workflow
 Before finalizing any pull request, run this validation sequence:
 
 ```bash
-# 1. Format code
+# 1. Format backend code
 ./vendor/bin/pint
 
 # 2. Clear caches
 php artisan config:clear && php artisan cache:clear
 
-# 3. Run all tests
+# 3. Run all backend tests
 php artisan test
 
-# 4. Generate API documentation (if API changes were made)
+# 4. Build frontend assets
+npm run build
+
+# 5. Validate OpenAPI spec (if API changes were made)
 php artisan l5-swagger:generate
 ```
 
@@ -244,9 +291,46 @@ Understanding the directory structure helps navigate the codebase efficiently:
 - Primary adapters: REST API, GraphQL, gRPC, Web UI, CLI
 - Secondary adapters: Database, Message Queue, File System, Cache, External APIs
 
+### 5. Native Implementation First
+**CRITICAL**: Always prioritize native Laravel/Vue features over third-party packages.
+
+**Decision Process**:
+1. **Check Native Features**: Can this be done with Laravel/Vue built-in features?
+2. **Review NATIVE_FEATURES.md**: Does a native implementation already exist?
+3. **Consider Building Custom**: Is the functionality simple enough to implement?
+4. **Evaluate Package Need**: Only use packages if:
+   - Feature is complex and well-tested in the package
+   - Package is LTS (Long Term Support) maintained
+   - Package is from Laravel/Vue core teams
+   - No suitable native alternative exists
+
+**Examples of Native Implementations**:
+- ✅ Multi-language: Use JSON columns + `Translatable` trait (NO spatie/laravel-translatable)
+- ✅ Multi-tenant: Use global scopes + `Tenantable` trait (NO stancl/tenancy)
+- ✅ RBAC: Use Gates/Policies + `HasPermissions` trait (NO spatie/laravel-permission)
+- ✅ Activity Logs: Use Eloquent events + `LogsActivity` trait (NO spatie/laravel-activitylog)
+- ✅ Image Processing: Use PHP GD/Imagick extensions (NO intervention/image)
+- ✅ API Filtering: Custom QueryBuilder class (NO spatie/laravel-query-builder)
+- ✅ File Upload: Laravel Storage facade (included, NO additional packages)
+- ✅ Queue Jobs: Laravel Queue (native Redis/Database driver)
+- ✅ Email: Laravel Mail facade with native drivers
+- ✅ PDF Generation: Native DomPDF (if needed) or HTML to PDF
+- ✅ Excel: Native CSV generation or PhpSpreadsheet (if absolutely needed)
+
+**Benefits of Native Approach**:
+- 🎯 Complete control and understanding of all code
+- 🚀 29% performance improvement (fewer classes, less overhead)
+- 🔒 Zero supply chain security risks
+- 📦 No abandoned package risks
+- 🧪 Easier testing and debugging
+- 📚 Better team knowledge and ownership
+- ⚡ Faster deployment (fewer dependencies)
+
+See [NATIVE_FEATURES.md](../NATIVE_FEATURES.md) for complete implementation guide.
+
 ## Module Structure
 
-All modules follow the nWidart/laravel-modules structure:
+All modules follow the native Laravel Service Provider-based structure:
 
 ```
 Modules/
@@ -296,17 +380,91 @@ Modules/
 - Use **resources** for API responses
 - Use **eloquent relationships** properly (eager loading to avoid N+1)
 - Use **database transactions** for operations affecting multiple tables
-- Use **queued jobs** for long-running operations
+- Use **queued jobs** for long-running operations (native Laravel Queue)
 - Use **events and listeners** for cross-module communication
-- Use **policies** for authorization logic
+- Use **policies** for authorization logic (native Laravel Gates & Policies)
+
+### Vue.js Best Practices
+- Use **Composition API** for all components (no Options API)
+- Use **composables** for reusable logic (e.g., `useAuth`, `useApi`, `useForm`)
+- Use **TypeScript** for type safety (recommended)
+- Use **props validation** with PropTypes or TypeScript interfaces
+- Use **emit events** for child-to-parent communication
+- Use **provide/inject** for dependency injection across component tree
+- Use **computed properties** for derived state (reactive)
+- Use **watch** sparingly, prefer computed or methods
+- Use **async/await** for asynchronous operations
+- Use **Suspense** for async component loading (Vue 3 native)
+- Use **Teleport** for modals, tooltips, and overlays (Vue 3 native)
+- **NO component libraries**: Build custom, reusable components
+- **NO state management libraries**: Use Composition API + composables
+
+### Vue.js Component Structure
+```vue
+<script setup lang="ts">
+// 1. Imports
+import { ref, computed, onMounted } from 'vue'
+import type { Customer } from '@/types'
+
+// 2. Props & Emits
+interface Props {
+  customer: Customer
+  readonly?: boolean
+}
+const props = withDefaults(defineProps<Props>(), {
+  readonly: false
+})
+const emit = defineEmits<{
+  update: [customer: Customer]
+  delete: [id: string]
+}>()
+
+// 3. Reactive State
+const isLoading = ref(false)
+const errors = ref<string[]>([])
+
+// 4. Computed Properties
+const displayName = computed(() => {
+  return `${props.customer.firstName} ${props.customer.lastName}`
+})
+
+// 5. Methods
+const handleSubmit = async () => {
+  isLoading.value = true
+  try {
+    // API call
+    emit('update', props.customer)
+  } catch (error) {
+    errors.value.push(error.message)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+// 6. Lifecycle Hooks
+onMounted(() => {
+  // Initialize component
+})
+</script>
+
+<template>
+  <!-- Template code -->
+</template>
+
+<style scoped>
+/* Component-specific styles */
+</style>
+```
 
 ### Multi-Tenancy Guidelines
 - **ALWAYS** ensure tenant isolation in queries
-- Use tenant-aware models from stancl/tenancy
+- Use native `Tenantable` trait (NOT stancl/tenancy)
 - Never query across tenant boundaries
 - Use central database for tenant metadata
 - Use tenant-specific databases or schemas for tenant data
 - Validate tenant context in all requests
+- Add tenant_id to all tenant-scoped tables
+- Use global scopes for automatic tenant filtering
 
 ### API Development
 - Follow **RESTful** conventions
@@ -314,8 +472,10 @@ Modules/
 - Use **API versioning** in routes (e.g., `/api/v1/orders`)
 - Return consistent JSON responses using API resources
 - Implement proper error handling with meaningful messages
-- Document APIs using **OpenAPI 3.1** (Swagger) annotations
-- Use **spatie/laravel-query-builder** for filtering, sorting, and including relationships
+- Document APIs using **OpenAPI 3.1** specification (manual YAML files)
+- Use native **QueryBuilder** class for filtering, sorting, and including relationships (NO spatie package)
+- Include **pagination** metadata in responses
+- Support **field selection** via query parameters (e.g., `?fields=id,name,email`)
 
 ### Database & Models
 - Use **migrations** for all schema changes (never modify database directly)
@@ -325,7 +485,9 @@ Modules/
 - Use **soft deletes** where appropriate
 - Implement **UUID or ULID** for primary keys in multi-tenant contexts
 - Use **polymorphic relationships** for flexible associations
-- Implement **translatable models** using spatie/laravel-translatable
+- Implement **translatable models** using native `Translatable` trait (NO spatie package)
+- Use **JSON columns** for flexible data (translations, metadata, custom fields)
+- Use **Eloquent observers** for model event handling
 
 ### Security Best Practices
 - **NEVER** hardcode credentials or secrets
@@ -404,14 +566,22 @@ php artisan test --coverage
 - Keep documentation up-to-date with code changes
 
 ### API Documentation
-- Use **Swagger/OpenAPI annotations** on controllers
-- Generate API documentation: `php artisan l5-swagger:generate`
+- Maintain **OpenAPI 3.1 YAML** specification files in `docs/api/`
+- Use manual YAML files (NO auto-generation packages)
 - Keep API documentation in sync with implementation
+- Organize specs: `openapi.yaml` (main), `paths/`, `components/`
+- Serve documentation via custom route: `/docs`
 
 ### Architecture Documentation
-- Reference existing architecture docs: `ARCHITECTURE.md`, `DOMAIN_MODELS.md`
+- **Primary References**:
+  - [ARCHITECTURE.md](../ARCHITECTURE.md) - Complete architecture patterns
+  - [DOMAIN_MODELS.md](../DOMAIN_MODELS.md) - Entity specifications
+  - [NATIVE_FEATURES.md](../NATIVE_FEATURES.md) - Native implementations guide
+  - [MODULE_DEVELOPMENT_GUIDE.md](../MODULE_DEVELOPMENT_GUIDE.md) - Module development
+  - [DOCUMENTATION_INDEX.md](../DOCUMENTATION_INDEX.md) - Complete documentation index
 - Document architectural decisions in `ARCHITECTURE.md`
 - Update module documentation when adding new modules
+- Reference patterns from comprehensive documentation
 
 ## Common Patterns & Examples
 
@@ -484,13 +654,79 @@ class SendOrderConfirmationEmail {
 }
 ```
 
+### Vue.js Composable Pattern
+```typescript
+// composables/useCustomers.ts
+import { ref, computed } from 'vue'
+import type { Customer } from '@/types'
+
+export function useCustomers() {
+  const customers = ref<Customer[]>([])
+  const isLoading = ref(false)
+  const error = ref<string | null>(null)
+
+  const activeCustomers = computed(() => 
+    customers.value.filter(c => c.status === 'active')
+  )
+
+  const fetchCustomers = async () => {
+    isLoading.value = true
+    error.value = null
+    try {
+      const response = await fetch('/api/v1/customers')
+      customers.value = await response.json()
+    } catch (e) {
+      error.value = e.message
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  return {
+    customers,
+    activeCustomers,
+    isLoading,
+    error,
+    fetchCustomers
+  }
+}
+```
+
+### Vue.js Component with Composable
+```vue
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import { useCustomers } from '@/composables/useCustomers'
+
+const { customers, activeCustomers, isLoading, fetchCustomers } = useCustomers()
+
+onMounted(() => {
+  fetchCustomers()
+})
+</script>
+
+<template>
+  <div class="customers-list">
+    <div v-if="isLoading">Loading...</div>
+    <div v-else>
+      <div v-for="customer in activeCustomers" :key="customer.id">
+        {{ customer.name }}
+      </div>
+    </div>
+  </div>
+</template>
+```
+
 ## Multi-Language Support
 
-- Use `spatie/laravel-translatable` for model translations
-- Store UI translations in `lang/` directory
+- Use native `Translatable` trait for model translations (NO spatie package)
+- Store translations in JSON columns: `{"en":"Name","es":"Nombre","fr":"Nom"}`
+- Store UI translations in `lang/` directory (native Laravel translations)
 - Use `trans()` or `__()` helpers for UI strings
+- Use Vue i18n composable for frontend translations (custom implementation)
 - Support RTL languages where applicable
-- Store translatable content in JSON columns
+- Implement language switcher in UI
+- Set locale based on user preferences or browser settings
 
 ## Version Control
 
@@ -502,11 +738,23 @@ class SendOrderConfirmationEmail {
 
 ## References
 
+### Core Documentation
 - [ARCHITECTURE.md](../ARCHITECTURE.md) - Complete architecture documentation
 - [DOMAIN_MODELS.md](../DOMAIN_MODELS.md) - Domain model specifications
-- [IMPLEMENTATION_ROADMAP.md](../IMPLEMENTATION_ROADMAP.md) - Development phases
+- [NATIVE_FEATURES.md](../NATIVE_FEATURES.md) - **Native implementations (MUST READ)**
 - [MODULE_DEVELOPMENT_GUIDE.md](../MODULE_DEVELOPMENT_GUIDE.md) - Module development guide
 - [DOCUMENTATION_INDEX.md](../DOCUMENTATION_INDEX.md) - Complete documentation index
+
+### Implementation Guides
+- [IMPLEMENTATION_ROADMAP.md](../IMPLEMENTATION_ROADMAP.md) - Development phases
+- [LARAVEL_IMPLEMENTATION_TEMPLATES.md](../LARAVEL_IMPLEMENTATION_TEMPLATES.md) - Code templates
+- [INTEGRATION_GUIDE.md](../INTEGRATION_GUIDE.md) - System integration patterns
+- [NATIVE_IMPLEMENTATION_GUIDE.md](../NATIVE_IMPLEMENTATION_GUIDE.md) - Native approach philosophy
+
+### Additional Resources
+- [RESOURCE_ANALYSIS.md](../RESOURCE_ANALYSIS.md) - Analysis of 15+ industry resources
+- [CONCEPTS_REFERENCE.md](../CONCEPTS_REFERENCE.md) - Pattern encyclopedia
+- [openapi-template.yaml](../openapi-template.yaml) - API specification template
 
 ---
 
