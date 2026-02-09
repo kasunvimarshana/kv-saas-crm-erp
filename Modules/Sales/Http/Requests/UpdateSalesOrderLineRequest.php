@@ -18,7 +18,12 @@ class UpdateSalesOrderLineRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // TODO: Implement authorization logic
+        // Updating an order line requires ability to update the parent sales order
+        $salesOrderLine = $this->route('salesOrderLine') ?? $this->route('sales_order_line');
+        if (!$salesOrderLine) {
+            return false;
+        }
+        return $this->user()->can('update', $salesOrderLine->salesOrder);
     }
 
     /**

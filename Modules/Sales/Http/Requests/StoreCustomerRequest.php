@@ -16,7 +16,7 @@ class StoreCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // TODO: Implement authorization logic
+        return $this->user()->can('create', \Modules\Sales\Entities\Customer::class);
     }
 
     /**

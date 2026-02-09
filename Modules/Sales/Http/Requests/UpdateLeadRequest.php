@@ -18,7 +18,8 @@ class UpdateLeadRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // TODO: Implement authorization logic
+        $lead = $this->route('lead');
+        return $this->user()->can('update', $lead);
     }
 
     /**
