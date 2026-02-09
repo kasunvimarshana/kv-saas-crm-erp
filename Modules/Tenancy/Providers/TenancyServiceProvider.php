@@ -1,8 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Tenancy\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Tenancy\Entities\Tenant;
+use Modules\Tenancy\Policies\TenantPolicy;
+use Modules\Tenancy\Repositories\Contracts\TenantRepositoryInterface;
+use Modules\Tenancy\Repositories\TenantRepository;
 
 class TenancyServiceProvider extends ServiceProvider
 {
@@ -22,6 +29,7 @@ class TenancyServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path('Tenancy', 'Database/Migrations'));
+        $this->registerPolicies();
     }
 
     /**
@@ -30,6 +38,26 @@ class TenancyServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->registerRepositories();
+    }
+
+    /**
+     * Register repositories.
+     */
+    protected function registerRepositories(): void
+    {
+        $this->app->bind(
+            TenantRepositoryInterface::class,
+            TenantRepository::class
+        );
+    }
+
+    /**
+     * Register policies.
+     */
+    protected function registerPolicies(): void
+    {
+        Gate::policy(Tenant::class, TenantPolicy::class);
     }
 
     /**

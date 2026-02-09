@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace Modules\IAM\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Modules\IAM\Repositories\Contracts\PermissionRepositoryInterface;
-use Modules\IAM\Repositories\PermissionRepository;
+use Modules\IAM\Entities\Group;
+use Modules\IAM\Entities\Permission;
+use Modules\IAM\Entities\Role;
+use Modules\IAM\Policies\GroupPolicy;
+use Modules\IAM\Policies\PermissionPolicy;
+use Modules\IAM\Policies\RolePolicy;
 use Modules\IAM\Repositories\Contracts\GroupRepositoryInterface;
+use Modules\IAM\Repositories\Contracts\PermissionRepositoryInterface;
 use Modules\IAM\Repositories\GroupRepository;
+use Modules\IAM\Repositories\PermissionRepository;
 
 class IAMServiceProvider extends ServiceProvider
 {
@@ -54,6 +61,17 @@ class IAMServiceProvider extends ServiceProvider
     {
         $this->registerMigrations();
         $this->publishConfig();
+        $this->registerPolicies();
+    }
+
+    /**
+     * Register authorization policies.
+     */
+    protected function registerPolicies(): void
+    {
+        Gate::policy(Role::class, RolePolicy::class);
+        Gate::policy(Permission::class, PermissionPolicy::class);
+        Gate::policy(Group::class, GroupPolicy::class);
     }
 
     /**
