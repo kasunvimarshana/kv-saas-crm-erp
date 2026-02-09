@@ -18,7 +18,8 @@ class UpdateSalesOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // TODO: Implement authorization logic
+        $salesOrder = $this->route('salesOrder') ?? $this->route('sales_order');
+        return $this->user()->can('update', $salesOrder);
     }
 
     /**
