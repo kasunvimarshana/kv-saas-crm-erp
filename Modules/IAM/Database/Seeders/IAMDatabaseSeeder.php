@@ -15,6 +15,7 @@ class IAMDatabaseSeeder extends Seeder
     {
         $this->call([
             PermissionSeeder::class,
+            RoleSeeder::class,
         ]);
     }
 }

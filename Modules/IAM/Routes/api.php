@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\IAM\Http\Controllers\PermissionController;
+use Modules\IAM\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,6 +11,20 @@ use Modules\IAM\Http\Controllers\PermissionController;
 */
 
 Route::prefix('v1/iam')->middleware(['auth:sanctum'])->group(function () {
+    
+    // Role routes
+    Route::prefix('roles')->group(function () {
+        Route::get('/', [RoleController::class, 'index']);
+        Route::post('/', [RoleController::class, 'store']);
+        Route::get('/{role}', [RoleController::class, 'show']);
+        Route::put('/{role}', [RoleController::class, 'update']);
+        Route::delete('/{role}', [RoleController::class, 'destroy']);
+        
+        // Role-specific actions
+        Route::post('/{role}/permissions', [RoleController::class, 'assignPermissions']);
+        Route::get('/{role}/permissions', [RoleController::class, 'permissions']);
+        Route::get('/{role}/users', [RoleController::class, 'users']);
+    });
     
     // Permission routes
     Route::prefix('permissions')->group(function () {
