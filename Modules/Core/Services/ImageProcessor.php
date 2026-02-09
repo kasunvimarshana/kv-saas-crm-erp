@@ -256,7 +256,8 @@ class ImageProcessor
 
         // Apply opacity if less than 100
         if ($opacity < 100) {
-            imagefilter($watermark, IMG_FILTER_COLORIZE, 0, 0, 0, 127 - (int) ($opacity * 1.27));
+            $alpha = (int) (127 * (100 - $opacity) / 100);
+            imagefilter($watermark, IMG_FILTER_COLORIZE, 0, 0, 0, $alpha);
         }
 
         // Copy watermark to base image
@@ -357,9 +358,12 @@ class ImageProcessor
     /**
      * Create GD image resource from file based on MIME type.
      *
+     * @param string $path Path to image file
+     * @param string $mime MIME type of image
+     * @return \GdImage|false GD image resource or false on failure
      * @throws Exception If MIME type is unsupported
      */
-    private function createImageFromFile(string $path, string $mime)
+    private function createImageFromFile(string $path, string $mime): \GdImage|false
     {
         return match ($mime) {
             'image/jpeg' => imagecreatefromjpeg($path),

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 use Modules\Core\Traits\HasUuid;
 
 /**
@@ -77,7 +78,10 @@ class Role extends Model
         return $this;
     }
 
-    public function scopeActive($query)
+    /**
+     * Scope to filter only active roles.
+     */
+    public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
     }

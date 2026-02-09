@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Activity Model
@@ -44,17 +45,17 @@ class Activity extends Model
         return $this->morphTo();
     }
 
-    public function scopeInLog($query, string $logName)
+    public function scopeInLog(Builder $query, string $logName): Builder
     {
         return $query->where('log_name', $logName);
     }
 
-    public function scopeForSubject($query, string $subjectType)
+    public function scopeForSubject(Builder $query, string $subjectType): Builder
     {
         return $query->where('subject_type', $subjectType);
     }
 
-    public function scopeCausedBy($query, Model $causer)
+    public function scopeCausedBy(Builder $query, Model $causer): Builder
     {
         return $query->where('causer_type', get_class($causer))
             ->where('causer_id', $causer->getKey());

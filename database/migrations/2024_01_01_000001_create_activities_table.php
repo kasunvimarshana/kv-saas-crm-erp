@@ -17,9 +17,8 @@ return new class extends Migration
             $table->json('properties')->nullable();
             $table->timestamps();
 
-            $table->index(['subject_type', 'subject_id']);
-            $table->index(['causer_type', 'causer_id']);
             $table->index('created_at');
+            $table->index(['log_name', 'created_at']);
         });
     }
 
