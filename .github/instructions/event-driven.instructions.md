@@ -1,3 +1,10 @@
+---
+applyTo: 
+  - "**/Events/**/*.php"
+  - "**/Listeners/**/*.php"
+  - "**/Observers/**/*.php"
+---
+
 # Event-Driven Architecture Requirements
 
 When implementing event-driven patterns, follow these guidelines to achieve loose coupling and maintainable cross-module communication.

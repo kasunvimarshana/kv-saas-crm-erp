@@ -1,3 +1,7 @@
+---
+applyTo: "**/Services/**/*.php"
+---
+
 # Service Layer Architecture Requirements
 
 When implementing the Service Layer, follow these guidelines to maintain separation of concerns and clean business logic.
