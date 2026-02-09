@@ -72,8 +72,12 @@ class LeadFactory extends Factory
     private function getStageFromStatus(string $status): string
     {
         return match ($status) {
-            'won', 'lost' => 'closed',
-            default => $status,
+            'new', 'contacted' => 'lead',
+            'qualified' => 'qualified',
+            'negotiation', 'proposal' => 'prospect',
+            'won', 'converted' => 'customer',
+            'lost' => 'lead',
+            default => 'lead',
         };
     }
 
@@ -100,7 +104,7 @@ class LeadFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'new',
-            'stage' => 'new',
+            'stage' => 'lead',
             'probability' => fake()->numberBetween(10, 20),
         ]);
     }
@@ -124,7 +128,7 @@ class LeadFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'won',
-            'stage' => 'closed',
+            'stage' => 'customer',
             'probability' => 100,
             'expected_close_date' => fake()->dateTimeBetween('-3 months', 'now'),
         ]);
@@ -137,7 +141,7 @@ class LeadFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'lost',
-            'stage' => 'closed',
+            'stage' => 'lead',
             'probability' => 0,
             'expected_close_date' => fake()->dateTimeBetween('-3 months', 'now'),
         ]);
@@ -150,7 +154,7 @@ class LeadFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'negotiation',
-            'stage' => 'negotiation',
+            'stage' => 'prospect',
             'probability' => fake()->numberBetween(75, 90),
             'expected_close_date' => fake()->dateTimeBetween('now', '+1 month'),
         ]);
@@ -196,7 +200,7 @@ class LeadFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'converted',
-            'stage' => 'closed',
+            'stage' => 'customer',
             'probability' => 100,
         ]);
     }

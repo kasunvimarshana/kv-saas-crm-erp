@@ -129,6 +129,54 @@ class Customer extends Model
     }
 
     /**
+     * Scope a query to only include active customers.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    /**
+     * Scope a query to only include business customers.
+     */
+    public function scopeBusiness($query)
+    {
+        return $query->where('type', 'company');
+    }
+
+    /**
+     * Scope a query to only include individual customers.
+     */
+    public function scopeIndividual($query)
+    {
+        return $query->where('type', 'individual');
+    }
+
+    /**
+     * Scope a query to only include VIP customers.
+     */
+    public function scopeVip($query)
+    {
+        return $query->whereJsonContains('tags', 'vip');
+    }
+
+    /**
+     * Get available credit for the customer.
+     */
+    public function getCreditAvailableAttribute(): ?float
+    {
+        if (! $this->credit_limit) {
+            return null;
+        }
+
+        $totalOutstanding = $this->salesOrders()
+            ->whereIn('status', ['pending', 'confirmed'])
+            ->sum('total_amount');
+
+        return $this->credit_limit - $totalOutstanding;
+    }
+
+    /**
      * Create a new factory instance for the model.
      */
     protected static function newFactory(): CustomerFactory
