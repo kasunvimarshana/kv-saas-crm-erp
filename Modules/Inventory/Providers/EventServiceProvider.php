@@ -8,23 +8,30 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Modules\Inventory\Events\LowStockAlert;
 use Modules\Inventory\Events\StockLevelChanged;
 use Modules\Inventory\Events\StockMovementRecorded;
+use Modules\Inventory\Listeners\StockLevelAlertListener;
+use Modules\Inventory\Listeners\UpdateAccountingValueListener;
 
+/**
+ * Inventory Event Service Provider
+ *
+ * Registers event listeners for the Inventory module.
+ */
 class EventServiceProvider extends ServiceProvider
 {
     /**
      * The event listener mappings for the application.
      *
-     * @var array<string, array<int, string>>
+     * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
         StockLevelChanged::class => [
-            // Add listeners here
+            // Add listeners here when needed
         ],
         LowStockAlert::class => [
-            // Add listeners here
+            StockLevelAlertListener::class,
         ],
         StockMovementRecorded::class => [
-            // Add listeners here
+            UpdateAccountingValueListener::class,
         ],
     ];
 

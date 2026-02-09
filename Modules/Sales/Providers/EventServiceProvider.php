@@ -6,7 +6,9 @@ namespace Modules\Sales\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Modules\Sales\Events\SalesOrderConfirmed;
+use Modules\Sales\Listeners\CreateAccountingEntryListener;
 use Modules\Sales\Listeners\LogSalesOrderConfirmation;
+use Modules\Sales\Listeners\ReserveStockListener;
 
 /**
  * Sales Event Service Provider
@@ -23,6 +25,8 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         SalesOrderConfirmed::class => [
             LogSalesOrderConfirmation::class,
+            CreateAccountingEntryListener::class,
+            ReserveStockListener::class,
         ],
     ];
 
