@@ -1,5 +1,12 @@
 # Integration Guide: Connecting All Architectural Patterns
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This guide demonstrates how all the architectural patterns, concepts, and components documented in this repository integrate to form a cohesive, enterprise-grade SaaS ERP/CRM system. It bridges theory and practice by showing how Clean Architecture, DDD, multi-tenancy, modular design, and Laravel-specific patterns work together.

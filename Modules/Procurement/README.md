@@ -1,5 +1,12 @@
 # Procurement Module
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 Complete procurement management module for the ERP/CRM system with supplier management, purchase requisitions, purchase orders, and goods receipt functionality.
 
 ## Overview

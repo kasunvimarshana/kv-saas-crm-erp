@@ -1,5 +1,12 @@
 # Accounting Module - Implementation Summary
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 A complete, production-ready Accounting & Finance module has been successfully implemented for the Laravel 11 multi-tenant ERP/CRM system following Clean Architecture, Domain-Driven Design, and SOLID principles.
 

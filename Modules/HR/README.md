@@ -1,5 +1,12 @@
 # HR (Human Resources) Module
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 Complete Human Resources module for managing employees, departments, attendance, leave, payroll, and performance reviews in a multi-tenant Laravel ERP/CRM system.
 

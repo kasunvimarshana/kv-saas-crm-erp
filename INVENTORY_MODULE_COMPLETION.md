@@ -1,5 +1,12 @@
 # Inventory Management Module - Completion Summary
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Executive Summary
 
 Successfully created a **production-ready Inventory Management module** for the Laravel 11 multi-tenant ERP/CRM system, following Clean Architecture and Domain-Driven Design principles.

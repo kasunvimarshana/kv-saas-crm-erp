@@ -1,5 +1,12 @@
 # Implementation Roadmap
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document provides a phased approach to implementing the kv-saas-crm-erp system based on the architectural principles and domain models defined in the accompanying documentation.

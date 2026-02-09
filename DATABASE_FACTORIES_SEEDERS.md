@@ -1,5 +1,12 @@
 # Database Factories and Seeders Documentation
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 This documentation covers the comprehensive model factories and database seeders for the Sales and Tenancy modules.
 
 ## Overview

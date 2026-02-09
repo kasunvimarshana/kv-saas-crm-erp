@@ -1,5 +1,12 @@
 # Complete System Architecture & Implementation Status
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## 🎯 Executive Summary
 
 This document provides a comprehensive overview of the multi-tenant, enterprise-grade ERP/CRM SaaS platform implementation following Clean Architecture, Domain-Driven Design, and SOLID principles.

@@ -1,5 +1,12 @@
 # Authorization Policies Quick Reference
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 Quick reference guide for using authorization policies in the Laravel 11 ERP/CRM system.
 
 ## Table of Contents

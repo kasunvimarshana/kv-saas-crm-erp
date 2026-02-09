@@ -1,5 +1,12 @@
 # kv-saas-crm-erp
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 Dynamic, enterprise-grade SaaS ERP with a modular, maintainable architecture. Fully supports multi-tenant, multi-organization, multi-vendor, multi-branch, multi-location, multi-currency, multi-language, multi-time-zone, and multi-unit operations with nested structures. Designed for global scalability, complex workflows, long-term maintainability.
 
 ## 🚀 Quick Start

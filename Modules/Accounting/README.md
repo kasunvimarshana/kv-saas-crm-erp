@@ -1,5 +1,12 @@
 # Accounting & Finance Module
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 A comprehensive accounting and finance module for the multi-tenant ERP/CRM system, providing double-entry bookkeeping, invoicing, payment processing, and financial reporting capabilities.
 
 ## Features

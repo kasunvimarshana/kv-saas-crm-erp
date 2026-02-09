@@ -1,5 +1,12 @@
 # Native Laravel Implementation Guide
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Philosophy: Zero Third-Party Dependencies
 
 This implementation demonstrates building an enterprise-grade ERP/CRM system using **only native Laravel features**. No external packages beyond Laravel itself.

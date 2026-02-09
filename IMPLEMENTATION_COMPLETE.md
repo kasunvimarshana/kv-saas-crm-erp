@@ -1,5 +1,12 @@
 # Implementation Summary: Native Laravel-Only Foundation
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document summarizes the implementation of a comprehensive conceptual model using **only native Laravel features** without any third-party packages. The implementation focuses exclusively on Laravel's built-in capabilities for maximum control, stability, and maintainability.

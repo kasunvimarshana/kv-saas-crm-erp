@@ -1,5 +1,12 @@
 # Implementation Guide: Quick Start
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This guide provides a practical starting point for implementing the kv-saas-crm-erp system using Laravel. It references the comprehensive documentation and provides actionable next steps.

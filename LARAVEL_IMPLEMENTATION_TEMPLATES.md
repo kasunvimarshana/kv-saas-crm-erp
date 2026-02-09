@@ -1,5 +1,12 @@
 # Laravel Implementation Templates
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document provides ready-to-use code templates and configuration examples for implementing the kv-saas-crm-erp system using Laravel. These templates follow the architectural principles outlined in the core documentation and can be used as starting points for actual development.

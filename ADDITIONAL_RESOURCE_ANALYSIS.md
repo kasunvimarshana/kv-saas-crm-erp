@@ -1,5 +1,12 @@
 # Additional Resource Analysis
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This document extends the [RESOURCE_ANALYSIS.md](RESOURCE_ANALYSIS.md) by analyzing additional resources that complement the core architectural concepts with practical implementation details for file management, storage systems, and reference implementations.

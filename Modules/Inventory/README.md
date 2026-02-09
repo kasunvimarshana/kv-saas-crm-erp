@@ -1,5 +1,12 @@
 # Inventory Management Module
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 The Inventory Management module is a comprehensive, production-ready solution for managing products, warehouses, stock levels, and inventory movements in a multi-tenant Laravel ERP system.

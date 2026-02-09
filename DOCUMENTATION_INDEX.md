@@ -1,5 +1,12 @@
 # Documentation Index
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Overview
 
 This repository contains comprehensive architectural documentation and conceptual models for the **kv-saas-crm-erp** system - a dynamic, enterprise-grade SaaS ERP with modular, maintainable architecture.
