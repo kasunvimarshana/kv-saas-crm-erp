@@ -17,6 +17,9 @@
         <testsuite name="Core">
             <directory suffix="Test.php">./Modules/Core/Tests</directory>
         </testsuite>
+        <testsuite name="IAM">
+            <directory suffix="Test.php">./Modules/IAM/Tests</directory>
+        </testsuite>
         <testsuite name="Sales">
             <directory suffix="Test.php">./Modules/Sales/Tests</directory>
         </testsuite>
