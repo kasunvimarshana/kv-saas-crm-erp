@@ -8,8 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Modules\Accounting\Repositories\Contracts\InvoiceRepositoryInterface;
 use Modules\Accounting\Repositories\Contracts\InvoiceLineRepositoryInterface;
+use Modules\Accounting\Repositories\Contracts\InvoiceRepositoryInterface;
 use Modules\Sales\Events\SalesOrderConfirmed;
 
 /**
@@ -47,7 +47,7 @@ class CreateAccountingEntryListener implements ShouldQueue
     {
         DB::beginTransaction();
         try {
-            $order = $event->order;
+            $order = $event->salesOrder;
 
             // Create AR invoice from sales order
             $invoice = $this->invoiceRepository->create([
@@ -99,7 +99,7 @@ class CreateAccountingEntryListener implements ShouldQueue
             DB::rollBack();
 
             Log::error('Failed to create accounting invoice for sales order', [
-                'order_id' => $event->order->id,
+                'order_id' => $event->salesOrder->id,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);
@@ -126,7 +126,7 @@ class CreateAccountingEntryListener implements ShouldQueue
     public function failed(SalesOrderConfirmed $event, \Throwable $exception): void
     {
         Log::error('Accounting invoice creation failed permanently', [
-            'order_id' => $event->order->id,
+            'order_id' => $event->salesOrder->id,
             'error' => $exception->getMessage(),
         ]);
     }

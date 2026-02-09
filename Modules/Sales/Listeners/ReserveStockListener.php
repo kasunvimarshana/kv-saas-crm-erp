@@ -45,11 +45,11 @@ class ReserveStockListener implements ShouldQueue
     {
         DB::beginTransaction();
         try {
-            $order = $event->order;
+            $order = $event->salesOrder;
 
             // Reserve stock for each order line
             foreach ($order->lines as $line) {
-                if (!$line->product_id) {
+                if (! $line->product_id) {
                     continue;
                 }
 
@@ -79,7 +79,7 @@ class ReserveStockListener implements ShouldQueue
             DB::rollBack();
 
             Log::error('Failed to reserve stock for sales order', [
-                'order_id' => $event->order->id,
+                'order_id' => $event->salesOrder->id,
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);
@@ -94,7 +94,7 @@ class ReserveStockListener implements ShouldQueue
     public function failed(SalesOrderConfirmed $event, \Throwable $exception): void
     {
         Log::error('Stock reservation failed permanently', [
-            'order_id' => $event->order->id,
+            'order_id' => $event->salesOrder->id,
             'error' => $exception->getMessage(),
         ]);
     }

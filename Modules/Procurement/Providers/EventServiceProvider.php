@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Modules\HR\Providers;
+namespace Modules\Procurement\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Modules\HR\Events\EmployeeHired;
-use Modules\HR\Events\LeaveApproved;
-use Modules\HR\Events\PayrollProcessed;
-use Modules\HR\Events\PerformanceReviewCompleted;
-use Modules\HR\Listeners\CreatePayrollJournalListener;
+use Modules\Procurement\Events\GoodsReceived;
+use Modules\Procurement\Events\PurchaseOrderCreated;
+use Modules\Procurement\Events\RequisitionApproved;
+use Modules\Procurement\Events\SupplierRated;
+use Modules\Procurement\Listeners\CreateAPInvoiceListener;
+use Modules\Procurement\Listeners\UpdateStockOnReceiptListener;
 
 /**
- * HR Event Service Provider
+ * Procurement Event Service Provider
  *
- * Registers event listeners for the HR module.
+ * Registers event listeners for the Procurement module.
  */
 class EventServiceProvider extends ServiceProvider
 {
@@ -24,16 +25,17 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        PayrollProcessed::class => [
-            CreatePayrollJournalListener::class,
+        GoodsReceived::class => [
+            UpdateStockOnReceiptListener::class,
+            CreateAPInvoiceListener::class,
         ],
-        EmployeeHired::class => [
+        PurchaseOrderCreated::class => [
             // Add listeners here when needed
         ],
-        LeaveApproved::class => [
+        RequisitionApproved::class => [
             // Add listeners here when needed
         ],
-        PerformanceReviewCompleted::class => [
+        SupplierRated::class => [
             // Add listeners here when needed
         ],
     ];
