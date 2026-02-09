@@ -99,3 +99,27 @@
 #12 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle()
 #13 {main}
 "} 
+[2026-02-09 15:08:36] production.ERROR: Class "L5Swagger\Generator" not found {"exception":"[object] (Error(code: 0): Class \"L5Swagger\\Generator\" not found at /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/config/l5-swagger.php:165)
+[stacktrace]
+#0 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php(97): require()
+#1 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php(97): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->Illuminate\\Foundation\\Bootstrap\\{closure}()
+#2 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php(78): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->loadConfigurationFile()
+#3 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php(39): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->loadConfigurationFiles()
+#4 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(342): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->bootstrap()
+#5 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(474): Illuminate\\Foundation\\Application->bootstrapWith()
+#6 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(196): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#7 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle()
+#8 {main}
+"} 
+[2026-02-09 15:08:42] production.ERROR: Class "L5Swagger\Generator" not found {"exception":"[object] (Error(code: 0): Class \"L5Swagger\\Generator\" not found at /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/config/l5-swagger.php:165)
+[stacktrace]
+#0 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php(97): require()
+#1 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php(97): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->Illuminate\\Foundation\\Bootstrap\\{closure}()
+#2 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php(78): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->loadConfigurationFile()
+#3 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php(39): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->loadConfigurationFiles()
+#4 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(342): Illuminate\\Foundation\\Bootstrap\\LoadConfiguration->bootstrap()
+#5 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(474): Illuminate\\Foundation\\Application->bootstrapWith()
+#6 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(196): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#7 /home/runner/work/kv-saas-crm-erp/kv-saas-crm-erp/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle()
+#8 {main}
+"} 
