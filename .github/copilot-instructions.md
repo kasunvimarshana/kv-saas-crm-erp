@@ -1,5 +1,12 @@
 # GitHub Copilot Instructions
 
+---
+
+**⚠️ IMPLEMENTATION PRINCIPLE**: Rely strictly on native Laravel and Vue features. Always implement functionality manually instead of using third-party libraries.
+
+---
+
+
 ## Project Overview
 
 This is **kv-saas-crm-erp** - a dynamic, enterprise-grade SaaS ERP/CRM system with a modular, maintainable architecture. The system is designed for global scalability with comprehensive multi-tenant, multi-organization, multi-currency, multi-language, and multi-location support.
