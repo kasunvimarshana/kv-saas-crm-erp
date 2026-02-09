@@ -34,7 +34,7 @@ class InventoryService extends BaseService
     {
         $stockLevel = $this->stockLevelRepository->getByProductAndWarehouse($productId, $warehouseId);
 
-        if (!$stockLevel) {
+        if (! $stockLevel) {
             return false;
         }
 

@@ -40,7 +40,7 @@ class StockLocationController extends Controller
     {
         $location = $this->locationRepository->findById($id);
 
-        if (!$location) {
+        if (! $location) {
             return response()->json(['message' => 'Location not found'], 404);
         }
 
@@ -58,7 +58,7 @@ class StockLocationController extends Controller
     {
         $deleted = $this->locationRepository->delete($id);
 
-        if (!$deleted) {
+        if (! $deleted) {
             return response()->json(['message' => 'Location not found'], 404);
         }
 

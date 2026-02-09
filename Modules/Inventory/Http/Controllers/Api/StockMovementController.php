@@ -36,7 +36,7 @@ class StockMovementController extends Controller
     {
         $movement = $this->stockMovementRepository->findById($id);
 
-        if (!$movement) {
+        if (! $movement) {
             return response()->json(['message' => 'Movement not found'], 404);
         }
 

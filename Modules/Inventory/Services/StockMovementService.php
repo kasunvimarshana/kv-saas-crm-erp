@@ -230,7 +230,7 @@ class StockMovementService extends BaseService
             ? $this->stockLevelRepository->getByProductAndLocation($productId, $locationId)
             : $this->stockLevelRepository->getByProductAndWarehouse($productId, $warehouseId);
 
-        if (!$stockLevel) {
+        if (! $stockLevel) {
             $stockLevel = $this->stockLevelRepository->create([
                 'product_id' => $productId,
                 'warehouse_id' => $warehouseId,

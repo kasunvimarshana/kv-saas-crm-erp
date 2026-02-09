@@ -100,6 +100,10 @@ class UnitOfMeasure extends Model
 
     /**
      * Convert quantity to another UoM in the same category.
+     *
+     * @param float $quantity The quantity in the current UoM
+     * @param UnitOfMeasure $targetUom The target UoM to convert to
+     * @return float|null The converted quantity, or null if UoMs are in different categories
      */
     public function convertTo(float $quantity, UnitOfMeasure $targetUom): ?float
     {

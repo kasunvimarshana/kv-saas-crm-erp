@@ -57,7 +57,7 @@ class ProductController extends Controller
     {
         $product = $this->productService->findById($id);
 
-        if (!$product) {
+        if (! $product) {
             return response()->json([
                 'message' => 'Product not found',
             ], 404);
@@ -83,7 +83,7 @@ class ProductController extends Controller
     {
         $deleted = $this->productService->delete($id);
 
-        if (!$deleted) {
+        if (! $deleted) {
             return response()->json([
                 'message' => 'Product not found',
             ], 404);

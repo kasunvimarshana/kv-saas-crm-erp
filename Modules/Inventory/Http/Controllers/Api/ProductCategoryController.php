@@ -40,7 +40,7 @@ class ProductCategoryController extends Controller
     {
         $category = $this->categoryRepository->findById($id);
 
-        if (!$category) {
+        if (! $category) {
             return response()->json(['message' => 'Category not found'], 404);
         }
 
@@ -58,7 +58,7 @@ class ProductCategoryController extends Controller
     {
         $deleted = $this->categoryRepository->delete($id);
 
-        if (!$deleted) {
+        if (! $deleted) {
             return response()->json(['message' => 'Category not found'], 404);
         }
 

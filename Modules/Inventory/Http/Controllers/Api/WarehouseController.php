@@ -42,7 +42,7 @@ class WarehouseController extends Controller
     {
         $warehouse = $this->warehouseService->findById($id);
 
-        if (!$warehouse) {
+        if (! $warehouse) {
             return response()->json(['message' => 'Warehouse not found'], 404);
         }
 
@@ -60,7 +60,7 @@ class WarehouseController extends Controller
     {
         $deleted = $this->warehouseService->delete($id);
 
-        if (!$deleted) {
+        if (! $deleted) {
             return response()->json(['message' => 'Warehouse not found'], 404);
         }
 
@@ -71,7 +71,7 @@ class WarehouseController extends Controller
     {
         $warehouse = $this->warehouseService->findById($id);
 
-        if (!$warehouse) {
+        if (! $warehouse) {
             return response()->json(['message' => 'Warehouse not found'], 404);
         }
 
