@@ -63,6 +63,44 @@ See [NATIVE_FEATURES.md](../NATIVE_FEATURES.md) for complete details:
 - Use **TypeScript** for type safety (optional but recommended)
 - Follow **Vue 3 Style Guide** and best practices
 
+## Boundaries and Exclusions
+
+### ⛔ Never Modify These Directories/Files
+- **`vendor/`** - Composer dependencies (auto-managed)
+- **`node_modules/`** - NPM dependencies (auto-managed)
+- **`storage/`** - Runtime storage (logs, cache, uploads)
+- **`bootstrap/cache/`** - Bootstrap cache files
+- **`.env`** - Environment configuration (NEVER commit)
+- **`.env.example`** - Can be updated for new config keys only
+
+### 🔒 Protected Files (Modify with Extreme Care)
+- **`composer.json`** - Only add dependencies after security review
+- **`package.json`** - Only add dependencies after security review
+- **`config/*.php`** - Configuration files (requires review)
+- **`docker-compose.yml`** - Infrastructure (requires review)
+- **`phpunit.xml`** - Test configuration (requires review)
+
+### 🚫 Security Rules
+- **NEVER** hardcode credentials, API keys, or secrets
+- **NEVER** commit files containing sensitive data
+- **NEVER** disable security features (CSRF, XSS protection)
+- **NEVER** bypass authentication or authorization checks
+- **ALWAYS** validate and sanitize user input
+- **ALWAYS** use parameterized queries (never raw SQL with concatenation)
+- **ALWAYS** use HTTPS in production
+- **ALWAYS** follow the principle of least privilege
+
+### 📝 What You CAN Modify
+- **`Modules/`** - All module code (following architectural patterns)
+- **`app/`** - Application core code
+- **`routes/`** - Route definitions
+- **`resources/`** - Frontend assets and views
+- **`tests/`** - Test suites
+- **`database/migrations/`** - Database schema (create new migrations only)
+- **`database/seeders/`** - Database seeders
+- **`database/factories/`** - Model factories
+- Documentation files (`.md`)
+
 ## Build, Test & Validation Commands
 
 **IMPORTANT**: Always run these commands to validate your changes before finalizing a pull request.

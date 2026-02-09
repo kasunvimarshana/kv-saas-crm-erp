@@ -1,3 +1,7 @@
+---
+applyTo: "**/Http/Requests/**/*.php"
+---
+
 # Form Request Validation Requirements
 
 When creating Form Request classes for validation, follow these guidelines to ensure data integrity and proper error handling.

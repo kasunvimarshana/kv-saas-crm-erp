@@ -1,3 +1,7 @@
+---
+applyTo: "**/Repositories/**/*.php"
+---
+
 # Repository Pattern Requirements
 
 When implementing the Repository Pattern, follow these guidelines to maintain clean architecture and testability.

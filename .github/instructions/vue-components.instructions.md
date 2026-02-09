@@ -1,3 +1,7 @@
+---
+applyTo: "**/*.vue"
+---
+
 # Vue.js 3 Component Development Requirements
 
 When developing Vue.js 3 components, follow these guidelines to ensure consistency, maintainability, and adherence to native Vue features.
