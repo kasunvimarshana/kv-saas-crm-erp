@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Builder;
 use Modules\Core\Traits\HasUuid;
 
 /**
@@ -54,7 +54,7 @@ class Role extends Model
     public function givePermission(string $permission): self
     {
         $permissions = $this->permissions ?? [];
-        
+
         if (! in_array($permission, $permissions)) {
             $permissions[] = $permission;
             $this->permissions = $permissions;
@@ -67,12 +67,12 @@ class Role extends Model
     public function revokePermission(string $permission): self
     {
         $permissions = $this->permissions ?? [];
-        
+
         $this->permissions = array_values(array_filter(
             $permissions,
-            fn($p) => $p !== $permission
+            fn ($p) => $p !== $permission
         ));
-        
+
         $this->save();
 
         return $this;

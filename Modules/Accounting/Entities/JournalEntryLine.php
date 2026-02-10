@@ -58,8 +58,6 @@ class JournalEntryLine extends Model
 
     /**
      * Get the journal entry.
-     *
-     * @return BelongsTo
      */
     public function journalEntry(): BelongsTo
     {
@@ -68,8 +66,6 @@ class JournalEntryLine extends Model
 
     /**
      * Get the account.
-     *
-     * @return BelongsTo
      */
     public function account(): BelongsTo
     {
@@ -78,8 +74,6 @@ class JournalEntryLine extends Model
 
     /**
      * Check if line is a debit.
-     *
-     * @return bool
      */
     public function isDebit(): bool
     {
@@ -88,8 +82,6 @@ class JournalEntryLine extends Model
 
     /**
      * Check if line is a credit.
-     *
-     * @return bool
      */
     public function isCredit(): bool
     {
@@ -98,8 +90,6 @@ class JournalEntryLine extends Model
 
     /**
      * Get the line amount (debit or credit).
-     *
-     * @return float
      */
     public function getAmount(): float
     {
@@ -108,8 +98,6 @@ class JournalEntryLine extends Model
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return JournalEntryLineFactory
      */
     protected static function newFactory(): JournalEntryLineFactory
     {

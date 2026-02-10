@@ -18,8 +18,6 @@ class PaymentRepository extends BaseRepository implements PaymentRepositoryInter
 {
     /**
      * PaymentRepository constructor.
-     *
-     * @param Payment $model
      */
     public function __construct(Payment $model)
     {

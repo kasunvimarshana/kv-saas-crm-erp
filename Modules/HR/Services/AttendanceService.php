@@ -112,11 +112,11 @@ class AttendanceService extends BaseService
 
             $attendance = $this->attendanceRepository->getByEmployeeAndDate($employeeId, $date);
 
-            if (!$attendance) {
+            if (! $attendance) {
                 throw new \RuntimeException('No check-in record found for today.');
             }
 
-            if (!$attendance->check_in) {
+            if (! $attendance->check_in) {
                 throw new \RuntimeException('Cannot check-out without check-in.');
             }
 
@@ -156,7 +156,7 @@ class AttendanceService extends BaseService
     public function calculateTotalWorkHours(int $employeeId, string $startDate, string $endDate): float
     {
         $attendances = $this->attendanceRepository->getByEmployee($employeeId, $startDate, $endDate);
-        
+
         return $attendances->sum('work_hours') ?? 0.0;
     }
 

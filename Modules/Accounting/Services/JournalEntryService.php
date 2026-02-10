@@ -25,11 +25,6 @@ class JournalEntryService extends BaseService
 {
     /**
      * JournalEntryService constructor.
-     *
-     * @param JournalEntryRepositoryInterface $journalEntryRepository
-     * @param JournalEntryLineRepositoryInterface $lineRepository
-     * @param AccountRepositoryInterface $accountRepository
-     * @param FiscalPeriodRepositoryInterface $fiscalPeriodRepository
      */
     public function __construct(
         protected JournalEntryRepositoryInterface $journalEntryRepository,
@@ -40,9 +35,6 @@ class JournalEntryService extends BaseService
 
     /**
      * Get paginated journal entries.
-     *
-     * @param int $perPage
-     * @return LengthAwarePaginator
      */
     public function getPaginated(int $perPage = 15): LengthAwarePaginator
     {
@@ -52,8 +44,6 @@ class JournalEntryService extends BaseService
     /**
      * Create a new journal entry with lines.
      *
-     * @param array $data
-     * @return JournalEntry
      * @throws \Exception
      */
     public function create(array $data): JournalEntry
@@ -62,13 +52,13 @@ class JournalEntryService extends BaseService
             // Validate fiscal period
             if (empty($data['fiscal_period_id'])) {
                 $period = $this->fiscalPeriodRepository->getCurrentPeriod();
-                if (!$period) {
+                if (! $period) {
                     throw new \Exception('No active fiscal period found');
                 }
                 $data['fiscal_period_id'] = $period->id;
             } else {
                 $period = $this->fiscalPeriodRepository->findById($data['fiscal_period_id']);
-                if (!$period || !$period->canAcceptEntries()) {
+                if (! $period || ! $period->canAcceptEntries()) {
                     throw new \Exception('Fiscal period is closed or invalid');
                 }
             }
@@ -88,7 +78,7 @@ class JournalEntryService extends BaseService
             $entry = $this->journalEntryRepository->create($data);
 
             // Create journal entry lines if provided
-            if (!empty($data['lines'])) {
+            if (! empty($data['lines'])) {
                 foreach ($data['lines'] as $lineData) {
                     $lineData['journal_entry_id'] = $entry->id;
                     $this->lineRepository->create($lineData);
@@ -110,9 +100,6 @@ class JournalEntryService extends BaseService
     /**
      * Update an existing journal entry.
      *
-     * @param int $id
-     * @param array $data
-     * @return JournalEntry
      * @throws \Exception
      */
     public function update(int $id, array $data): JournalEntry
@@ -120,7 +107,7 @@ class JournalEntryService extends BaseService
         return $this->executeInTransaction(function () use ($id, $data) {
             $entry = $this->journalEntryRepository->findById($id);
 
-            if (!$entry) {
+            if (! $entry) {
                 throw new \Exception('Journal entry not found');
             }
 
@@ -159,15 +146,13 @@ class JournalEntryService extends BaseService
     /**
      * Delete a journal entry.
      *
-     * @param int $id
-     * @return bool
      * @throws \Exception
      */
     public function delete(int $id): bool
     {
         $entry = $this->journalEntryRepository->findById($id);
 
-        if (!$entry) {
+        if (! $entry) {
             throw new \Exception('Journal entry not found');
         }
 
@@ -194,8 +179,6 @@ class JournalEntryService extends BaseService
     /**
      * Post a journal entry.
      *
-     * @param int $id
-     * @return JournalEntry
      * @throws \Exception
      */
     public function post(int $id): JournalEntry
@@ -203,7 +186,7 @@ class JournalEntryService extends BaseService
         return $this->executeInTransaction(function () use ($id) {
             $entry = $this->journalEntryRepository->findById($id);
 
-            if (!$entry) {
+            if (! $entry) {
                 throw new \Exception('Journal entry not found');
             }
 
@@ -212,13 +195,13 @@ class JournalEntryService extends BaseService
             }
 
             // Validate balance
-            if (!$this->validateBalance($entry)) {
+            if (! $this->validateBalance($entry)) {
                 throw new \Exception('Journal entry is not balanced');
             }
 
             // Check fiscal period
             $period = $entry->fiscalPeriod;
-            if (!$period || !$period->canAcceptEntries()) {
+            if (! $period || ! $period->canAcceptEntries()) {
                 throw new \Exception('Fiscal period is closed');
             }
 
@@ -252,9 +235,6 @@ class JournalEntryService extends BaseService
     /**
      * Reverse a journal entry.
      *
-     * @param int $id
-     * @param array $data
-     * @return JournalEntry
      * @throws \Exception
      */
     public function reverse(int $id, array $data = []): JournalEntry
@@ -262,19 +242,19 @@ class JournalEntryService extends BaseService
         return $this->executeInTransaction(function () use ($id, $data) {
             $originalEntry = $this->journalEntryRepository->findById($id);
 
-            if (!$originalEntry) {
+            if (! $originalEntry) {
                 throw new \Exception('Journal entry not found');
             }
 
-            if (!$originalEntry->isPosted()) {
+            if (! $originalEntry->isPosted()) {
                 throw new \Exception('Can only reverse posted journal entries');
             }
 
             // Create reversal entry
             $reversalData = [
                 'entry_date' => $data['entry_date'] ?? now(),
-                'reference' => $data['reference'] ?? 'Reversal of ' . $originalEntry->entry_number,
-                'description' => $data['description'] ?? 'Reversal: ' . $originalEntry->description,
+                'reference' => $data['reference'] ?? 'Reversal of '.$originalEntry->entry_number,
+                'description' => $data['description'] ?? 'Reversal: '.$originalEntry->description,
                 'fiscal_period_id' => $originalEntry->fiscal_period_id,
                 'currency' => $originalEntry->currency,
                 'lines' => [],
@@ -311,21 +291,16 @@ class JournalEntryService extends BaseService
 
     /**
      * Validate if journal entry is balanced.
-     *
-     * @param JournalEntry $entry
-     * @return bool
      */
     public function validateBalance(JournalEntry $entry): bool
     {
         $entry->calculateTotals();
+
         return $entry->isBalanced();
     }
 
     /**
      * Find journal entry by ID.
-     *
-     * @param int $id
-     * @return JournalEntry|null
      */
     public function findById(int $id): ?JournalEntry
     {
@@ -334,9 +309,6 @@ class JournalEntryService extends BaseService
 
     /**
      * Get entries by status.
-     *
-     * @param string $status
-     * @return Collection
      */
     public function getByStatus(string $status): Collection
     {
@@ -345,8 +317,6 @@ class JournalEntryService extends BaseService
 
     /**
      * Generate a unique entry number.
-     *
-     * @return string
      */
     protected function generateEntryNumber(): string
     {

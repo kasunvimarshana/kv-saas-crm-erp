@@ -58,8 +58,6 @@ trait Tenantable
 
     /**
      * Get the current tenant ID from session or auth user.
-     *
-     * @return int|string|null
      */
     protected static function getCurrentTenantId(): int|string|null
     {

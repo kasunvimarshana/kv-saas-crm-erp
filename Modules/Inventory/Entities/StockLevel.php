@@ -60,8 +60,6 @@ class StockLevel extends Model
 
     /**
      * Get the product.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product(): BelongsTo
     {
@@ -70,8 +68,6 @@ class StockLevel extends Model
 
     /**
      * Get the warehouse.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function warehouse(): BelongsTo
     {
@@ -80,8 +76,6 @@ class StockLevel extends Model
 
     /**
      * Get the stock location.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function stockLocation(): BelongsTo
     {
@@ -111,7 +105,7 @@ class StockLevel extends Model
      */
     public function reserve(float $quantity): bool
     {
-        if (!$this->hasAvailableStock($quantity)) {
+        if (! $this->hasAvailableStock($quantity)) {
             return false;
         }
 
@@ -136,11 +130,11 @@ class StockLevel extends Model
     public function addQuantity(float $quantity, ?float $unitCost = null): void
     {
         $this->quantity_on_hand += $quantity;
-        
+
         if ($unitCost !== null) {
             $this->unit_cost = $unitCost;
         }
-        
+
         $this->last_movement_date = now();
         $this->updateAvailableQuantity();
     }

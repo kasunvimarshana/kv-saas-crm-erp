@@ -18,8 +18,6 @@ class FiscalPeriodRepository extends BaseRepository implements FiscalPeriodRepos
 {
     /**
      * FiscalPeriodRepository constructor.
-     *
-     * @param FiscalPeriod $model
      */
     public function __construct(FiscalPeriod $model)
     {

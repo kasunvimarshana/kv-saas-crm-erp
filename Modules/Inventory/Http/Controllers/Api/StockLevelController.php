@@ -29,16 +29,19 @@ class StockLevelController extends Controller
 
         if ($productId && $warehouseId) {
             $quantity = $this->inventoryService->getAvailableQuantity($productId, $warehouseId);
+
             return response()->json(['available_quantity' => $quantity]);
         }
 
         if ($productId) {
             $stockLevels = $this->inventoryService->getStockLevels($productId);
+
             return StockLevelResource::collection($stockLevels)->response();
         }
 
         if ($warehouseId) {
             $stockLevels = $this->inventoryService->getWarehouseStock($warehouseId);
+
             return StockLevelResource::collection($stockLevels)->response();
         }
 

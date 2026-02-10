@@ -18,8 +18,6 @@ class InvoiceRepository extends BaseRepository implements InvoiceRepositoryInter
 {
     /**
      * InvoiceRepository constructor.
-     *
-     * @param Invoice $model
      */
     public function __construct(Invoice $model)
     {

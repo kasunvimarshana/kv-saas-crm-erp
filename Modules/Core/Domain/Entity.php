@@ -6,7 +6,7 @@ namespace Modules\Core\Domain;
 
 /**
  * Base Entity Class
- * 
+ *
  * All domain entities should extend this class
  * Entities have identity and lifecycle
  */
@@ -19,8 +19,6 @@ abstract class Entity
 
     /**
      * Get the entity's identifier
-     *
-     * @return string|int|null
      */
     public function getId(): string|int|null
     {
@@ -29,8 +27,6 @@ abstract class Entity
 
     /**
      * Check if entity has an ID
-     *
-     * @return bool
      */
     public function hasId(): bool
     {
@@ -39,13 +35,10 @@ abstract class Entity
 
     /**
      * Check if two entities are the same
-     *
-     * @param Entity $other
-     * @return bool
      */
     public function equals(Entity $other): bool
     {
-        if (!($other instanceof static)) {
+        if (! ($other instanceof static)) {
             return false;
         }
 

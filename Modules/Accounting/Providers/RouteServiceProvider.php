@@ -23,8 +23,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Called before routes are registered.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -33,8 +31,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the routes for the module.
-     *
-     * @return void
      */
     public function map(): void
     {
@@ -43,8 +39,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the "api" routes for the module.
-     *
-     * @return void
      */
     protected function mapApiRoutes(): void
     {

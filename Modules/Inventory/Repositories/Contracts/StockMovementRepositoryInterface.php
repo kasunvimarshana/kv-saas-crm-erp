@@ -6,7 +6,6 @@ namespace Modules\Inventory\Repositories\Contracts;
 
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Core\Repositories\Contracts\BaseRepositoryInterface;
-use Modules\Inventory\Entities\StockMovement;
 
 /**
  * Stock Movement Repository Interface

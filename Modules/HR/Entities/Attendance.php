@@ -89,6 +89,7 @@ class Attendance extends Model
     {
         if ($this->check_in && $this->check_out) {
             $hours = $this->check_in->diffInMinutes($this->check_out) / 60;
+
             return round($hours, 2);
         }
 

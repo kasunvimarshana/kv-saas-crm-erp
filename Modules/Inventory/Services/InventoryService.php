@@ -6,7 +6,6 @@ namespace Modules\Inventory\Services;
 
 use Illuminate\Support\Facades\DB;
 use Modules\Core\Services\BaseService;
-use Modules\Inventory\Entities\StockLevel;
 use Modules\Inventory\Events\LowStockAlert;
 use Modules\Inventory\Events\StockLevelChanged;
 use Modules\Inventory\Repositories\Contracts\ProductRepositoryInterface;
@@ -75,7 +74,7 @@ class InventoryService extends BaseService
                 ? $this->stockLevelRepository->getByProductAndLocation($productId, $locationId)
                 : $this->stockLevelRepository->getByProductAndWarehouse($productId, $warehouseId);
 
-            if (!$stockLevel || !$stockLevel->reserve($quantity)) {
+            if (! $stockLevel || ! $stockLevel->reserve($quantity)) {
                 return false;
             }
 

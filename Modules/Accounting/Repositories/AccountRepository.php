@@ -18,8 +18,6 @@ class AccountRepository extends BaseRepository implements AccountRepositoryInter
 {
     /**
      * AccountRepository constructor.
-     *
-     * @param Account $model
      */
     public function __construct(Account $model)
     {

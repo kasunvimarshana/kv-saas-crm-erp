@@ -120,7 +120,7 @@ class EmployeeService extends BaseService
     {
         return $this->executeInTransaction(function () use ($id, $data) {
             $terminationDate = $data['termination_date'] ?? Carbon::now()->toDateString();
-            
+
             $employee = $this->employeeRepository->update($id, [
                 'status' => 'terminated',
                 'termination_date' => $terminationDate,

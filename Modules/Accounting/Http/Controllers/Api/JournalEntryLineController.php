@@ -22,12 +22,14 @@ class JournalEntryLineController extends Controller
     {
         $perPage = $request->input('per_page', 15);
         $lines = $this->lineRepository->paginate($perPage);
+
         return JournalEntryLineResource::collection($lines)->response();
     }
 
     public function store(StoreJournalEntryLineRequest $request): JsonResponse
     {
         $line = $this->lineRepository->create($request->validated());
+
         return (new JournalEntryLineResource($line))->response()->setStatusCode(201);
     }
 
@@ -37,24 +39,28 @@ class JournalEntryLineController extends Controller
         if (! $line) {
             return response()->json(['message' => 'Line not found'], 404);
         }
+
         return (new JournalEntryLineResource($line))->response();
     }
 
     public function update(UpdateJournalEntryLineRequest $request, int $id): JsonResponse
     {
         $line = $this->lineRepository->update($id, $request->validated());
+
         return (new JournalEntryLineResource($line))->response();
     }
 
     public function destroy(int $id): JsonResponse
     {
         $this->lineRepository->delete($id);
+
         return response()->json(null, 204);
     }
 
     public function byEntry(int $entryId): JsonResponse
     {
         $lines = $this->lineRepository->getByJournalEntry($entryId);
+
         return JournalEntryLineResource::collection($lines)->response();
     }
 }

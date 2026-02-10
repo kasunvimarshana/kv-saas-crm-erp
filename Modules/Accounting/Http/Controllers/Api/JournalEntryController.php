@@ -22,6 +22,7 @@ class JournalEntryController extends Controller
     {
         $perPage = $request->input('per_page', 15);
         $entries = $this->journalEntryService->getPaginated($perPage);
+
         return JournalEntryResource::collection($entries)->response();
     }
 
@@ -29,6 +30,7 @@ class JournalEntryController extends Controller
     {
         try {
             $entry = $this->journalEntryService->create($request->validated());
+
             return (new JournalEntryResource($entry->load('lines.account')))->response()->setStatusCode(201);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -41,6 +43,7 @@ class JournalEntryController extends Controller
         if (! $entry) {
             return response()->json(['message' => 'Journal entry not found'], 404);
         }
+
         return (new JournalEntryResource($entry->load('lines.account')))->response();
     }
 
@@ -48,6 +51,7 @@ class JournalEntryController extends Controller
     {
         try {
             $entry = $this->journalEntryService->update($id, $request->validated());
+
             return (new JournalEntryResource($entry->load('lines.account')))->response();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -58,6 +62,7 @@ class JournalEntryController extends Controller
     {
         try {
             $this->journalEntryService->delete($id);
+
             return response()->json(null, 204);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -68,6 +73,7 @@ class JournalEntryController extends Controller
     {
         try {
             $entry = $this->journalEntryService->post($id);
+
             return (new JournalEntryResource($entry))->response();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -78,6 +84,7 @@ class JournalEntryController extends Controller
     {
         try {
             $entry = $this->journalEntryService->reverse($id, $request->all());
+
             return (new JournalEntryResource($entry))->response();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -91,6 +98,7 @@ class JournalEntryController extends Controller
             return response()->json(['message' => 'Journal entry not found'], 404);
         }
         $isBalanced = $this->journalEntryService->validateBalance($entry);
+
         return response()->json(['is_balanced' => $isBalanced]);
     }
 }

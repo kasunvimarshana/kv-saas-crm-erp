@@ -18,10 +18,10 @@ class PayrollFactory extends Factory
         $deductions = $this->faker->randomFloat(2, 0, 1000);
         $grossSalary = $basicSalary + $allowances;
         $netSalary = $grossSalary - $deductions;
-        
+
         return [
             'tenant_id' => 1,
-            'payroll_number' => 'PAY-' . $year . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . $this->faker->unique()->numberBetween(100000, 999999),
+            'payroll_number' => 'PAY-'.$year.str_pad($month, 2, '0', STR_PAD_LEFT).'-'.$this->faker->unique()->numberBetween(100000, 999999),
             'month' => $month,
             'year' => $year,
             'basic_salary' => $basicSalary,

@@ -7,12 +7,12 @@ namespace Modules\IAM\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Modules\IAM\Http\Requests\AssignPermissionsRequest;
 use Modules\IAM\Http\Requests\CreatePermissionRequest;
 use Modules\IAM\Http\Requests\UpdatePermissionRequest;
-use Modules\IAM\Http\Requests\AssignPermissionsRequest;
 use Modules\IAM\Http\Resources\PermissionResource;
-use Modules\IAM\Services\PermissionService;
 use Modules\IAM\Repositories\Contracts\PermissionRepositoryInterface;
+use Modules\IAM\Services\PermissionService;
 
 /**
  * Permission Controller
@@ -45,7 +45,7 @@ class PermissionController extends Controller
     {
         try {
             $permission = $this->permissionService->createPermission($request->validated());
-            
+
             return response()->json(
                 new PermissionResource($permission),
                 201
@@ -53,7 +53,7 @@ class PermissionController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to create permission',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -65,9 +65,9 @@ class PermissionController extends Controller
     {
         $permission = $this->permissionRepository->findById($id);
 
-        if (!$permission) {
+        if (! $permission) {
             return response()->json([
-                'message' => 'Permission not found'
+                'message' => 'Permission not found',
             ], 404);
         }
 
@@ -81,12 +81,12 @@ class PermissionController extends Controller
     {
         try {
             $permission = $this->permissionService->updatePermission($id, $request->validated());
-            
+
             return response()->json(new PermissionResource($permission));
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to update permission',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -98,12 +98,12 @@ class PermissionController extends Controller
     {
         try {
             $this->permissionService->deletePermission($id);
-            
+
             return response()->noContent();
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to delete permission',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -120,12 +120,12 @@ class PermissionController extends Controller
             );
 
             return response()->json([
-                'message' => 'Permissions assigned successfully'
+                'message' => 'Permissions assigned successfully',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to assign permissions',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -143,12 +143,12 @@ class PermissionController extends Controller
             );
 
             return response()->json([
-                'message' => 'Permissions assigned successfully'
+                'message' => 'Permissions assigned successfully',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to assign permissions',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -159,7 +159,7 @@ class PermissionController extends Controller
     public function active(): JsonResponse
     {
         $permissions = $this->permissionRepository->findActive();
-        
+
         return response()->json(PermissionResource::collection($permissions));
     }
 
@@ -169,7 +169,7 @@ class PermissionController extends Controller
     public function byModule(string $module): JsonResponse
     {
         $permissions = $this->permissionRepository->findByModule($module);
-        
+
         return response()->json(PermissionResource::collection($permissions));
     }
 
@@ -180,7 +180,7 @@ class PermissionController extends Controller
     {
         $query = $request->input('q', '');
         $permissions = $this->permissionRepository->search($query);
-        
+
         return response()->json(PermissionResource::collection($permissions));
     }
 
@@ -202,12 +202,12 @@ class PermissionController extends Controller
 
             return response()->json([
                 'message' => 'CRUD permissions generated successfully',
-                'data' => PermissionResource::collection($permissions)
+                'data' => PermissionResource::collection($permissions),
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to generate permissions',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }

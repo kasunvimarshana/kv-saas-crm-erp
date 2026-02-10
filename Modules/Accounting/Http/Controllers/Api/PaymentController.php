@@ -22,6 +22,7 @@ class PaymentController extends Controller
     {
         $perPage = $request->input('per_page', 15);
         $payments = $this->paymentService->getPaginated($perPage);
+
         return PaymentResource::collection($payments)->response();
     }
 
@@ -29,6 +30,7 @@ class PaymentController extends Controller
     {
         try {
             $payment = $this->paymentService->create($request->validated());
+
             return (new PaymentResource($payment))->response()->setStatusCode(201);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -41,6 +43,7 @@ class PaymentController extends Controller
         if (! $payment) {
             return response()->json(['message' => 'Payment not found'], 404);
         }
+
         return (new PaymentResource($payment))->response();
     }
 
@@ -48,6 +51,7 @@ class PaymentController extends Controller
     {
         try {
             $payment = $this->paymentService->update($id, $request->validated());
+
             return (new PaymentResource($payment))->response();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -58,6 +62,7 @@ class PaymentController extends Controller
     {
         try {
             $this->paymentService->delete($id);
+
             return response()->json(null, 204);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -70,6 +75,7 @@ class PaymentController extends Controller
             $invoiceId = $request->input('invoice_id');
             $amount = $request->input('amount');
             $payment = $this->paymentService->applyToInvoice($id, $invoiceId, $amount);
+
             return (new PaymentResource($payment))->response();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -80,6 +86,7 @@ class PaymentController extends Controller
     {
         try {
             $payment = $this->paymentService->process($id);
+
             return (new PaymentResource($payment))->response();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);

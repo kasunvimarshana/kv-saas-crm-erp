@@ -19,8 +19,6 @@ class AccountService extends BaseService
 {
     /**
      * AccountService constructor.
-     *
-     * @param AccountRepositoryInterface $accountRepository
      */
     public function __construct(
         protected AccountRepositoryInterface $accountRepository
@@ -28,9 +26,6 @@ class AccountService extends BaseService
 
     /**
      * Get paginated accounts.
-     *
-     * @param int $perPage
-     * @return LengthAwarePaginator
      */
     public function getPaginated(int $perPage = 15): LengthAwarePaginator
     {
@@ -39,9 +34,6 @@ class AccountService extends BaseService
 
     /**
      * Create a new account.
-     *
-     * @param array $data
-     * @return Account
      */
     public function create(array $data): Account
     {
@@ -69,10 +61,6 @@ class AccountService extends BaseService
 
     /**
      * Update an existing account.
-     *
-     * @param int $id
-     * @param array $data
-     * @return Account
      */
     public function update(int $id, array $data): Account
     {
@@ -90,15 +78,13 @@ class AccountService extends BaseService
     /**
      * Delete an account.
      *
-     * @param int $id
-     * @return bool
      * @throws \Exception
      */
     public function delete(int $id): bool
     {
         $account = $this->accountRepository->findById($id);
 
-        if (!$account) {
+        if (! $account) {
             throw new \Exception('Account not found');
         }
 
@@ -127,9 +113,6 @@ class AccountService extends BaseService
 
     /**
      * Find account by ID.
-     *
-     * @param int $id
-     * @return Account|null
      */
     public function findById(int $id): ?Account
     {
@@ -138,9 +121,6 @@ class AccountService extends BaseService
 
     /**
      * Find account by account number.
-     *
-     * @param string $accountNumber
-     * @return Account|null
      */
     public function findByAccountNumber(string $accountNumber): ?Account
     {
@@ -149,9 +129,6 @@ class AccountService extends BaseService
 
     /**
      * Get accounts by type.
-     *
-     * @param string $type
-     * @return Collection
      */
     public function getByType(string $type): Collection
     {
@@ -160,8 +137,6 @@ class AccountService extends BaseService
 
     /**
      * Get active accounts.
-     *
-     * @return Collection
      */
     public function getActiveAccounts(): Collection
     {
@@ -170,8 +145,6 @@ class AccountService extends BaseService
 
     /**
      * Get chart of accounts.
-     *
-     * @return Collection
      */
     public function getChartOfAccounts(): Collection
     {
@@ -180,9 +153,6 @@ class AccountService extends BaseService
 
     /**
      * Search accounts.
-     *
-     * @param string $query
-     * @return Collection
      */
     public function search(string $query): Collection
     {
@@ -191,11 +161,6 @@ class AccountService extends BaseService
 
     /**
      * Update account balance.
-     *
-     * @param int $accountId
-     * @param float $amount
-     * @param bool $isDebit
-     * @return void
      */
     public function updateBalance(int $accountId, float $amount, bool $isDebit): void
     {
@@ -207,9 +172,6 @@ class AccountService extends BaseService
 
     /**
      * Generate a unique account number.
-     *
-     * @param string $type
-     * @return string
      */
     protected function generateAccountNumber(string $type): string
     {
@@ -238,6 +200,6 @@ class AccountService extends BaseService
             $sequence = 1000;
         }
 
-        return $prefix . str_pad((string) $sequence, 4, '0', STR_PAD_LEFT);
+        return $prefix.str_pad((string) $sequence, 4, '0', STR_PAD_LEFT);
     }
 }

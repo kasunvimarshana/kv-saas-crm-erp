@@ -19,8 +19,6 @@ class JournalEntryPosted
 
     /**
      * Create a new event instance.
-     *
-     * @param JournalEntry $journalEntry
      */
     public function __construct(
         public JournalEntry $journalEntry

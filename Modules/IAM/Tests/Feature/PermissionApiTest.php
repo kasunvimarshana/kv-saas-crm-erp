@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\IAM\Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\IAM\Entities\Permission;
+use Tests\TestCase;
 
 class PermissionApiTest extends TestCase
 {
@@ -46,8 +46,8 @@ class PermissionApiTest extends TestCase
                         'module',
                         'resource',
                         'action',
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -131,7 +131,7 @@ class PermissionApiTest extends TestCase
             ->getJson('/api/v1/iam/permissions/active');
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(1, $data);
     }
@@ -145,7 +145,7 @@ class PermissionApiTest extends TestCase
             ->getJson('/api/v1/iam/permissions/search?q=Customer');
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(1, $data);
         $this->assertEquals('Customer View', $data[0]['name']);

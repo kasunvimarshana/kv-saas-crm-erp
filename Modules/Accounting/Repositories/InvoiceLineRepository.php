@@ -18,8 +18,6 @@ class InvoiceLineRepository extends BaseRepository implements InvoiceLineReposit
 {
     /**
      * InvoiceLineRepository constructor.
-     *
-     * @param InvoiceLine $model
      */
     public function __construct(InvoiceLine $model)
     {

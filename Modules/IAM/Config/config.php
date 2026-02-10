@@ -2,7 +2,7 @@
 
 return [
     'name' => 'IAM',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Default Permissions
@@ -18,14 +18,14 @@ return [
         'delete-permission' => 'Delete permissions',
         'view-permission' => 'View permissions',
         'assign-permissions' => 'Assign permissions to roles and users',
-        
+
         // Role management
         'create-role' => 'Create roles',
         'update-role' => 'Update roles',
         'delete-role' => 'Delete roles',
         'view-role' => 'View roles',
         'assign-roles' => 'Assign roles to users',
-        
+
         // Group management
         'create-group' => 'Create groups',
         'update-group' => 'Update groups',

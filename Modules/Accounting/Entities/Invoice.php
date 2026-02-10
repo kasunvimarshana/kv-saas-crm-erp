@@ -78,16 +78,19 @@ class Invoice extends Model
      * Status constants.
      */
     public const STATUS_DRAFT = 'draft';
+
     public const STATUS_SENT = 'sent';
+
     public const STATUS_PARTIALLY_PAID = 'partially_paid';
+
     public const STATUS_PAID = 'paid';
+
     public const STATUS_OVERDUE = 'overdue';
+
     public const STATUS_CANCELLED = 'cancelled';
 
     /**
      * Get invoice lines.
-     *
-     * @return HasMany
      */
     public function lines(): HasMany
     {
@@ -96,8 +99,6 @@ class Invoice extends Model
 
     /**
      * Get payments for this invoice.
-     *
-     * @return HasMany
      */
     public function payments(): HasMany
     {
@@ -106,8 +107,6 @@ class Invoice extends Model
 
     /**
      * Get the customer.
-     *
-     * @return BelongsTo
      */
     public function customer(): BelongsTo
     {
@@ -116,8 +115,6 @@ class Invoice extends Model
 
     /**
      * Get the journal entry.
-     *
-     * @return BelongsTo
      */
     public function journalEntry(): BelongsTo
     {
@@ -126,8 +123,6 @@ class Invoice extends Model
 
     /**
      * Check if invoice is paid.
-     *
-     * @return bool
      */
     public function isPaid(): bool
     {
@@ -136,8 +131,6 @@ class Invoice extends Model
 
     /**
      * Check if invoice is overdue.
-     *
-     * @return bool
      */
     public function isOverdue(): bool
     {
@@ -147,8 +140,6 @@ class Invoice extends Model
 
     /**
      * Check if invoice is draft.
-     *
-     * @return bool
      */
     public function isDraft(): bool
     {
@@ -157,12 +148,10 @@ class Invoice extends Model
 
     /**
      * Calculate days overdue.
-     *
-     * @return int
      */
     public function daysOverdue(): int
     {
-        if (!$this->isOverdue()) {
+        if (! $this->isOverdue()) {
             return 0;
         }
 
@@ -171,8 +160,6 @@ class Invoice extends Model
 
     /**
      * Calculate and update totals from lines.
-     *
-     * @return void
      */
     public function calculateTotals(): void
     {
@@ -185,9 +172,6 @@ class Invoice extends Model
 
     /**
      * Apply payment to invoice.
-     *
-     * @param float $amount
-     * @return void
      */
     public function applyPayment(float $amount): void
     {
@@ -205,8 +189,6 @@ class Invoice extends Model
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return InvoiceFactory
      */
     protected static function newFactory(): InvoiceFactory
     {

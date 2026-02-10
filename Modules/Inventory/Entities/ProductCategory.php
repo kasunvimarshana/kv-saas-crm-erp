@@ -62,8 +62,6 @@ class ProductCategory extends Model
 
     /**
      * Get the parent category.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent(): BelongsTo
     {
@@ -72,8 +70,6 @@ class ProductCategory extends Model
 
     /**
      * Get child categories.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function children(): HasMany
     {
@@ -82,8 +78,6 @@ class ProductCategory extends Model
 
     /**
      * Get products in this category.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function products(): HasMany
     {
@@ -128,7 +122,7 @@ class ProductCategory extends Model
     public function getFullPath(string $separator = ' > '): string
     {
         $ancestors = $this->ancestors();
-        $path = array_map(fn($category) => $category->name, $ancestors);
+        $path = array_map(fn ($category) => $category->name, $ancestors);
         $path[] = $this->name;
 
         return implode($separator, $path);

@@ -13,8 +13,8 @@ class AttendanceFactory extends Factory
     {
         $date = $this->faker->dateTimeBetween('-30 days', 'now');
         $checkIn = (clone $date)->setTime(8, $this->faker->numberBetween(0, 30), 0);
-        $checkOut = (clone $checkIn)->modify('+' . $this->faker->numberBetween(7, 10) . ' hours');
-        
+        $checkOut = (clone $checkIn)->modify('+'.$this->faker->numberBetween(7, 10).' hours');
+
         return [
             'tenant_id' => 1,
             'date' => $date->format('Y-m-d'),

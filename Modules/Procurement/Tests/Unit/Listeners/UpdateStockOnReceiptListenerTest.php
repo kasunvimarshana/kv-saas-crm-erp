@@ -16,7 +16,9 @@ use Tests\TestCase;
 class UpdateStockOnReceiptListenerTest extends TestCase
 {
     private $stockMovementRepository;
+
     private $stockLevelRepository;
+
     private $listener;
 
     protected function setUp(): void
@@ -166,7 +168,7 @@ class UpdateStockOnReceiptListenerTest extends TestCase
         $this->stockLevelRepository
             ->shouldReceive('update')
             ->once()
-            ->withArgs(function ($stockLevel, $data) use ($existingStockLevel, $line, $expectedAverageCost) {
+            ->withArgs(function ($stockLevel, $data) use ($existingStockLevel, $expectedAverageCost) {
                 return $stockLevel === $existingStockLevel
                     && $data['quantity'] === 150
                     && $data['available_quantity'] === 150

@@ -33,7 +33,7 @@ return new class extends Migration
             $table->json('tags')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index(['tenant_id', 'customer_id']);
             $table->index(['tenant_id', 'status']);
             $table->index(['tenant_id', 'invoice_date']);

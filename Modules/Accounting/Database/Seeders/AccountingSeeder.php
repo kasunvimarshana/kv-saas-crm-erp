@@ -17,8 +17,6 @@ class AccountingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -28,28 +26,24 @@ class AccountingSeeder extends Seeder
 
     /**
      * Seed fiscal periods.
-     *
-     * @return void
      */
     protected function seedFiscalPeriods(): void
     {
         $currentYear = date('Y');
-        
+
         FiscalPeriod::create([
             'tenant_id' => 1,
-            'name' => 'FY ' . $currentYear,
+            'name' => 'FY '.$currentYear,
             'period_type' => 'year',
             'fiscal_year' => $currentYear,
-            'start_date' => $currentYear . '-01-01',
-            'end_date' => $currentYear . '-12-31',
+            'start_date' => $currentYear.'-01-01',
+            'end_date' => $currentYear.'-12-31',
             'status' => 'open',
         ]);
     }
 
     /**
      * Seed chart of accounts.
-     *
-     * @return void
      */
     protected function seedChartOfAccounts(): void
     {
@@ -279,22 +273,22 @@ class AccountingSeeder extends Seeder
 
         // Create accounts with proper parent relationships
         $accountMap = [];
-        
+
         foreach ($accounts as $accountData) {
             $parentNumber = $accountData['parent_number'] ?? null;
             unset($accountData['parent_number']);
-            
+
             $accountData['tenant_id'] = 1;
             $accountData['currency'] = 'USD';
             $accountData['is_active'] = true;
             $accountData['is_system'] = $accountData['is_system'] ?? false;
             $accountData['allow_manual_entries'] = $accountData['allow_manual_entries'] ?? true;
             $accountData['balance'] = 0;
-            
+
             if ($parentNumber && isset($accountMap[$parentNumber])) {
                 $accountData['parent_id'] = $accountMap[$parentNumber];
             }
-            
+
             $account = Account::create($accountData);
             $accountMap[$accountData['account_number']] = $account->id;
         }

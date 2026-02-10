@@ -13,7 +13,7 @@ class EmployeeFactory extends Factory
     {
         return [
             'tenant_id' => 1,
-            'employee_number' => 'EMP-' . date('Y') . '-' . str_pad($this->faker->unique()->numberBetween(1, 999999), 6, '0', STR_PAD_LEFT),
+            'employee_number' => 'EMP-'.date('Y').'-'.str_pad($this->faker->unique()->numberBetween(1, 999999), 6, '0', STR_PAD_LEFT),
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),

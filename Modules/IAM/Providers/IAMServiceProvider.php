@@ -35,7 +35,7 @@ class IAMServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
-        
+
         // Register config
         $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'),
@@ -88,7 +88,7 @@ class IAMServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
+            module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower.'.php'),
         ], 'config');
     }
 

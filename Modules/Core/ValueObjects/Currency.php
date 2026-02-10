@@ -8,14 +8,16 @@ use Modules\Core\Exceptions\ValidationException;
 
 /**
  * Currency Value Object
- * 
+ *
  * Represents a currency with code and symbol
  * Immutable - once created, cannot be changed
  */
 final class Currency
 {
     private readonly string $code;
+
     private readonly string $symbol;
+
     private readonly int $decimals;
 
     /**
@@ -46,14 +48,15 @@ final class Currency
     /**
      * Create a new currency value object
      *
-     * @param string $code ISO 4217 currency code (e.g., USD, EUR)
+     * @param  string  $code  ISO 4217 currency code (e.g., USD, EUR)
+     *
      * @throws ValidationException
      */
     private function __construct(string $code)
     {
         $code = strtoupper($code);
-        
-        if (!isset(self::CURRENCIES[$code])) {
+
+        if (! isset(self::CURRENCIES[$code])) {
             throw ValidationException::forField(
                 'currency',
                 "Unsupported currency code: {$code}"
@@ -67,8 +70,6 @@ final class Currency
 
     /**
      * Get currency code
-     *
-     * @return string
      */
     public function getCode(): string
     {
@@ -77,8 +78,6 @@ final class Currency
 
     /**
      * Get currency symbol
-     *
-     * @return string
      */
     public function getSymbol(): string
     {
@@ -87,8 +86,6 @@ final class Currency
 
     /**
      * Get number of decimal places
-     *
-     * @return int
      */
     public function getDecimals(): int
     {
@@ -97,8 +94,6 @@ final class Currency
 
     /**
      * Get currency name
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -107,9 +102,6 @@ final class Currency
 
     /**
      * Check if currency equals another
-     *
-     * @param Currency $other
-     * @return bool
      */
     public function equals(Currency $other): bool
     {
@@ -118,8 +110,6 @@ final class Currency
 
     /**
      * String representation
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -129,19 +119,15 @@ final class Currency
     /**
      * Create from currency code
      *
-     * @param string $code
-     * @return static
      * @throws ValidationException
      */
     public static function fromCode(string $code): static
     {
-        return new static($code);
+        return new self($code);
     }
 
     /**
      * Get USD currency
-     *
-     * @return static
      */
     public static function USD(): static
     {
@@ -150,8 +136,6 @@ final class Currency
 
     /**
      * Get EUR currency
-     *
-     * @return static
      */
     public static function EUR(): static
     {
@@ -160,8 +144,6 @@ final class Currency
 
     /**
      * Get GBP currency
-     *
-     * @return static
      */
     public static function GBP(): static
     {
@@ -180,9 +162,6 @@ final class Currency
 
     /**
      * Check if currency code is supported
-     *
-     * @param string $code
-     * @return bool
      */
     public static function isSupported(string $code): bool
     {

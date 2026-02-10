@@ -15,6 +15,7 @@ use Tests\TestCase;
 class ReserveStockListenerTest extends TestCase
 {
     private $stockMovementRepository;
+
     private $listener;
 
     protected function setUp(): void

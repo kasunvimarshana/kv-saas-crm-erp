@@ -16,7 +16,9 @@ use Tests\TestCase;
 class CreateAccountingEntryListenerTest extends TestCase
 {
     private $invoiceRepository;
+
     private $invoiceLineRepository;
+
     private $listener;
 
     protected function setUp(): void

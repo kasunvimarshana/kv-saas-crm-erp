@@ -13,7 +13,7 @@ class PerformanceReviewFactory extends Factory
     {
         $startDate = $this->faker->dateTimeBetween('-1 year', '-6 months');
         $endDate = (clone $startDate)->modify('+6 months');
-        
+
         return [
             'tenant_id' => 1,
             'review_period_start' => $startDate,

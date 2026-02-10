@@ -61,6 +61,7 @@ class PermissionRepository implements PermissionRepositoryInterface
     public function update(Permission $permission, array $data): Permission
     {
         $permission->update($data);
+
         return $permission->fresh();
     }
 
@@ -123,10 +124,10 @@ class PermissionRepository implements PermissionRepositoryInterface
     public function syncToUser(int $userId, array $permissionIds, string $type = 'grant'): void
     {
         $user = app(config('auth.providers.users.model', 'App\Models\User'))->findOrFail($userId);
-        
+
         // Detach all existing permissions
         $user->permissions()->detach();
-        
+
         // Attach new permissions with type
         foreach ($permissionIds as $permissionId) {
             $user->permissions()->attach($permissionId, ['type' => $type]);

@@ -20,17 +20,17 @@ class SalesModuleSeeder extends Seeder
     public function run(): void
     {
         $this->command->info('Seeding Sales module data...');
-        
+
         $customers = Customer::factory()->count(50)->create();
         $this->command->info('Created 50 customers');
-        
+
         Lead::factory()->count(30)->create(['status' => 'active', 'stage' => 'prospect']);
         Lead::factory()->count(20)->create(['status' => 'active', 'stage' => 'qualified']);
         Lead::factory()->count(15)->create(['status' => 'active', 'stage' => 'proposal']);
         Lead::factory()->count(10)->create(['status' => 'won', 'stage' => 'customer']);
         Lead::factory()->count(5)->create(['status' => 'lost']);
         $this->command->info('Created 80 leads');
-        
+
         foreach ($customers->take(30) as $customer) {
             $orderCount = rand(1, 3);
             for ($i = 0; $i < $orderCount; $i++) {
@@ -44,7 +44,7 @@ class SalesModuleSeeder extends Seeder
                 ]);
             }
         }
-        
+
         $this->command->info('Sales module seeding completed!');
     }
 }

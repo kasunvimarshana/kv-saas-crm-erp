@@ -22,11 +22,6 @@ class InvoiceService extends BaseService
 {
     /**
      * InvoiceService constructor.
-     *
-     * @param InvoiceRepositoryInterface $invoiceRepository
-     * @param InvoiceLineRepositoryInterface $lineRepository
-     * @param AccountRepositoryInterface $accountRepository
-     * @param JournalEntryService $journalEntryService
      */
     public function __construct(
         protected InvoiceRepositoryInterface $invoiceRepository,
@@ -37,9 +32,6 @@ class InvoiceService extends BaseService
 
     /**
      * Get paginated invoices.
-     *
-     * @param int $perPage
-     * @return LengthAwarePaginator
      */
     public function getPaginated(int $perPage = 15): LengthAwarePaginator
     {
@@ -48,9 +40,6 @@ class InvoiceService extends BaseService
 
     /**
      * Create a new invoice.
-     *
-     * @param array $data
-     * @return Invoice
      */
     public function create(array $data): Invoice
     {
@@ -74,7 +63,7 @@ class InvoiceService extends BaseService
             $invoice = $this->invoiceRepository->create($data);
 
             // Create invoice lines if provided
-            if (!empty($data['lines'])) {
+            if (! empty($data['lines'])) {
                 foreach ($data['lines'] as $index => $lineData) {
                     $lineData['invoice_id'] = $invoice->id;
                     $lineData['sort_order'] = $index + 1;
@@ -99,9 +88,6 @@ class InvoiceService extends BaseService
     /**
      * Update an existing invoice.
      *
-     * @param int $id
-     * @param array $data
-     * @return Invoice
      * @throws \Exception
      */
     public function update(int $id, array $data): Invoice
@@ -109,7 +95,7 @@ class InvoiceService extends BaseService
         return $this->executeInTransaction(function () use ($id, $data) {
             $invoice = $this->invoiceRepository->findById($id);
 
-            if (!$invoice) {
+            if (! $invoice) {
                 throw new \Exception('Invoice not found');
             }
 
@@ -149,15 +135,13 @@ class InvoiceService extends BaseService
     /**
      * Delete an invoice.
      *
-     * @param int $id
-     * @return bool
      * @throws \Exception
      */
     public function delete(int $id): bool
     {
         $invoice = $this->invoiceRepository->findById($id);
 
-        if (!$invoice) {
+        if (! $invoice) {
             throw new \Exception('Invoice not found');
         }
 
@@ -184,8 +168,6 @@ class InvoiceService extends BaseService
     /**
      * Send an invoice to customer.
      *
-     * @param int $id
-     * @return Invoice
      * @throws \Exception
      */
     public function send(int $id): Invoice
@@ -193,7 +175,7 @@ class InvoiceService extends BaseService
         return $this->executeInTransaction(function () use ($id) {
             $invoice = $this->invoiceRepository->findById($id);
 
-            if (!$invoice) {
+            if (! $invoice) {
                 throw new \Exception('Invoice not found');
             }
 
@@ -222,15 +204,13 @@ class InvoiceService extends BaseService
     /**
      * Mark invoice as paid.
      *
-     * @param int $id
-     * @return Invoice
      * @throws \Exception
      */
     public function markAsPaid(int $id): Invoice
     {
         $invoice = $this->invoiceRepository->findById($id);
 
-        if (!$invoice) {
+        if (! $invoice) {
             throw new \Exception('Invoice not found');
         }
 
@@ -248,9 +228,6 @@ class InvoiceService extends BaseService
 
     /**
      * Find invoice by ID.
-     *
-     * @param int $id
-     * @return Invoice|null
      */
     public function findById(int $id): ?Invoice
     {
@@ -259,9 +236,6 @@ class InvoiceService extends BaseService
 
     /**
      * Get invoices by customer.
-     *
-     * @param int $customerId
-     * @return Collection
      */
     public function getByCustomer(int $customerId): Collection
     {
@@ -270,8 +244,6 @@ class InvoiceService extends BaseService
 
     /**
      * Get overdue invoices.
-     *
-     * @return Collection
      */
     public function getOverdueInvoices(): Collection
     {
@@ -280,8 +252,6 @@ class InvoiceService extends BaseService
 
     /**
      * Get aging report.
-     *
-     * @return Collection
      */
     public function getAgingReport(): Collection
     {
@@ -291,8 +261,6 @@ class InvoiceService extends BaseService
     /**
      * Create journal entry for invoice.
      *
-     * @param Invoice $invoice
-     * @return void
      * @throws \Exception
      */
     protected function createJournalEntry(Invoice $invoice): void
@@ -303,7 +271,7 @@ class InvoiceService extends BaseService
             ->where('sub_type', 'accounts_receivable')
             ->first();
 
-        if (!$arAccount) {
+        if (! $arAccount) {
             throw new \Exception('Accounts receivable account not found');
         }
 
@@ -312,7 +280,7 @@ class InvoiceService extends BaseService
         // Debit: Accounts Receivable
         $lines[] = [
             'account_id' => $arAccount->id,
-            'description' => 'Invoice ' . $invoice->invoice_number,
+            'description' => 'Invoice '.$invoice->invoice_number,
             'debit_amount' => $invoice->total_amount,
             'credit_amount' => 0,
             'currency' => $invoice->currency,
@@ -335,7 +303,7 @@ class InvoiceService extends BaseService
         $entryData = [
             'entry_date' => $invoice->invoice_date,
             'reference' => $invoice->invoice_number,
-            'description' => 'Customer Invoice - ' . $invoice->invoice_number,
+            'description' => 'Customer Invoice - '.$invoice->invoice_number,
             'currency' => $invoice->currency,
             'lines' => $lines,
         ];
@@ -350,8 +318,6 @@ class InvoiceService extends BaseService
 
     /**
      * Generate a unique invoice number.
-     *
-     * @return string
      */
     protected function generateInvoiceNumber(): string
     {

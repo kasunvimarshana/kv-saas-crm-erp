@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Core\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Base Module Route Service Provider

@@ -17,41 +17,26 @@ interface JournalEntryRepositoryInterface extends BaseRepositoryInterface
 {
     /**
      * Find journal entry by entry number.
-     *
-     * @param string $entryNumber
-     * @return JournalEntry|null
      */
     public function findByEntryNumber(string $entryNumber): ?JournalEntry;
 
     /**
      * Get entries by status.
-     *
-     * @param string $status
-     * @return Collection
      */
     public function getByStatus(string $status): Collection;
 
     /**
      * Get entries by fiscal period.
-     *
-     * @param int $fiscalPeriodId
-     * @return Collection
      */
     public function getByFiscalPeriod(int $fiscalPeriodId): Collection;
 
     /**
      * Get entries by date range.
-     *
-     * @param \DateTimeInterface $startDate
-     * @param \DateTimeInterface $endDate
-     * @return Collection
      */
     public function getByDateRange(\DateTimeInterface $startDate, \DateTimeInterface $endDate): Collection;
 
     /**
      * Get unbalanced entries.
-     *
-     * @return Collection
      */
     public function getUnbalancedEntries(): Collection;
 }

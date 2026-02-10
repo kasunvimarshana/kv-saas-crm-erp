@@ -38,10 +38,6 @@ trait Translatable
 
     /**
      * Get a translation for a specific attribute and locale.
-     *
-     * @param string $attribute
-     * @param string|null $locale
-     * @return string|null
      */
     public function getTranslation(string $attribute, ?string $locale = null): ?string
     {
@@ -59,7 +55,6 @@ trait Translatable
     /**
      * Get all translations for a specific attribute.
      *
-     * @param string $attribute
      * @return array<string, string>
      */
     public function getTranslations(string $attribute): array
@@ -75,11 +70,6 @@ trait Translatable
 
     /**
      * Set a translation for a specific attribute and locale.
-     *
-     * @param string $attribute
-     * @param string $locale
-     * @param string $value
-     * @return self
      */
     public function setTranslation(string $attribute, string $locale, string $value): self
     {
@@ -99,9 +89,6 @@ trait Translatable
 
     /**
      * Check if an attribute is translatable.
-     *
-     * @param string $attribute
-     * @return bool
      */
     public function isTranslatableAttribute(string $attribute): bool
     {
@@ -111,7 +98,7 @@ trait Translatable
     /**
      * Get attribute value with automatic translation.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function getAttribute($key)

@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Modules\Accounting\Tests\Unit;
 
+use Mockery;
 use Modules\Accounting\Entities\Account;
 use Modules\Accounting\Repositories\Contracts\AccountRepositoryInterface;
 use Modules\Accounting\Services\AccountService;
 use PHPUnit\Framework\TestCase;
-use Mockery;
 
 class AccountServiceTest extends TestCase
 {
     protected AccountService $accountService;
+
     protected $accountRepository;
 
     protected function setUp(): void
@@ -43,7 +44,7 @@ class AccountServiceTest extends TestCase
         $this->accountRepository
             ->shouldReceive('getModel')
             ->andReturn(Mockery::mock(['where' => Mockery::self(), 'orderBy' => Mockery::self(), 'first' => null]));
-        
+
         $this->accountRepository
             ->shouldReceive('create')
             ->once()

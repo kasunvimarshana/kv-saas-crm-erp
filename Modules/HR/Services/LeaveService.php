@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Modules\Core\Services\BaseService;
 use Modules\HR\Entities\Leave;
 use Modules\HR\Events\LeaveApproved;
+use Modules\HR\Repositories\Contracts\EmployeeRepositoryInterface;
 use Modules\HR\Repositories\Contracts\LeaveRepositoryInterface;
 use Modules\HR\Repositories\Contracts\LeaveTypeRepositoryInterface;
-use Modules\HR\Repositories\Contracts\EmployeeRepositoryInterface;
 
 /**
  * Leave Service
@@ -129,7 +129,7 @@ class LeaveService extends BaseService
         $year = $year ?? Carbon::now()->year;
         $leaveType = $this->leaveTypeRepository->find($leaveTypeId);
 
-        if (!$leaveType) {
+        if (! $leaveType) {
             throw new \RuntimeException('Leave type not found.');
         }
 

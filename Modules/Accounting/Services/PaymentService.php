@@ -22,11 +22,6 @@ class PaymentService extends BaseService
 {
     /**
      * PaymentService constructor.
-     *
-     * @param PaymentRepositoryInterface $paymentRepository
-     * @param InvoiceRepositoryInterface $invoiceRepository
-     * @param AccountRepositoryInterface $accountRepository
-     * @param JournalEntryService $journalEntryService
      */
     public function __construct(
         protected PaymentRepositoryInterface $paymentRepository,
@@ -37,9 +32,6 @@ class PaymentService extends BaseService
 
     /**
      * Get paginated payments.
-     *
-     * @param int $perPage
-     * @return LengthAwarePaginator
      */
     public function getPaginated(int $perPage = 15): LengthAwarePaginator
     {
@@ -49,8 +41,6 @@ class PaymentService extends BaseService
     /**
      * Create a new payment.
      *
-     * @param array $data
-     * @return Payment
      * @throws \Exception
      */
     public function create(array $data): Payment
@@ -66,9 +56,9 @@ class PaymentService extends BaseService
             $data['payment_date'] = $data['payment_date'] ?? now();
 
             // Validate invoice if provided
-            if (!empty($data['invoice_id'])) {
+            if (! empty($data['invoice_id'])) {
                 $invoice = $this->invoiceRepository->findById($data['invoice_id']);
-                if (!$invoice) {
+                if (! $invoice) {
                     throw new \Exception('Invoice not found');
                 }
 
@@ -98,9 +88,6 @@ class PaymentService extends BaseService
     /**
      * Update an existing payment.
      *
-     * @param int $id
-     * @param array $data
-     * @return Payment
      * @throws \Exception
      */
     public function update(int $id, array $data): Payment
@@ -108,7 +95,7 @@ class PaymentService extends BaseService
         return $this->executeInTransaction(function () use ($id, $data) {
             $payment = $this->paymentRepository->findById($id);
 
-            if (!$payment) {
+            if (! $payment) {
                 throw new \Exception('Payment not found');
             }
 
@@ -129,15 +116,13 @@ class PaymentService extends BaseService
     /**
      * Delete a payment.
      *
-     * @param int $id
-     * @return bool
      * @throws \Exception
      */
     public function delete(int $id): bool
     {
         $payment = $this->paymentRepository->findById($id);
 
-        if (!$payment) {
+        if (! $payment) {
             throw new \Exception('Payment not found');
         }
 
@@ -159,22 +144,18 @@ class PaymentService extends BaseService
     /**
      * Apply payment to invoice.
      *
-     * @param int $paymentId
-     * @param int $invoiceId
-     * @param float|null $amount
-     * @return Payment
      * @throws \Exception
      */
     public function applyToInvoice(int $paymentId, int $invoiceId, ?float $amount = null): Payment
     {
         return $this->executeInTransaction(function () use ($paymentId, $invoiceId, $amount) {
             $payment = $this->paymentRepository->findById($paymentId);
-            if (!$payment) {
+            if (! $payment) {
                 throw new \Exception('Payment not found');
             }
 
             $invoice = $this->invoiceRepository->findById($invoiceId);
-            if (!$invoice) {
+            if (! $invoice) {
                 throw new \Exception('Invoice not found');
             }
 
@@ -212,8 +193,6 @@ class PaymentService extends BaseService
     /**
      * Process payment.
      *
-     * @param int $id
-     * @return Payment
      * @throws \Exception
      */
     public function process(int $id): Payment
@@ -221,7 +200,7 @@ class PaymentService extends BaseService
         return $this->executeInTransaction(function () use ($id) {
             $payment = $this->paymentRepository->findById($id);
 
-            if (!$payment) {
+            if (! $payment) {
                 throw new \Exception('Payment not found');
             }
 
@@ -254,9 +233,6 @@ class PaymentService extends BaseService
 
     /**
      * Find payment by ID.
-     *
-     * @param int $id
-     * @return Payment|null
      */
     public function findById(int $id): ?Payment
     {
@@ -265,9 +241,6 @@ class PaymentService extends BaseService
 
     /**
      * Get payments by customer.
-     *
-     * @param int $customerId
-     * @return Collection
      */
     public function getByCustomer(int $customerId): Collection
     {
@@ -276,9 +249,6 @@ class PaymentService extends BaseService
 
     /**
      * Get payments by invoice.
-     *
-     * @param int $invoiceId
-     * @return Collection
      */
     public function getByInvoice(int $invoiceId): Collection
     {
@@ -288,8 +258,6 @@ class PaymentService extends BaseService
     /**
      * Create journal entry for payment.
      *
-     * @param Payment $payment
-     * @return void
      * @throws \Exception
      */
     protected function createJournalEntry(Payment $payment): void
@@ -299,7 +267,7 @@ class PaymentService extends BaseService
             ? $this->accountRepository->findById($payment->bank_account_id)
             : $this->accountRepository->getModel()->where('sub_type', 'cash')->first();
 
-        if (!$bankAccount) {
+        if (! $bankAccount) {
             throw new \Exception('Bank account not found');
         }
 
@@ -309,7 +277,7 @@ class PaymentService extends BaseService
             ->where('sub_type', 'accounts_receivable')
             ->first();
 
-        if (!$arAccount) {
+        if (! $arAccount) {
             throw new \Exception('Accounts receivable account not found');
         }
 
@@ -317,7 +285,7 @@ class PaymentService extends BaseService
             // Debit: Bank/Cash Account
             [
                 'account_id' => $bankAccount->id,
-                'description' => 'Payment received - ' . $payment->payment_number,
+                'description' => 'Payment received - '.$payment->payment_number,
                 'debit_amount' => $payment->amount,
                 'credit_amount' => 0,
                 'currency' => $payment->currency,
@@ -325,7 +293,7 @@ class PaymentService extends BaseService
             // Credit: Accounts Receivable
             [
                 'account_id' => $arAccount->id,
-                'description' => 'Payment received - ' . $payment->payment_number,
+                'description' => 'Payment received - '.$payment->payment_number,
                 'debit_amount' => 0,
                 'credit_amount' => $payment->amount,
                 'currency' => $payment->currency,
@@ -336,7 +304,7 @@ class PaymentService extends BaseService
         $entryData = [
             'entry_date' => $payment->payment_date,
             'reference' => $payment->payment_number,
-            'description' => 'Customer Payment - ' . $payment->payment_number,
+            'description' => 'Customer Payment - '.$payment->payment_number,
             'currency' => $payment->currency,
             'lines' => $lines,
         ];
@@ -351,8 +319,6 @@ class PaymentService extends BaseService
 
     /**
      * Generate a unique payment number.
-     *
-     * @return string
      */
     protected function generatePaymentNumber(): string
     {

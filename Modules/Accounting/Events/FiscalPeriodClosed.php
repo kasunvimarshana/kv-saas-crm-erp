@@ -19,8 +19,6 @@ class FiscalPeriodClosed
 
     /**
      * Create a new event instance.
-     *
-     * @param FiscalPeriod $fiscalPeriod
      */
     public function __construct(
         public FiscalPeriod $fiscalPeriod

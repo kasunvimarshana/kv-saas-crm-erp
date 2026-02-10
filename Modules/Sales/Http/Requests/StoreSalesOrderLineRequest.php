@@ -20,9 +20,10 @@ class StoreSalesOrderLineRequest extends FormRequest
     {
         // Creating an order line requires ability to update the parent sales order
         $salesOrder = \Modules\Sales\Entities\SalesOrder::find($this->input('sales_order_id'));
-        if (!$salesOrder) {
+        if (! $salesOrder) {
             return false;
         }
+
         return $this->user()->can('update', $salesOrder);
     }
 

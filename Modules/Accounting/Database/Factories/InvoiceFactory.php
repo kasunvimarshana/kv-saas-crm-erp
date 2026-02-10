@@ -16,10 +16,10 @@ class InvoiceFactory extends Factory
         $subtotal = $this->faker->randomFloat(2, 1000, 50000);
         $taxAmount = $subtotal * 0.1;
         $totalAmount = $subtotal + $taxAmount;
-        
+
         return [
             'tenant_id' => 1,
-            'invoice_number' => 'INV-' . $this->faker->unique()->numerify('######'),
+            'invoice_number' => 'INV-'.$this->faker->unique()->numerify('######'),
             'customer_id' => 1,
             'invoice_date' => $this->faker->date(),
             'due_date' => $this->faker->dateTimeBetween('now', '+30 days'),

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Sales\Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Sales\Entities\Lead;
-use Modules\Sales\Entities\Customer;
+use Tests\TestCase;
 
 class LeadApiTest extends TestCase
 {
@@ -49,8 +48,8 @@ class LeadApiTest extends TestCase
                         'contact_email',
                         'status',
                         'created_at',
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -167,7 +166,7 @@ class LeadApiTest extends TestCase
             ->getJson('/api/v1/sales/leads?filter[status]=qualified');
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(2, $data);
     }
@@ -181,7 +180,7 @@ class LeadApiTest extends TestCase
             ->getJson('/api/v1/sales/leads?search=John');
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(1, $data);
         $this->assertEquals('John Doe', $data[0]['contact_name']);

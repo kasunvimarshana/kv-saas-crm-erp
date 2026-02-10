@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('warehouse_id');
             $table->unsignedBigInteger('stock_location_id')->nullable();
             $table->enum('movement_type', [
-                'receipt', 'shipment', 'transfer_in', 'transfer_out', 
-                'adjustment_in', 'adjustment_out', 'return', 'consumption'
+                'receipt', 'shipment', 'transfer_in', 'transfer_out',
+                'adjustment_in', 'adjustment_out', 'return', 'consumption',
             ]);
             $table->string('movement_number', 50)->unique();
             $table->decimal('quantity', 15, 3);

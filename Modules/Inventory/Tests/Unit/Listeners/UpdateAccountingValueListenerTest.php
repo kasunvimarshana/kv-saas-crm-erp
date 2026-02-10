@@ -17,8 +17,11 @@ use Tests\TestCase;
 class UpdateAccountingValueListenerTest extends TestCase
 {
     private $journalEntryRepository;
+
     private $journalEntryLineRepository;
+
     private $accountRepository;
+
     private $listener;
 
     protected function setUp(): void

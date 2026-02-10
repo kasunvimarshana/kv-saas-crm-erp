@@ -20,9 +20,10 @@ class UpdateSalesOrderLineRequest extends FormRequest
     {
         // Updating an order line requires ability to update the parent sales order
         $salesOrderLine = $this->route('salesOrderLine') ?? $this->route('sales_order_line');
-        if (!$salesOrderLine) {
+        if (! $salesOrderLine) {
             return false;
         }
+
         return $this->user()->can('update', $salesOrderLine->salesOrder);
     }
 

@@ -14,7 +14,7 @@ class UpdatePayrollRequest extends FormRequest
     public function rules(): array
     {
         $payrollId = $this->route('payroll');
-        
+
         return [
             'employee_id' => ['sometimes', 'required', 'integer', 'exists:employees,id'],
             'payroll_number' => ['nullable', 'string', 'max:50', "unique:payrolls,payroll_number,{$payrollId}"],

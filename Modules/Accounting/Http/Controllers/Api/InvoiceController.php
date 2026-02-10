@@ -22,12 +22,14 @@ class InvoiceController extends Controller
     {
         $perPage = $request->input('per_page', 15);
         $invoices = $this->invoiceService->getPaginated($perPage);
+
         return InvoiceResource::collection($invoices)->response();
     }
 
     public function store(StoreInvoiceRequest $request): JsonResponse
     {
         $invoice = $this->invoiceService->create($request->validated());
+
         return (new InvoiceResource($invoice->load('lines')))->response()->setStatusCode(201);
     }
 
@@ -37,6 +39,7 @@ class InvoiceController extends Controller
         if (! $invoice) {
             return response()->json(['message' => 'Invoice not found'], 404);
         }
+
         return (new InvoiceResource($invoice->load(['lines', 'payments'])))->response();
     }
 
@@ -44,6 +47,7 @@ class InvoiceController extends Controller
     {
         try {
             $invoice = $this->invoiceService->update($id, $request->validated());
+
             return (new InvoiceResource($invoice->load('lines')))->response();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -54,6 +58,7 @@ class InvoiceController extends Controller
     {
         try {
             $this->invoiceService->delete($id);
+
             return response()->json(null, 204);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -64,6 +69,7 @@ class InvoiceController extends Controller
     {
         try {
             $invoice = $this->invoiceService->send($id);
+
             return (new InvoiceResource($invoice))->response();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -74,6 +80,7 @@ class InvoiceController extends Controller
     {
         try {
             $invoice = $this->invoiceService->markAsPaid($id);
+
             return (new InvoiceResource($invoice))->response();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
@@ -83,12 +90,14 @@ class InvoiceController extends Controller
     public function overdue(): JsonResponse
     {
         $invoices = $this->invoiceService->getOverdueInvoices();
+
         return InvoiceResource::collection($invoices)->response();
     }
 
     public function aging(): JsonResponse
     {
         $report = $this->invoiceService->getAgingReport();
+
         return response()->json($report);
     }
 }

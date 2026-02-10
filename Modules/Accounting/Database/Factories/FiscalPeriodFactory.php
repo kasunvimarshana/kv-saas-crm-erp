@@ -14,10 +14,10 @@ class FiscalPeriodFactory extends Factory
     public function definition(): array
     {
         $year = $this->faker->year();
-        
+
         return [
             'tenant_id' => 1,
-            'name' => 'FY ' . $year,
+            'name' => 'FY '.$year,
             'period_type' => 'year',
             'fiscal_year' => $year,
             'start_date' => "{$year}-01-01",

@@ -59,20 +59,22 @@ class FiscalPeriod extends Model
      * Period type constants.
      */
     public const TYPE_YEAR = 'year';
+
     public const TYPE_QUARTER = 'quarter';
+
     public const TYPE_MONTH = 'month';
 
     /**
      * Status constants.
      */
     public const STATUS_OPEN = 'open';
+
     public const STATUS_CLOSED = 'closed';
+
     public const STATUS_LOCKED = 'locked';
 
     /**
      * Get journal entries for this period.
-     *
-     * @return HasMany
      */
     public function journalEntries(): HasMany
     {
@@ -91,8 +93,6 @@ class FiscalPeriod extends Model
 
     /**
      * Check if period is open.
-     *
-     * @return bool
      */
     public function isOpen(): bool
     {
@@ -101,8 +101,6 @@ class FiscalPeriod extends Model
 
     /**
      * Check if period is closed.
-     *
-     * @return bool
      */
     public function isClosed(): bool
     {
@@ -111,8 +109,6 @@ class FiscalPeriod extends Model
 
     /**
      * Check if period is locked.
-     *
-     * @return bool
      */
     public function isLocked(): bool
     {
@@ -121,20 +117,16 @@ class FiscalPeriod extends Model
 
     /**
      * Check if date falls within this period.
-     *
-     * @param \DateTimeInterface $date
-     * @return bool
      */
     public function containsDate(\DateTimeInterface $date): bool
     {
         $checkDate = \Carbon\Carbon::parse($date);
+
         return $checkDate->between($this->start_date, $this->end_date);
     }
 
     /**
      * Check if period can accept new entries.
-     *
-     * @return bool
      */
     public function canAcceptEntries(): bool
     {
@@ -143,8 +135,6 @@ class FiscalPeriod extends Model
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return FiscalPeriodFactory
      */
     protected static function newFactory(): FiscalPeriodFactory
     {

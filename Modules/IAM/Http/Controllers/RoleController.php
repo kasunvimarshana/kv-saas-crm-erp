@@ -8,9 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\IAM\Entities\Role;
+use Modules\IAM\Http\Requests\AssignPermissionsToRoleRequest;
 use Modules\IAM\Http\Requests\CreateRoleRequest;
 use Modules\IAM\Http\Requests\UpdateRoleRequest;
-use Modules\IAM\Http\Requests\AssignPermissionsToRoleRequest;
 use Modules\IAM\Http\Resources\RoleResource;
 use Modules\IAM\Services\RoleService;
 
@@ -32,13 +32,13 @@ class RoleController extends Controller
     {
         $perPage = $request->input('per_page', 15);
         $roles = Role::query()
-            ->when($request->boolean('active_only'), fn($q) => $q->active())
-            ->when($request->boolean('system_only'), fn($q) => $q->system())
-            ->when($request->boolean('custom_only'), fn($q) => $q->custom())
-            ->when($request->has('search'), function($q) use ($request) {
+            ->when($request->boolean('active_only'), fn ($q) => $q->active())
+            ->when($request->boolean('system_only'), fn ($q) => $q->system())
+            ->when($request->boolean('custom_only'), fn ($q) => $q->custom())
+            ->when($request->has('search'), function ($q) use ($request) {
                 $search = $request->input('search');
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('slug', 'like', "%{$search}%");
+                    ->orWhere('slug', 'like', "%{$search}%");
             })
             ->with(['parent', 'rolePermissions'])
             ->orderBy('level')
@@ -55,11 +55,12 @@ class RoleController extends Controller
     {
         try {
             $role = $this->roleService->createRole($request->validated());
+
             return response()->json(new RoleResource($role), 201);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to create role',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -70,6 +71,7 @@ class RoleController extends Controller
     public function show(Role $role): JsonResponse
     {
         $role->load(['parent', 'children', 'rolePermissions', 'users']);
+
         return response()->json(new RoleResource($role));
     }
 
@@ -80,11 +82,12 @@ class RoleController extends Controller
     {
         try {
             $role = $this->roleService->updateRole($role, $request->validated());
+
             return response()->json(new RoleResource($role));
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to update role',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -96,11 +99,12 @@ class RoleController extends Controller
     {
         try {
             $this->roleService->deleteRole($role);
+
             return response()->noContent();
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to delete role',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -112,14 +116,15 @@ class RoleController extends Controller
     {
         try {
             $this->roleService->assignPermissions($role, $request->input('permission_ids'));
+
             return response()->json([
                 'message' => 'Permissions assigned successfully',
-                'role' => new RoleResource($role->load('rolePermissions'))
+                'role' => new RoleResource($role->load('rolePermissions')),
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to assign permissions',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -141,6 +146,7 @@ class RoleController extends Controller
     public function users(Role $role): JsonResponse
     {
         $users = $role->users()->with('roles')->paginate(15);
+
         return response()->json($users);
     }
 }

@@ -14,7 +14,7 @@ class UpdatePositionRequest extends FormRequest
     public function rules(): array
     {
         $positionId = $this->route('position');
-        
+
         return [
             'title' => ['sometimes', 'required', 'string', 'max:255'],
             'code' => ['sometimes', 'required', 'string', 'max:50', "unique:positions,code,{$positionId}"],

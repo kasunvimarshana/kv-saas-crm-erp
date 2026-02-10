@@ -8,7 +8,7 @@ use Exception;
 
 /**
  * Exception thrown when validation fails
- * 
+ *
  * This is different from Laravel's validation exception
  * It's for domain-level validation failures
  */
@@ -24,12 +24,10 @@ class ValidationException extends Exception
     /**
      * Create a new validation exception
      *
-     * @param string $message
-     * @param array<string, array<string>> $errors
-     * @param \Throwable|null $previous
+     * @param  array<string, array<string>>  $errors
      */
     public function __construct(
-        string $message = "Validation failed",
+        string $message = 'Validation failed',
         array $errors = [],
         ?\Throwable $previous = null
     ) {
@@ -50,21 +48,15 @@ class ValidationException extends Exception
     /**
      * Create exception from errors array
      *
-     * @param array<string, array<string>> $errors
-     * @param string $message
-     * @return static
+     * @param  array<string, array<string>>  $errors
      */
-    public static function withErrors(array $errors, string $message = "Validation failed"): static
+    public static function withErrors(array $errors, string $message = 'Validation failed'): static
     {
         return new static($message, $errors);
     }
 
     /**
      * Create exception for a single field
-     *
-     * @param string $field
-     * @param string $error
-     * @return static
      */
     public static function forField(string $field, string $error): static
     {

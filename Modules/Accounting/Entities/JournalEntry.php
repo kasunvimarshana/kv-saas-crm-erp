@@ -6,8 +6,8 @@ namespace Modules\Accounting\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Accounting\Database\Factories\JournalEntryFactory;
 use Modules\Core\Traits\Auditable;
@@ -67,13 +67,13 @@ class JournalEntry extends Model
      * Status constants.
      */
     public const STATUS_DRAFT = 'draft';
+
     public const STATUS_POSTED = 'posted';
+
     public const STATUS_REVERSED = 'reversed';
 
     /**
      * Get journal entry lines.
-     *
-     * @return HasMany
      */
     public function lines(): HasMany
     {
@@ -82,8 +82,6 @@ class JournalEntry extends Model
 
     /**
      * Get the fiscal period.
-     *
-     * @return BelongsTo
      */
     public function fiscalPeriod(): BelongsTo
     {
@@ -92,8 +90,6 @@ class JournalEntry extends Model
 
     /**
      * Get the user who posted this entry.
-     *
-     * @return BelongsTo
      */
     public function postedBy(): BelongsTo
     {
@@ -102,8 +98,6 @@ class JournalEntry extends Model
 
     /**
      * Get the reversed entry if this entry was reversed.
-     *
-     * @return BelongsTo
      */
     public function reversedEntry(): BelongsTo
     {
@@ -112,8 +106,6 @@ class JournalEntry extends Model
 
     /**
      * Check if entry is posted.
-     *
-     * @return bool
      */
     public function isPosted(): bool
     {
@@ -122,8 +114,6 @@ class JournalEntry extends Model
 
     /**
      * Check if entry is draft.
-     *
-     * @return bool
      */
     public function isDraft(): bool
     {
@@ -132,8 +122,6 @@ class JournalEntry extends Model
 
     /**
      * Check if entry is reversed.
-     *
-     * @return bool
      */
     public function isReversed(): bool
     {
@@ -142,8 +130,6 @@ class JournalEntry extends Model
 
     /**
      * Check if entry is balanced.
-     *
-     * @return bool
      */
     public function isBalanced(): bool
     {
@@ -152,8 +138,6 @@ class JournalEntry extends Model
 
     /**
      * Calculate and update totals from lines.
-     *
-     * @return void
      */
     public function calculateTotals(): void
     {
@@ -164,8 +148,6 @@ class JournalEntry extends Model
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return JournalEntryFactory
      */
     protected static function newFactory(): JournalEntryFactory
     {

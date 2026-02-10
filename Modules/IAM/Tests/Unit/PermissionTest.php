@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\IAM\Tests\Unit;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\IAM\Entities\Permission;
+use Tests\TestCase;
 
 class PermissionTest extends TestCase
 {
