@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Tenancy\Tests\Unit;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Modules\Tenancy\Entities\Tenant;
@@ -12,6 +11,7 @@ use Modules\Tenancy\Events\TenantCreated;
 use Modules\Tenancy\Events\TenantDeleted;
 use Modules\Tenancy\Events\TenantUpdated;
 use Modules\Tenancy\Services\TenantService;
+use Tests\TestCase;
 
 class TenantServiceTest extends TestCase
 {
@@ -352,7 +352,7 @@ class TenantServiceTest extends TestCase
 
         // Attempt to create tenant with duplicate slug
         $existingTenant = Tenant::factory()->create(['slug' => 'duplicate-slug']);
-        
+
         try {
             $this->tenantService->create([
                 'name' => 'Test',
@@ -384,7 +384,7 @@ class TenantServiceTest extends TestCase
             // Verify original data is preserved
             $tenant1->refresh();
             $this->assertEquals('tenant-1', $tenant1->slug);
-            
+
             Event::assertNotDispatched(TenantUpdated::class);
             throw $e;
         }

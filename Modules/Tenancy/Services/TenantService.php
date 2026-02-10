@@ -88,8 +88,9 @@ class TenantService extends BaseService
         return $this->executeInTransaction(function () use ($id) {
             $tenant = $this->tenantRepository->findById($id);
 
-            if (!$tenant) {
+            if (! $tenant) {
                 $this->logWarning('Tenant not found for deletion', ['tenant_id' => $id]);
+
                 return false;
             }
 

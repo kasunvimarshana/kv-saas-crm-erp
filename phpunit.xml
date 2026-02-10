@@ -17,14 +17,26 @@
         <testsuite name="Core">
             <directory suffix="Test.php">./Modules/Core/Tests</directory>
         </testsuite>
+        <testsuite name="Tenancy">
+            <directory suffix="Test.php">./Modules/Tenancy/Tests</directory>
+        </testsuite>
         <testsuite name="IAM">
             <directory suffix="Test.php">./Modules/IAM/Tests</directory>
         </testsuite>
         <testsuite name="Sales">
             <directory suffix="Test.php">./Modules/Sales/Tests</directory>
         </testsuite>
-        <testsuite name="Tenancy">
-            <directory suffix="Test.php">./Modules/Tenancy/Tests</directory>
+        <testsuite name="Inventory">
+            <directory suffix="Test.php">./Modules/Inventory/Tests</directory>
+        </testsuite>
+        <testsuite name="Accounting">
+            <directory suffix="Test.php">./Modules/Accounting/Tests</directory>
+        </testsuite>
+        <testsuite name="HR">
+            <directory suffix="Test.php">./Modules/HR/Tests</directory>
+        </testsuite>
+        <testsuite name="Procurement">
+            <directory suffix="Test.php">./Modules/Procurement/Tests</directory>
         </testsuite>
     </testsuites>
     <coverage>

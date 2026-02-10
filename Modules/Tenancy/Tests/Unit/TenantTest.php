@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Tenancy\Tests\Unit;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Tenancy\Entities\Tenant;
+use Tests\TestCase;
 
 class TenantTest extends TestCase
 {

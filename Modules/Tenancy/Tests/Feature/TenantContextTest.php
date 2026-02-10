@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenancy\Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Tenancy\Entities\Tenant;
+use Tests\TestCase;
 
 /**
  * Tenant Context Resolution Tests
@@ -117,7 +117,7 @@ class TenantContextTest extends TestCase
 
         // First request
         $response1 = $this->actingAs($user)->getJson('/api/v1/tenants/current');
-        
+
         // Second request with same user
         $response2 = $this->actingAs($user)->getJson('/api/v1/tenants/current');
 
@@ -309,7 +309,7 @@ class TenantContextTest extends TestCase
 
         // Test helper function
         $helperTenant = tenant();
-        
+
         if ($helperTenant !== null) {
             $this->assertEquals($tenant->id, $helperTenant->id);
         } else {

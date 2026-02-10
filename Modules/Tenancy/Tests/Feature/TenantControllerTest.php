@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenancy\Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Tenancy\Entities\Tenant;
+use Tests\TestCase;
 
 class TenantControllerTest extends TestCase
 {
@@ -52,8 +52,8 @@ class TenantControllerTest extends TestCase
                         'status',
                         'created_at',
                         'updated_at',
-                    ]
-                ]
+                    ],
+                ],
             ]);
 
         $this->assertCount(5, $response->json('data'));

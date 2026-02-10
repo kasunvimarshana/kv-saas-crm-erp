@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenancy\Tests\Unit;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Tenancy\Entities\Tenant;
 use Modules\Tenancy\Repositories\TenantRepository;
+use Tests\TestCase;
 
 class TenantRepositoryTest extends TestCase
 {

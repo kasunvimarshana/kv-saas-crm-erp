@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenancy\Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Tenancy\Entities\Tenant;
+use Tests\TestCase;
 
 /**
  * Tenant Isolation Tests
@@ -20,8 +20,11 @@ class TenantIsolationTest extends TestCase
     use RefreshDatabase;
 
     protected Tenant $tenant1;
+
     protected Tenant $tenant2;
+
     protected User $user1;
+
     protected User $user2;
 
     protected function setUp(): void
@@ -198,9 +201,9 @@ class TenantIsolationTest extends TestCase
 
     public function test_tenant_scoped_relationships_are_isolated(): void
     {
-        if (class_exists(\Modules\Sales\Entities\Customer::class) && 
+        if (class_exists(\Modules\Sales\Entities\Customer::class) &&
             class_exists(\Modules\Sales\Entities\SalesOrder::class)) {
-            
+
             // Create customer and order for tenant1
             $customer1 = \Modules\Sales\Entities\Customer::factory()->create([
                 'tenant_id' => $this->tenant1->id,
@@ -281,7 +284,7 @@ class TenantIsolationTest extends TestCase
     {
         // Mock subdomain resolution
         $slug = $this->tenant1->slug;
-        
+
         // Make request with subdomain-like header
         $response = $this->withHeaders([
             'X-Tenant-Slug' => $slug,
