@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Accounting\Database\Factories\InvoiceFactory;
+use Modules\Accounting\Enums\InvoiceStatusEnum;
 use Modules\Core\Traits\Auditable;
 use Modules\Core\Traits\HasUuid;
 use Modules\Core\Traits\Tenantable;
@@ -68,6 +69,7 @@ class Invoice extends Model
         'total_amount' => 'decimal:2',
         'amount_paid' => 'decimal:2',
         'amount_due' => 'decimal:2',
+        'status' => InvoiceStatusEnum::class,
         'tags' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -75,7 +77,9 @@ class Invoice extends Model
     ];
 
     /**
-     * Status constants.
+     * Status constants (DEPRECATED - use InvoiceStatusEnum instead)
+     *
+     * @deprecated Use InvoiceStatusEnum enum cases instead
      */
     public const STATUS_DRAFT = 'draft';
 
