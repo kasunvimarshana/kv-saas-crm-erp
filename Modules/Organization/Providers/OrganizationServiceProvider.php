@@ -7,8 +7,10 @@ namespace Modules\Organization\Providers;
 use Illuminate\Support\ServiceProvider;
 use Modules\Organization\Repositories\Contracts\LocationRepositoryInterface;
 use Modules\Organization\Repositories\Contracts\OrganizationRepositoryInterface;
+use Modules\Organization\Repositories\Contracts\OrganizationalUnitRepositoryInterface;
 use Modules\Organization\Repositories\LocationRepository;
 use Modules\Organization\Repositories\OrganizationRepository;
+use Modules\Organization\Repositories\OrganizationalUnitRepository;
 
 class OrganizationServiceProvider extends ServiceProvider
 {
@@ -84,6 +86,11 @@ class OrganizationServiceProvider extends ServiceProvider
         $this->app->bind(
             LocationRepositoryInterface::class,
             LocationRepository::class
+        );
+
+        $this->app->bind(
+            OrganizationalUnitRepositoryInterface::class,
+            OrganizationalUnitRepository::class
         );
     }
 
