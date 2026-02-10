@@ -60,8 +60,7 @@ class UserService
      */
     public function createUser(array $data): User
     {
-        DB::beginTransaction();
-        try {
+        return DB::transaction(function () use ($data) {
             // Hash password if provided
             if (isset($data['password'])) {
                 $data['password'] = Hash::make($data['password']);
@@ -83,13 +82,8 @@ class UserService
                 $this->userRepository->syncPermissions($user, $data['permissions']);
             }
 
-            DB::commit();
-
             return $user;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        }
+        });
     }
 
     /**
@@ -97,8 +91,7 @@ class UserService
      */
     public function updateUser(int $id, array $data): User
     {
-        DB::beginTransaction();
-        try {
+        return DB::transaction(function () use ($id, $data) {
             $user = $this->userRepository->findById($id);
 
             if (! $user) {
@@ -123,13 +116,8 @@ class UserService
                 $this->userRepository->syncPermissions($user, $data['permissions']);
             }
 
-            DB::commit();
-
             return $user;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        }
+        });
     }
 
     /**

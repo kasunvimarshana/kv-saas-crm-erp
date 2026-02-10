@@ -40,7 +40,7 @@ trait Tenantable
         // Automatically set tenant_id on creation
         static::creating(function ($model) {
             if (! $model->tenant_id) {
-                $tenantId = static::getCurrentTenantId();
+                $tenantId = self::resolveTenantId();
                 if ($tenantId) {
                     $model->tenant_id = $tenantId;
                 }
@@ -49,7 +49,7 @@ trait Tenantable
 
         // Add global scope to filter by tenant
         static::addGlobalScope('tenant', function (Builder $builder) {
-            $tenantId = static::getCurrentTenantId();
+            $tenantId = self::resolveTenantId();
             if ($tenantId) {
                 $builder->where($builder->getModel()->getTable().'.tenant_id', $tenantId);
             }
@@ -61,14 +61,29 @@ trait Tenantable
      */
     protected static function getCurrentTenantId(): int|string|null
     {
+        return self::resolveTenantId();
+    }
+
+    /**
+     * Resolve the current tenant ID.
+     */
+    protected static function resolveTenantId(): int|string|null
+    {
         // Try to get from session first
         if (Session::has('tenant_id')) {
             return Session::get('tenant_id');
         }
 
         // Try to get from authenticated user
-        if (auth()->check() && method_exists(auth()->user(), 'getCurrentTenantId')) {
-            return auth()->user()->getCurrentTenantId();
+        try {
+            if (auth()->check()) {
+                $user = auth()->user();
+                if ($user && isset($user->tenant_id)) {
+                    return $user->tenant_id;
+                }
+            }
+        } catch (\Exception $e) {
+            // Ignore auth errors in testing/seeding
         }
 
         // Try to get from config (for testing/seeding)
