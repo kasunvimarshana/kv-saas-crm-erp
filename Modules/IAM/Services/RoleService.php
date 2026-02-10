@@ -6,8 +6,8 @@ namespace Modules\IAM\Services;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Modules\IAM\Entities\Role;
 use Modules\IAM\Entities\Permission;
+use Modules\IAM\Entities\Role;
 
 /**
  * Role Service
@@ -31,11 +31,12 @@ class RoleService
             $role = Role::create($data);
 
             // Assign permissions if provided
-            if (!empty($data['permission_ids'])) {
+            if (! empty($data['permission_ids'])) {
                 $role->rolePermissions()->sync($data['permission_ids']);
             }
 
             DB::commit();
+
             return $role->load('rolePermissions');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -51,7 +52,7 @@ class RoleService
         DB::beginTransaction();
         try {
             // Prevent modification of system roles
-            if ($role->is_system && isset($data['is_system']) && !$data['is_system']) {
+            if ($role->is_system && isset($data['is_system']) && ! $data['is_system']) {
                 throw new \RuntimeException('Cannot modify system role status');
             }
 
@@ -68,6 +69,7 @@ class RoleService
             }
 
             DB::commit();
+
             return $role->fresh(['rolePermissions']);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -99,6 +101,7 @@ class RoleService
             $role->delete();
 
             DB::commit();
+
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
@@ -114,8 +117,9 @@ class RoleService
         DB::beginTransaction();
         try {
             $role->rolePermissions()->sync($permissionIds);
-            
+
             DB::commit();
+
             return $role->fresh(['rolePermissions']);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -129,6 +133,7 @@ class RoleService
     public function addPermission(Role $role, Permission $permission): Role
     {
         $role->assignPermission($permission);
+
         return $role->fresh(['rolePermissions']);
     }
 
@@ -138,6 +143,7 @@ class RoleService
     public function removePermission(Role $role, Permission $permission): Role
     {
         $role->removePermission($permission);
+
         return $role->fresh(['rolePermissions']);
     }
 
@@ -163,6 +169,7 @@ class RoleService
             $newRole->rolePermissions()->sync($permissionIds);
 
             DB::commit();
+
             return $newRole->load('rolePermissions');
         } catch (\Exception $e) {
             DB::rollBack();

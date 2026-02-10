@@ -55,9 +55,6 @@ trait HasPermissions
 
     /**
      * Check if user has a specific permission.
-     *
-     * @param string $permission
-     * @return bool
      */
     public function hasPermission(string $permission): bool
     {
@@ -67,8 +64,7 @@ trait HasPermissions
     /**
      * Check if user has any of the given permissions.
      *
-     * @param array<string> $permissions
-     * @return bool
+     * @param  array<string>  $permissions
      */
     public function hasAnyPermission(array $permissions): bool
     {
@@ -84,8 +80,7 @@ trait HasPermissions
     /**
      * Check if user has all of the given permissions.
      *
-     * @param array<string> $permissions
-     * @return bool
+     * @param  array<string>  $permissions
      */
     public function hasAllPermissions(array $permissions): bool
     {

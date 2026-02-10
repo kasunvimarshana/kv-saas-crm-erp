@@ -2,22 +2,22 @@
 
 return [
     'name' => 'Inventory',
-    
+
     /**
      * Default valuation method for stock
      */
     'default_valuation_method' => env('INVENTORY_VALUATION_METHOD', 'fifo'),
-    
+
     /**
      * Default currency for inventory items
      */
     'default_currency' => env('INVENTORY_CURRENCY', 'USD'),
-    
+
     /**
      * Enable low stock alerts
      */
     'enable_low_stock_alerts' => env('INVENTORY_LOW_STOCK_ALERTS', true),
-    
+
     /**
      * Movement types
      */
@@ -31,7 +31,7 @@ return [
         'return' => 'Return',
         'consumption' => 'Consumption',
     ],
-    
+
     /**
      * Product types
      */
@@ -40,7 +40,7 @@ return [
         'consumable' => 'Consumable',
         'service' => 'Service',
     ],
-    
+
     /**
      * Warehouse types
      */

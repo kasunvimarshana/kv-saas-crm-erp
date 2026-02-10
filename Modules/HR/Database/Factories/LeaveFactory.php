@@ -14,7 +14,7 @@ class LeaveFactory extends Factory
         $startDate = $this->faker->dateTimeBetween('-30 days', '+30 days');
         $days = $this->faker->numberBetween(1, 7);
         $endDate = (clone $startDate)->modify("+{$days} days");
-        
+
         return [
             'tenant_id' => 1,
             'start_date' => $startDate,

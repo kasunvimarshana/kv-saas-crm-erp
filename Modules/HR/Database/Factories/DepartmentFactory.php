@@ -13,8 +13,8 @@ class DepartmentFactory extends Factory
     {
         return [
             'tenant_id' => 1,
-            'code' => 'DEPT-' . strtoupper($this->faker->unique()->lexify('???')),
-            'name' => $this->faker->company() . ' Department',
+            'code' => 'DEPT-'.strtoupper($this->faker->unique()->lexify('???')),
+            'name' => $this->faker->company().' Department',
             'description' => $this->faker->sentence(),
             'status' => $this->faker->randomElement(['active', 'inactive']),
         ];

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Inventory\Services;
 
-use Illuminate\Support\Facades\DB;
 use Modules\Core\Services\BaseService;
-use Modules\Inventory\Entities\StockLevel;
 use Modules\Inventory\Entities\StockMovement;
 use Modules\Inventory\Events\StockLevelChanged;
 use Modules\Inventory\Events\StockMovementRecorded;

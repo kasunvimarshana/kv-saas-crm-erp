@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('closed_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index(['tenant_id', 'fiscal_year']);
             $table->index(['tenant_id', 'status']);
             $table->index(['start_date', 'end_date']);

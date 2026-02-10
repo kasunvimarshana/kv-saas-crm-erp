@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\IAM\Tests\Unit;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
-use Modules\IAM\Services\PermissionService;
-use Modules\IAM\Repositories\Contracts\PermissionRepositoryInterface;
 use Modules\IAM\Entities\Permission;
+use Modules\IAM\Repositories\Contracts\PermissionRepositoryInterface;
+use Modules\IAM\Services\PermissionService;
+use Tests\TestCase;
 
 class PermissionServiceTest extends TestCase
 {
@@ -83,7 +83,7 @@ class PermissionServiceTest extends TestCase
 
         $mockRepo->shouldReceive('create')
             ->times(4)
-            ->andReturn(new Permission());
+            ->andReturn(new Permission);
 
         $permissions = $service->generateCrudPermissions('sales', 'customer');
 

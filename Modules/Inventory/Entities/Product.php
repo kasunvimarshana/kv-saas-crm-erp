@@ -91,8 +91,6 @@ class Product extends Model
 
     /**
      * Get the product category.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category(): BelongsTo
     {
@@ -101,8 +99,6 @@ class Product extends Model
 
     /**
      * Get the unit of measure.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function unitOfMeasure(): BelongsTo
     {
@@ -111,8 +107,6 @@ class Product extends Model
 
     /**
      * Get stock levels for this product.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function stockLevels(): HasMany
     {
@@ -121,8 +115,6 @@ class Product extends Model
 
     /**
      * Get stock movements for this product.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function stockMovements(): HasMany
     {
@@ -177,7 +169,7 @@ class Product extends Model
      */
     public function needsReorder(): bool
     {
-        if (!$this->reorder_level) {
+        if (! $this->reorder_level) {
             return false;
         }
 

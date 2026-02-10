@@ -16,7 +16,7 @@ class UpdateWarehouseRequest extends FormRequest
     public function rules(): array
     {
         $warehouseId = $this->route('id');
-        
+
         return [
             'code' => ['sometimes', 'string', 'max:50', "unique:warehouses,code,{$warehouseId}"],
             'name' => ['sometimes', 'string', 'max:255'],

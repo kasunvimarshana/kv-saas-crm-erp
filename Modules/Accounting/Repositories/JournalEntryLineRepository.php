@@ -18,8 +18,6 @@ class JournalEntryLineRepository extends BaseRepository implements JournalEntryL
 {
     /**
      * JournalEntryLineRepository constructor.
-     *
-     * @param JournalEntryLine $model
      */
     public function __construct(JournalEntryLine $model)
     {

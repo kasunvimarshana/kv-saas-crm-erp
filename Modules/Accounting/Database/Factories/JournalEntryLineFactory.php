@@ -15,7 +15,7 @@ class JournalEntryLineFactory extends Factory
     {
         $isDebit = $this->faker->boolean();
         $amount = $this->faker->randomFloat(2, 100, 10000);
-        
+
         return [
             'tenant_id' => 1,
             'journal_entry_id' => 1,

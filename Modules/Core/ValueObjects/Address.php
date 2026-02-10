@@ -8,28 +8,29 @@ use Modules\Core\Exceptions\ValidationException;
 
 /**
  * Address Value Object
- * 
+ *
  * Represents a physical address
  * Immutable - once created, cannot be changed
  */
 final class Address
 {
     private readonly string $line1;
+
     private readonly ?string $line2;
+
     private readonly string $city;
+
     private readonly ?string $state;
+
     private readonly string $postalCode;
+
     private readonly string $country; // ISO 3166-1 alpha-2 code
 
     /**
      * Create a new address value object
      *
-     * @param string $line1
-     * @param string $city
-     * @param string $postalCode
-     * @param string $country ISO 3166-1 alpha-2 country code (e.g., US, GB)
-     * @param string|null $line2
-     * @param string|null $state
+     * @param  string  $country  ISO 3166-1 alpha-2 country code (e.g., US, GB)
+     *
      * @throws ValidationException
      */
     public function __construct(
@@ -70,8 +71,6 @@ final class Address
 
     /**
      * Get address line 1
-     *
-     * @return string
      */
     public function getLine1(): string
     {
@@ -80,8 +79,6 @@ final class Address
 
     /**
      * Get address line 2
-     *
-     * @return string|null
      */
     public function getLine2(): ?string
     {
@@ -90,8 +87,6 @@ final class Address
 
     /**
      * Get city
-     *
-     * @return string
      */
     public function getCity(): string
     {
@@ -100,8 +95,6 @@ final class Address
 
     /**
      * Get state/province
-     *
-     * @return string|null
      */
     public function getState(): ?string
     {
@@ -110,8 +103,6 @@ final class Address
 
     /**
      * Get postal code
-     *
-     * @return string
      */
     public function getPostalCode(): string
     {
@@ -120,8 +111,6 @@ final class Address
 
     /**
      * Get country code
-     *
-     * @return string
      */
     public function getCountry(): string
     {
@@ -130,8 +119,6 @@ final class Address
 
     /**
      * Get full address as single string
-     *
-     * @return string
      */
     public function getFullAddress(): string
     {
@@ -149,9 +136,6 @@ final class Address
 
     /**
      * Check if address equals another
-     *
-     * @param Address $other
-     * @return bool
      */
     public function equals(Address $other): bool
     {
@@ -165,8 +149,6 @@ final class Address
 
     /**
      * String representation
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -176,13 +158,13 @@ final class Address
     /**
      * Create from array
      *
-     * @param array<string, string|null> $data
-     * @return static
+     * @param  array<string, string|null>  $data
+     *
      * @throws ValidationException
      */
     public static function fromArray(array $data): static
     {
-        return new static(
+        return new self(
             $data['line1'] ?? '',
             $data['city'] ?? '',
             $data['postal_code'] ?? '',

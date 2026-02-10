@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Modules\IAM\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\IAM\Entities\Role;
 use Modules\IAM\Entities\Permission;
+use Modules\IAM\Entities\Role;
 
 /**
  * Role Seeder
@@ -124,9 +124,9 @@ class RoleSeeder extends Seeder
 
         // Tenant Admin permissions
         $tenantAdminPerms = Permission::whereIn('module', [
-            'sales', 'inventory', 'accounting', 'hr', 'procurement'
+            'sales', 'inventory', 'accounting', 'hr', 'procurement',
         ])->pluck('id')->toArray();
-        if (!empty($tenantAdminPerms)) {
+        if (! empty($tenantAdminPerms)) {
             $tenantAdmin->rolePermissions()->sync($tenantAdminPerms);
         }
 
@@ -134,28 +134,28 @@ class RoleSeeder extends Seeder
         $salesPerms = Permission::where('module', 'sales')
             ->whereIn('resource', ['customer', 'lead', 'sales-order'])
             ->pluck('id')->toArray();
-        if (!empty($salesPerms)) {
+        if (! empty($salesPerms)) {
             $salesRep->rolePermissions()->sync($salesPerms);
         }
 
         // Accountant permissions
         $accountingPerms = Permission::where('module', 'accounting')
             ->pluck('id')->toArray();
-        if (!empty($accountingPerms)) {
+        if (! empty($accountingPerms)) {
             $accountant->rolePermissions()->sync($accountingPerms);
         }
 
         // Inventory Manager permissions
         $inventoryPerms = Permission::where('module', 'inventory')
             ->pluck('id')->toArray();
-        if (!empty($inventoryPerms)) {
+        if (! empty($inventoryPerms)) {
             $inventoryManager->rolePermissions()->sync($inventoryPerms);
         }
 
         // HR Manager permissions
         $hrPerms = Permission::where('module', 'hr')
             ->pluck('id')->toArray();
-        if (!empty($hrPerms)) {
+        if (! empty($hrPerms)) {
             $hrManager->rolePermissions()->sync($hrPerms);
         }
     }

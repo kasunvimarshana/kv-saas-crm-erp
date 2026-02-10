@@ -62,8 +62,6 @@ class Warehouse extends Model
 
     /**
      * Get stock locations in this warehouse.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function stockLocations(): HasMany
     {
@@ -72,8 +70,6 @@ class Warehouse extends Model
 
     /**
      * Get stock levels in this warehouse.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function stockLevels(): HasMany
     {
@@ -82,8 +78,6 @@ class Warehouse extends Model
 
     /**
      * Get stock movements in this warehouse.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function stockMovements(): HasMany
     {
@@ -123,7 +117,7 @@ class Warehouse extends Model
     public function getUtilizationPercentage(): float
     {
         $totalLocations = $this->stockLocations()->count();
-        
+
         if ($totalLocations === 0) {
             return 0.0;
         }

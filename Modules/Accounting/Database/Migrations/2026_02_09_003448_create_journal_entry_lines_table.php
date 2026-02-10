@@ -23,7 +23,7 @@ return new class extends Migration
             $table->json('tags')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('journal_entry_id');
             $table->index('account_id');
         });

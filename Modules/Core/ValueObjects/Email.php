@@ -8,7 +8,7 @@ use Modules\Core\Exceptions\ValidationException;
 
 /**
  * Email Value Object
- * 
+ *
  * Represents an email address with validation
  * Immutable - once created, cannot be changed
  */
@@ -19,14 +19,13 @@ final class Email
     /**
      * Create a new email value object
      *
-     * @param string $email
      * @throws ValidationException
      */
     public function __construct(string $email)
     {
         $email = trim(strtolower($email));
-        
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw ValidationException::forField('email', 'Invalid email address format');
         }
 
@@ -35,8 +34,6 @@ final class Email
 
     /**
      * Get the email value
-     *
-     * @return string
      */
     public function getValue(): string
     {
@@ -45,8 +42,6 @@ final class Email
 
     /**
      * Get the domain part of the email
-     *
-     * @return string
      */
     public function getDomain(): string
     {
@@ -55,8 +50,6 @@ final class Email
 
     /**
      * Get the local part of the email
-     *
-     * @return string
      */
     public function getLocalPart(): string
     {
@@ -65,9 +58,6 @@ final class Email
 
     /**
      * Check if email equals another email
-     *
-     * @param Email $other
-     * @return bool
      */
     public function equals(Email $other): bool
     {
@@ -76,8 +66,6 @@ final class Email
 
     /**
      * String representation
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -87,13 +75,11 @@ final class Email
     /**
      * Create from string
      *
-     * @param string $email
-     * @return static
      * @throws ValidationException
      */
     public static function fromString(string $email): static
     {
-        return new static($email);
+        return new self($email);
     }
 
     /**

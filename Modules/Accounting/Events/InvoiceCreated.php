@@ -19,8 +19,6 @@ class InvoiceCreated
 
     /**
      * Create a new event instance.
-     *
-     * @param Invoice $invoice
      */
     public function __construct(
         public Invoice $invoice

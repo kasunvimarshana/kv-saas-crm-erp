@@ -44,12 +44,13 @@ class ImageProcessor
     /**
      * Resize image maintaining aspect ratio.
      *
-     * @param string $inputPath Path to input image
-     * @param string $outputPath Path to save resized image
-     * @param int $width Target width
-     * @param int $height Target height (optional, maintains aspect ratio if null)
-     * @param int $quality Quality for JPEG/WebP (0-100)
+     * @param  string  $inputPath  Path to input image
+     * @param  string  $outputPath  Path to save resized image
+     * @param  int  $width  Target width
+     * @param  int  $height  Target height (optional, maintains aspect ratio if null)
+     * @param  int  $quality  Quality for JPEG/WebP (0-100)
      * @return bool Success status
+     *
      * @throws Exception If image type is unsupported or file operations fail
      */
     public function resize(
@@ -90,13 +91,14 @@ class ImageProcessor
     /**
      * Create thumbnail from image.
      *
-     * @param string $inputPath Path to input image
-     * @param string $outputPath Path to save thumbnail
-     * @param int $width Thumbnail width
-     * @param int $height Thumbnail height
-     * @param bool $crop Whether to crop to exact dimensions
-     * @param int $quality Quality for JPEG/WebP (0-100)
+     * @param  string  $inputPath  Path to input image
+     * @param  string  $outputPath  Path to save thumbnail
+     * @param  int  $width  Thumbnail width
+     * @param  int  $height  Thumbnail height
+     * @param  bool  $crop  Whether to crop to exact dimensions
+     * @param  int  $quality  Quality for JPEG/WebP (0-100)
      * @return bool Success status
+     *
      * @throws Exception If image type is unsupported or file operations fail
      */
     public function thumbnail(
@@ -165,10 +167,11 @@ class ImageProcessor
     /**
      * Convert image to WebP format.
      *
-     * @param string $inputPath Path to input image
-     * @param string $outputPath Path to save WebP image
-     * @param int $quality Quality (0-100)
+     * @param  string  $inputPath  Path to input image
+     * @param  string  $outputPath  Path to save WebP image
+     * @param  int  $quality  Quality (0-100)
      * @return bool Success status
+     *
      * @throws Exception If image type is unsupported or file operations fail
      */
     public function convertToWebP(string $inputPath, string $outputPath, int $quality = 80): bool
@@ -189,10 +192,11 @@ class ImageProcessor
     /**
      * Convert image to JPEG format.
      *
-     * @param string $inputPath Path to input image
-     * @param string $outputPath Path to save JPEG image
-     * @param int $quality Quality (0-100)
+     * @param  string  $inputPath  Path to input image
+     * @param  string  $outputPath  Path to save JPEG image
+     * @param  int  $quality  Quality (0-100)
      * @return bool Success status
+     *
      * @throws Exception If image type is unsupported or file operations fail
      */
     public function convertToJpeg(string $inputPath, string $outputPath, int $quality = 85): bool
@@ -213,13 +217,14 @@ class ImageProcessor
     /**
      * Add watermark to image.
      *
-     * @param string $basePath Path to base image
-     * @param string $watermarkPath Path to watermark image (PNG with transparency)
-     * @param string $outputPath Path to save watermarked image
-     * @param string $position Position: 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'center'
-     * @param int $margin Margin from edges in pixels
-     * @param int $opacity Opacity (0-100)
+     * @param  string  $basePath  Path to base image
+     * @param  string  $watermarkPath  Path to watermark image (PNG with transparency)
+     * @param  string  $outputPath  Path to save watermarked image
+     * @param  string  $position  Position: 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'center'
+     * @param  int  $margin  Margin from edges in pixels
+     * @param  int  $opacity  Opacity (0-100)
      * @return bool Success status
+     *
      * @throws Exception If image type is unsupported or file operations fail
      */
     public function watermark(
@@ -274,14 +279,15 @@ class ImageProcessor
     /**
      * Crop image to specified dimensions.
      *
-     * @param string $inputPath Path to input image
-     * @param string $outputPath Path to save cropped image
-     * @param int $x X coordinate of crop area
-     * @param int $y Y coordinate of crop area
-     * @param int $width Width of crop area
-     * @param int $height Height of crop area
-     * @param int $quality Quality for JPEG/WebP (0-100)
+     * @param  string  $inputPath  Path to input image
+     * @param  string  $outputPath  Path to save cropped image
+     * @param  int  $x  X coordinate of crop area
+     * @param  int  $y  Y coordinate of crop area
+     * @param  int  $width  Width of crop area
+     * @param  int  $height  Height of crop area
+     * @param  int  $quality  Quality for JPEG/WebP (0-100)
      * @return bool Success status
+     *
      * @throws Exception If image type is unsupported or file operations fail
      */
     public function crop(
@@ -316,8 +322,9 @@ class ImageProcessor
     /**
      * Get image dimensions.
      *
-     * @param string $imagePath Path to image
+     * @param  string  $imagePath  Path to image
      * @return array{width: int, height: int, mime: string}
+     *
      * @throws Exception If file is not a valid image
      */
     public function getDimensions(string $imagePath): array
@@ -358,9 +365,10 @@ class ImageProcessor
     /**
      * Create GD image resource from file based on MIME type.
      *
-     * @param string $path Path to image file
-     * @param string $mime MIME type of image
+     * @param  string  $path  Path to image file
+     * @param  string  $mime  MIME type of image
      * @return \GdImage|false GD image resource or false on failure
+     *
      * @throws Exception If MIME type is unsupported
      */
     private function createImageFromFile(string $path, string $mime): \GdImage|false
@@ -377,11 +385,12 @@ class ImageProcessor
     /**
      * Save GD image resource to file based on MIME type.
      *
-     * @param resource $image GD image resource
-     * @param string $path Output path
-     * @param string $mime Target MIME type
-     * @param int $quality Quality (0-100)
+     * @param  resource  $image  GD image resource
+     * @param  string  $path  Output path
+     * @param  string  $mime  Target MIME type
+     * @param  int  $quality  Quality (0-100)
      * @return bool Success status
+     *
      * @throws Exception If MIME type is unsupported
      */
     private function saveImage($image, string $path, string $mime, int $quality): bool

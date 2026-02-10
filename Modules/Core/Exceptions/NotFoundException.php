@@ -14,9 +14,9 @@ class NotFoundException extends Exception
     /**
      * Create a new not found exception
      *
-     * @param string $resource The resource type
-     * @param string|int $identifier The identifier used
-     * @param \Throwable|null $previous Previous exception
+     * @param  string  $resource  The resource type
+     * @param  string|int  $identifier  The identifier used
+     * @param  \Throwable|null  $previous  Previous exception
      */
     public function __construct(
         string $resource,
@@ -29,23 +29,16 @@ class NotFoundException extends Exception
 
     /**
      * Create exception for entity not found by ID
-     *
-     * @param string $entityClass
-     * @param string|int $id
-     * @return static
      */
     public static function entity(string $entityClass, string|int $id): static
     {
         $entityName = class_basename($entityClass);
+
         return new static($entityName, $id);
     }
 
     /**
      * Create exception for resource not found
-     *
-     * @param string $resourceType
-     * @param string|int $identifier
-     * @return static
      */
     public static function resource(string $resourceType, string|int $identifier): static
     {

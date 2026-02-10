@@ -6,7 +6,7 @@ namespace Modules\Core\Domain;
 
 /**
  * Base Value Object
- * 
+ *
  * Value objects are immutable and defined by their attributes
  * They have no identity
  */
@@ -14,9 +14,6 @@ abstract class ValueObject
 {
     /**
      * Check if two value objects are equal
-     *
-     * @param ValueObject $other
-     * @return bool
      */
     abstract public function equals(ValueObject $other): bool;
 
@@ -29,8 +26,6 @@ abstract class ValueObject
 
     /**
      * String representation
-     *
-     * @return string
      */
     abstract public function __toString(): string;
 }

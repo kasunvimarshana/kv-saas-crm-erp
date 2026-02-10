@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
  * API Response Helper
- * 
+ *
  * Provides consistent JSON response structure across the application
  * Native Laravel implementation - NO third-party packages
  */
@@ -18,11 +18,6 @@ class ApiResponse
 {
     /**
      * Success response with data
-     *
-     * @param mixed $data
-     * @param string $message
-     * @param int $statusCode
-     * @return JsonResponse
      */
     public static function success(
         mixed $data = null,
@@ -51,10 +46,7 @@ class ApiResponse
     /**
      * Error response
      *
-     * @param string $message
-     * @param int $statusCode
-     * @param array<string, mixed>|null $errors
-     * @return JsonResponse
+     * @param  array<string, mixed>|null  $errors
      */
     public static function error(
         string $message = 'An error occurred',
@@ -76,9 +68,7 @@ class ApiResponse
     /**
      * Validation error response
      *
-     * @param array<string, array<string>> $errors
-     * @param string $message
-     * @return JsonResponse
+     * @param  array<string, array<string>>  $errors
      */
     public static function validationError(
         array $errors,
@@ -93,9 +83,6 @@ class ApiResponse
 
     /**
      * Not found response
-     *
-     * @param string $message
-     * @return JsonResponse
      */
     public static function notFound(string $message = 'Resource not found'): JsonResponse
     {
@@ -104,9 +91,6 @@ class ApiResponse
 
     /**
      * Unauthorized response
-     *
-     * @param string $message
-     * @return JsonResponse
      */
     public static function unauthorized(string $message = 'Unauthorized'): JsonResponse
     {
@@ -115,9 +99,6 @@ class ApiResponse
 
     /**
      * Forbidden response
-     *
-     * @param string $message
-     * @return JsonResponse
      */
     public static function forbidden(string $message = 'Forbidden'): JsonResponse
     {
@@ -126,9 +107,6 @@ class ApiResponse
 
     /**
      * Server error response
-     *
-     * @param string $message
-     * @return JsonResponse
      */
     public static function serverError(string $message = 'Internal server error'): JsonResponse
     {
@@ -137,10 +115,6 @@ class ApiResponse
 
     /**
      * Created response (201)
-     *
-     * @param mixed $data
-     * @param string $message
-     * @return JsonResponse
      */
     public static function created(
         mixed $data = null,
@@ -151,9 +125,6 @@ class ApiResponse
 
     /**
      * Accepted response (202)
-     *
-     * @param string $message
-     * @return JsonResponse
      */
     public static function accepted(string $message = 'Request accepted'): JsonResponse
     {
@@ -162,8 +133,6 @@ class ApiResponse
 
     /**
      * No content response (204)
-     *
-     * @return JsonResponse
      */
     public static function noContent(): JsonResponse
     {
@@ -172,10 +141,6 @@ class ApiResponse
 
     /**
      * Paginated response
-     *
-     * @param ResourceCollection $collection
-     * @param string $message
-     * @return JsonResponse
      */
     public static function paginated(
         ResourceCollection $collection,
@@ -192,11 +157,7 @@ class ApiResponse
     /**
      * Custom response with meta data
      *
-     * @param mixed $data
-     * @param array<string, mixed> $meta
-     * @param string $message
-     * @param int $statusCode
-     * @return JsonResponse
+     * @param  array<string, mixed>  $meta
      */
     public static function withMeta(
         mixed $data,

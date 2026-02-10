@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\IAM\Entities;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Builder;
 use Modules\Core\Traits\LogsActivity;
 use Modules\IAM\Database\Factories\PermissionFactory;
 
@@ -73,7 +73,7 @@ class Permission extends Model
             'permission_id',
             'user_id'
         )->withPivot('type')
-          ->withTimestamps();
+            ->withTimestamps();
     }
 
     /**

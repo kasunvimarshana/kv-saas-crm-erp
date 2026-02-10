@@ -12,7 +12,7 @@ use Modules\Core\Support\ApiResponse;
 
 /**
  * Base API Controller
- * 
+ *
  * Provides common functionality for all API controllers
  * Native Laravel implementation
  */
@@ -22,11 +22,6 @@ abstract class BaseApiController extends Controller
 
     /**
      * Success response
-     *
-     * @param mixed $data
-     * @param string $message
-     * @param int $statusCode
-     * @return JsonResponse
      */
     protected function success(
         mixed $data = null,
@@ -39,10 +34,7 @@ abstract class BaseApiController extends Controller
     /**
      * Error response
      *
-     * @param string $message
-     * @param int $statusCode
-     * @param array<string, mixed>|null $errors
-     * @return JsonResponse
+     * @param  array<string, mixed>|null  $errors
      */
     protected function error(
         string $message = 'An error occurred',
@@ -54,10 +46,6 @@ abstract class BaseApiController extends Controller
 
     /**
      * Created response
-     *
-     * @param mixed $data
-     * @param string $message
-     * @return JsonResponse
      */
     protected function created(
         mixed $data = null,
@@ -68,8 +56,6 @@ abstract class BaseApiController extends Controller
 
     /**
      * No content response
-     *
-     * @return JsonResponse
      */
     protected function noContent(): JsonResponse
     {
@@ -78,9 +64,6 @@ abstract class BaseApiController extends Controller
 
     /**
      * Not found response
-     *
-     * @param string $message
-     * @return JsonResponse
      */
     protected function notFound(string $message = 'Resource not found'): JsonResponse
     {
@@ -89,9 +72,6 @@ abstract class BaseApiController extends Controller
 
     /**
      * Forbidden response
-     *
-     * @param string $message
-     * @return JsonResponse
      */
     protected function forbidden(string $message = 'Forbidden'): JsonResponse
     {
@@ -101,9 +81,7 @@ abstract class BaseApiController extends Controller
     /**
      * Validation error response
      *
-     * @param array<string, array<string>> $errors
-     * @param string $message
-     * @return JsonResponse
+     * @param  array<string, array<string>>  $errors
      */
     protected function validationError(
         array $errors,

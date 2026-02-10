@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Sales\Tests\Unit;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Modules\Sales\Entities\Lead;
 use Modules\Sales\Entities\Customer;
+use Modules\Sales\Entities\Lead;
+use Tests\TestCase;
 
 class LeadTest extends TestCase
 {

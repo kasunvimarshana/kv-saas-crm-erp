@@ -16,7 +16,7 @@ class UpdateStockLocationRequest extends FormRequest
     public function rules(): array
     {
         $locationId = $this->route('id');
-        
+
         return [
             'warehouse_id' => ['sometimes', 'integer', 'exists:warehouses,id'],
             'parent_id' => ['nullable', 'integer', 'exists:stock_locations,id'],

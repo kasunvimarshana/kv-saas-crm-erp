@@ -60,8 +60,6 @@ class StockLocation extends Model
 
     /**
      * Get the warehouse this location belongs to.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function warehouse(): BelongsTo
     {
@@ -70,8 +68,6 @@ class StockLocation extends Model
 
     /**
      * Get the parent location.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent(): BelongsTo
     {
@@ -80,8 +76,6 @@ class StockLocation extends Model
 
     /**
      * Get child locations.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function children(): HasMany
     {
@@ -90,8 +84,6 @@ class StockLocation extends Model
 
     /**
      * Get stock levels at this location.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function stockLevels(): HasMany
     {
@@ -100,8 +92,6 @@ class StockLocation extends Model
 
     /**
      * Get stock movements for this location.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function stockMovements(): HasMany
     {
@@ -144,7 +134,7 @@ class StockLocation extends Model
      */
     public function getRemainingCapacity(): float
     {
-        if (!$this->capacity) {
+        if (! $this->capacity) {
             return PHP_FLOAT_MAX;
         }
 
@@ -156,7 +146,7 @@ class StockLocation extends Model
      */
     public function hasCapacity(float $quantity = 1): bool
     {
-        if (!$this->capacity) {
+        if (! $this->capacity) {
             return true;
         }
 

@@ -55,9 +55,6 @@ trait LogsActivity
 
     /**
      * Log an activity for this model.
-     *
-     * @param string $event
-     * @return void
      */
     protected function logActivity(string $event): void
     {
@@ -76,8 +73,6 @@ trait LogsActivity
 
     /**
      * Get the log name for this model.
-     *
-     * @return string
      */
     protected function getLogName(): string
     {
@@ -86,9 +81,6 @@ trait LogsActivity
 
     /**
      * Get the description for the activity.
-     *
-     * @param string $event
-     * @return string
      */
     protected function getActivityDescription(string $event): string
     {
@@ -102,7 +94,6 @@ trait LogsActivity
     /**
      * Get the properties to store with the activity.
      *
-     * @param string $event
      * @return array<string, mixed>
      */
     protected function getActivityProperties(string $event): array

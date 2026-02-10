@@ -15,7 +15,7 @@ class PaymentFactory extends Factory
     {
         return [
             'tenant_id' => 1,
-            'payment_number' => 'PAY-' . $this->faker->unique()->numerify('######'),
+            'payment_number' => 'PAY-'.$this->faker->unique()->numerify('######'),
             'customer_id' => 1,
             'payment_date' => $this->faker->date(),
             'amount' => $this->faker->randomFloat(2, 100, 10000),

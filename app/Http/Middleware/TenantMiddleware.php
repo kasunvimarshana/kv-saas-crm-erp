@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Tenant Middleware
- * 
+ *
  * Resolves and sets the current tenant based on the request.
  * Ensures all subsequent operations are scoped to the tenant.
  */
@@ -24,7 +24,7 @@ class TenantMiddleware
         // Get tenant from subdomain or header
         $tenant = $this->resolveTenant($request);
 
-        if (!$tenant) {
+        if (! $tenant) {
             return response()->json([
                 'error' => 'Tenant not found',
                 'message' => 'Unable to identify tenant from request',
@@ -32,7 +32,7 @@ class TenantMiddleware
         }
 
         // Check if tenant is active
-        if (!$tenant->isActive()) {
+        if (! $tenant->isActive()) {
             return response()->json([
                 'error' => 'Tenant inactive',
                 'message' => 'This tenant account is currently inactive',
@@ -48,7 +48,6 @@ class TenantMiddleware
     /**
      * Resolve tenant from request.
      *
-     * @param Request $request
      * @return \Modules\Tenancy\Entities\Tenant|null
      */
     protected function resolveTenant(Request $request)
@@ -65,9 +64,10 @@ class TenantMiddleware
         // Try to get from subdomain
         $host = $request->getHost();
         $parts = explode('.', $host);
-        
+
         if (count($parts) > 2) {
             $subdomain = $parts[0];
+
             return \Modules\Tenancy\Entities\Tenant::where('slug', $subdomain)->first();
         }
 

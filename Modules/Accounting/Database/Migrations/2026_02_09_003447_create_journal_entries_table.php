@@ -27,7 +27,7 @@ return new class extends Migration
             $table->json('tags')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index(['tenant_id', 'status']);
             $table->index(['tenant_id', 'entry_date']);
             $table->index('fiscal_period_id');

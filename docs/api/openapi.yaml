@@ -1,0 +1,288 @@
+openapi: 3.1.0
+info:
+  title: kv-saas-crm-erp API
+  description: |
+    Enterprise-grade multi-tenant ERP/CRM SaaS platform API built with native Laravel.
+    
+    ## Features
+    - **Multi-tenant**: Complete data isolation per tenant
+    - **Multi-language**: JSON-based translations
+    - **Native Implementation**: Zero third-party packages
+    - **Clean Architecture**: DDD, SOLID principles
+    - **Event-Driven**: Async cross-module integration
+    
+    ## Authentication
+    Uses Laravel Sanctum for API token authentication.
+    
+    Include token in Authorization header:
+    ```
+    Authorization: Bearer {your-token}
+    ```
+    
+    ## Tenant Context
+    Include tenant ID in X-Tenant-ID header:
+    ```
+    X-Tenant-ID: {tenant-uuid}
+    ```
+    
+    ## Modules
+    - **Sales**: CRM, customers, leads, orders
+    - **Inventory**: Products, stock, warehouses
+    - **Accounting**: Double-entry bookkeeping
+    - **HR**: Employees, payroll, attendance
+    - **Procurement**: Suppliers, purchase orders
+    
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local development
+  - url: https://api.example.com/v1
+    description: Production
+
+security:
+  - sanctum: []
+
+tags:
+  - name: Authentication
+  - name: Customers
+  - name: Leads
+  - name: Sales Orders
+  - name: Products
+  - name: Inventory
+  - name: Accounts
+  - name: Invoices
+  - name: Employees
+  - name: Suppliers
+
+components:
+  securitySchemes:
+    sanctum:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    Customer:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - type
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        type:
+          type: string
+          enum: [individual, business]
+        status:
+          type: string
+          enum: [active, inactive, blocked]
+        tax_id:
+          type: string
+        credit_limit:
+          type: number
+          format: double
+        current_balance:
+          type: number
+          format: double
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+paths:
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: User login
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    type: object
+        '401':
+          description: Invalid credentials
+
+  /customers:
+    get:
+      tags: [Customers]
+      summary: List customers
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 15
+            maximum: 100
+        - name: filter[name]
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+            example: -created_at
+      responses:
+        '200':
+          description: Customer list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Customer'
+    
+    post:
+      tags: [Customers]
+      summary: Create customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, type]
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                phone:
+                  type: string
+                type:
+                  type: string
+                  enum: [individual, business]
+                tax_id:
+                  type: string
+      responses:
+        '201':
+          description: Customer created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Customer'
+
+  /customers/{id}:
+    get:
+      tags: [Customers]
+      summary: Get customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Customer details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Customer'
+    
+    put:
+      tags: [Customers]
+      summary: Update customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+      responses:
+        '200':
+          description: Customer updated
+    
+    delete:
+      tags: [Customers]
+      summary: Delete customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Customer deleted

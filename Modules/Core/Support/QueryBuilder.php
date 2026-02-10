@@ -53,8 +53,7 @@ class QueryBuilder
     /**
      * Set allowed filter fields.
      *
-     * @param array<string> $filters
-     * @return self
+     * @param  array<string>  $filters
      */
     public function allowedFilters(array $filters): self
     {
@@ -67,8 +66,7 @@ class QueryBuilder
     /**
      * Set allowed sort fields.
      *
-     * @param array<string> $sorts
-     * @return self
+     * @param  array<string>  $sorts
      */
     public function allowedSorts(array $sorts): self
     {
@@ -81,8 +79,7 @@ class QueryBuilder
     /**
      * Set allowed relationships to include.
      *
-     * @param array<string> $includes
-     * @return self
+     * @param  array<string>  $includes
      */
     public function allowedIncludes(array $includes): self
     {

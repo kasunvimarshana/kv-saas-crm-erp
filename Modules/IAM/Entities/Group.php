@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\IAM\Entities;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Builder;
-use Modules\Core\Traits\Tenantable;
 use Modules\Core\Traits\LogsActivity;
+use Modules\Core\Traits\Tenantable;
 
 /**
  * Group Model
@@ -30,7 +30,7 @@ use Modules\Core\Traits\LogsActivity;
  */
 class Group extends Model
 {
-    use SoftDeletes, Tenantable, LogsActivity;
+    use LogsActivity, SoftDeletes, Tenantable;
 
     protected $fillable = [
         'tenant_id',
@@ -133,7 +133,7 @@ class Group extends Model
      */
     public function addUser($user): self
     {
-        if (!$this->users->contains($user)) {
+        if (! $this->users->contains($user)) {
             $this->users()->attach($user);
         }
 
@@ -155,7 +155,7 @@ class Group extends Model
      */
     public function assignRole($role): self
     {
-        if (!$this->roles->contains($role)) {
+        if (! $this->roles->contains($role)) {
             $this->roles()->attach($role);
         }
 

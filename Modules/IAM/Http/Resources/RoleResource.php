@@ -32,17 +32,17 @@ class RoleResource extends JsonResource
             'is_active' => $this->is_active,
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
-            
+
             // Relationships
-            'parent' => $this->whenLoaded('parent', fn() => new RoleResource($this->parent)),
-            'children' => $this->whenLoaded('children', fn() => RoleResource::collection($this->children)),
-            'role_permissions' => $this->whenLoaded('rolePermissions', fn() => PermissionResource::collection($this->rolePermissions)),
+            'parent' => $this->whenLoaded('parent', fn () => new RoleResource($this->parent)),
+            'children' => $this->whenLoaded('children', fn () => RoleResource::collection($this->children)),
+            'role_permissions' => $this->whenLoaded('rolePermissions', fn () => PermissionResource::collection($this->rolePermissions)),
             'users_count' => $this->when(isset($this->users_count), $this->users_count),
-            
+
             // Computed
             'all_permissions' => $this->when(
                 $request->boolean('include_all_permissions'),
-                fn() => $this->getAllPermissions()
+                fn () => $this->getAllPermissions()
             ),
         ];
     }

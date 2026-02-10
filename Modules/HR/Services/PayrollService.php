@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Modules\Core\Services\BaseService;
 use Modules\HR\Entities\Payroll;
 use Modules\HR\Events\PayrollProcessed;
-use Modules\HR\Repositories\Contracts\PayrollRepositoryInterface;
 use Modules\HR\Repositories\Contracts\EmployeeRepositoryInterface;
+use Modules\HR\Repositories\Contracts\PayrollRepositoryInterface;
 
 /**
  * Payroll Service
@@ -85,7 +85,7 @@ class PayrollService extends BaseService
             }
 
             $employee = $this->employeeRepository->find($employeeId);
-            if (!$employee) {
+            if (! $employee) {
                 throw new \RuntimeException('Employee not found.');
             }
 
@@ -155,7 +155,7 @@ class PayrollService extends BaseService
     {
         $payroll = $this->payrollRepository->find($id);
 
-        if (!$payroll) {
+        if (! $payroll) {
             throw new \RuntimeException('Payroll not found.');
         }
 

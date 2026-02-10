@@ -75,15 +75,17 @@ class Account extends Model
      * Account types.
      */
     public const TYPE_ASSET = 'asset';
+
     public const TYPE_LIABILITY = 'liability';
+
     public const TYPE_EQUITY = 'equity';
+
     public const TYPE_REVENUE = 'revenue';
+
     public const TYPE_EXPENSE = 'expense';
 
     /**
      * Get the parent account.
-     *
-     * @return BelongsTo
      */
     public function parent(): BelongsTo
     {
@@ -92,8 +94,6 @@ class Account extends Model
 
     /**
      * Get child accounts.
-     *
-     * @return HasMany
      */
     public function children(): HasMany
     {
@@ -102,8 +102,6 @@ class Account extends Model
 
     /**
      * Get journal entry lines for this account.
-     *
-     * @return HasMany
      */
     public function journalEntryLines(): HasMany
     {
@@ -112,8 +110,6 @@ class Account extends Model
 
     /**
      * Get invoice lines using this account.
-     *
-     * @return HasMany
      */
     public function invoiceLines(): HasMany
     {
@@ -122,8 +118,6 @@ class Account extends Model
 
     /**
      * Check if account is active.
-     *
-     * @return bool
      */
     public function isActive(): bool
     {
@@ -132,8 +126,6 @@ class Account extends Model
 
     /**
      * Check if account is a system account.
-     *
-     * @return bool
      */
     public function isSystem(): bool
     {
@@ -142,8 +134,6 @@ class Account extends Model
 
     /**
      * Check if account allows manual journal entries.
-     *
-     * @return bool
      */
     public function allowsManualEntries(): bool
     {
@@ -152,8 +142,6 @@ class Account extends Model
 
     /**
      * Check if account is a debit account.
-     *
-     * @return bool
      */
     public function isDebitAccount(): bool
     {
@@ -162,8 +150,6 @@ class Account extends Model
 
     /**
      * Check if account is a credit account.
-     *
-     * @return bool
      */
     public function isCreditAccount(): bool
     {
@@ -172,10 +158,6 @@ class Account extends Model
 
     /**
      * Update account balance.
-     *
-     * @param float $amount
-     * @param bool $isDebit
-     * @return void
      */
     public function updateBalance(float $amount, bool $isDebit): void
     {
@@ -189,8 +171,6 @@ class Account extends Model
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return AccountFactory
      */
     protected static function newFactory(): AccountFactory
     {

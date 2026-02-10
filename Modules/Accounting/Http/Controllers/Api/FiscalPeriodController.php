@@ -25,12 +25,14 @@ class FiscalPeriodController extends Controller
     {
         $perPage = $request->input('per_page', 15);
         $periods = $this->fiscalPeriodRepository->paginate($perPage);
+
         return FiscalPeriodResource::collection($periods)->response();
     }
 
     public function store(StoreFiscalPeriodRequest $request): JsonResponse
     {
         $period = $this->fiscalPeriodRepository->create($request->validated());
+
         return (new FiscalPeriodResource($period))->response()->setStatusCode(201);
     }
 
@@ -40,18 +42,21 @@ class FiscalPeriodController extends Controller
         if (! $period) {
             return response()->json(['message' => 'Fiscal period not found'], 404);
         }
+
         return (new FiscalPeriodResource($period))->response();
     }
 
     public function update(UpdateFiscalPeriodRequest $request, int $id): JsonResponse
     {
         $period = $this->fiscalPeriodRepository->update($id, $request->validated());
+
         return (new FiscalPeriodResource($period))->response();
     }
 
     public function destroy(int $id): JsonResponse
     {
         $this->fiscalPeriodRepository->delete($id);
+
         return response()->json(null, 204);
     }
 
@@ -63,6 +68,7 @@ class FiscalPeriodController extends Controller
         }
         $period->status = FiscalPeriod::STATUS_OPEN;
         $period->save();
+
         return (new FiscalPeriodResource($period))->response();
     }
 
@@ -80,6 +86,7 @@ class FiscalPeriodController extends Controller
         $period->closed_by = Auth::id();
         $period->save();
         event(new FiscalPeriodClosed($period));
+
         return (new FiscalPeriodResource($period))->response();
     }
 
@@ -89,6 +96,7 @@ class FiscalPeriodController extends Controller
         if (! $period) {
             return response()->json(['message' => 'No current period found'], 404);
         }
+
         return (new FiscalPeriodResource($period))->response();
     }
 }

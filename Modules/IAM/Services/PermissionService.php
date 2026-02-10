@@ -7,10 +7,10 @@ namespace Modules\IAM\Services;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Modules\IAM\Entities\Permission;
-use Modules\IAM\Repositories\Contracts\PermissionRepositoryInterface;
 use Modules\IAM\Events\PermissionCreated;
-use Modules\IAM\Events\PermissionUpdated;
 use Modules\IAM\Events\PermissionDeleted;
+use Modules\IAM\Events\PermissionUpdated;
+use Modules\IAM\Repositories\Contracts\PermissionRepositoryInterface;
 
 /**
  * Permission Service
@@ -46,6 +46,7 @@ class PermissionService
             event(new PermissionCreated($permission));
 
             DB::commit();
+
             return $permission;
         } catch (\Exception $e) {
             DB::rollBack();
@@ -62,7 +63,7 @@ class PermissionService
         try {
             $permission = $this->permissionRepository->findById($id);
 
-            if (!$permission) {
+            if (! $permission) {
                 throw new \Exception("Permission not found: {$id}");
             }
 
@@ -79,6 +80,7 @@ class PermissionService
             event(new PermissionUpdated($permission));
 
             DB::commit();
+
             return $permission;
         } catch (\Exception $e) {
             DB::rollBack();
@@ -95,7 +97,7 @@ class PermissionService
         try {
             $permission = $this->permissionRepository->findById($id);
 
-            if (!$permission) {
+            if (! $permission) {
                 throw new \Exception("Permission not found: {$id}");
             }
 
@@ -104,6 +106,7 @@ class PermissionService
             event(new PermissionDeleted($permission));
 
             DB::commit();
+
             return $result;
         } catch (\Exception $e) {
             DB::rollBack();
@@ -120,7 +123,7 @@ class PermissionService
         try {
             // Validate all permissions exist
             foreach ($permissionIds as $permissionId) {
-                if (!$this->permissionRepository->findById($permissionId)) {
+                if (! $this->permissionRepository->findById($permissionId)) {
                     throw new \Exception("Permission not found: {$permissionId}");
                 }
             }
@@ -142,13 +145,13 @@ class PermissionService
         DB::beginTransaction();
         try {
             // Validate type
-            if (!in_array($type, ['grant', 'deny'])) {
+            if (! in_array($type, ['grant', 'deny'])) {
                 throw new \Exception("Invalid permission type. Must be 'grant' or 'deny'");
             }
 
             // Validate all permissions exist
             foreach ($permissionIds as $permissionId) {
-                if (!$this->permissionRepository->findById($permissionId)) {
+                if (! $this->permissionRepository->findById($permissionId)) {
                     throw new \Exception("Permission not found: {$permissionId}");
                 }
             }
@@ -177,6 +180,7 @@ class PermissionService
             }
 
             DB::commit();
+
             return $created;
         } catch (\Exception $e) {
             DB::rollBack();
@@ -194,7 +198,7 @@ class PermissionService
 
         foreach ($actions as $action) {
             $slug = "{$module}.{$resource}.{$action}";
-            $name = ucfirst($action) . ' ' . ucfirst($resource);
+            $name = ucfirst($action).' '.ucfirst($resource);
 
             $permissions[] = [
                 'name' => $name,

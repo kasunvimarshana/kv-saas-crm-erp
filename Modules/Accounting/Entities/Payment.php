@@ -66,25 +66,32 @@ class Payment extends Model
      * Payment method constants.
      */
     public const METHOD_CASH = 'cash';
+
     public const METHOD_CHECK = 'check';
+
     public const METHOD_BANK_TRANSFER = 'bank_transfer';
+
     public const METHOD_CREDIT_CARD = 'credit_card';
+
     public const METHOD_DEBIT_CARD = 'debit_card';
+
     public const METHOD_ONLINE = 'online';
+
     public const METHOD_OTHER = 'other';
 
     /**
      * Status constants.
      */
     public const STATUS_PENDING = 'pending';
+
     public const STATUS_COMPLETED = 'completed';
+
     public const STATUS_FAILED = 'failed';
+
     public const STATUS_REFUNDED = 'refunded';
 
     /**
      * Get the customer.
-     *
-     * @return BelongsTo
      */
     public function customer(): BelongsTo
     {
@@ -93,8 +100,6 @@ class Payment extends Model
 
     /**
      * Get the invoice.
-     *
-     * @return BelongsTo
      */
     public function invoice(): BelongsTo
     {
@@ -103,8 +108,6 @@ class Payment extends Model
 
     /**
      * Get the bank account.
-     *
-     * @return BelongsTo
      */
     public function bankAccount(): BelongsTo
     {
@@ -113,8 +116,6 @@ class Payment extends Model
 
     /**
      * Get the journal entry.
-     *
-     * @return BelongsTo
      */
     public function journalEntry(): BelongsTo
     {
@@ -123,8 +124,6 @@ class Payment extends Model
 
     /**
      * Check if payment is completed.
-     *
-     * @return bool
      */
     public function isCompleted(): bool
     {
@@ -133,8 +132,6 @@ class Payment extends Model
 
     /**
      * Check if payment is pending.
-     *
-     * @return bool
      */
     public function isPending(): bool
     {
@@ -143,8 +140,6 @@ class Payment extends Model
 
     /**
      * Check if payment failed.
-     *
-     * @return bool
      */
     public function isFailed(): bool
     {
@@ -153,8 +148,6 @@ class Payment extends Model
 
     /**
      * Check if payment was refunded.
-     *
-     * @return bool
      */
     public function isRefunded(): bool
     {
@@ -163,8 +156,6 @@ class Payment extends Model
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return PaymentFactory
      */
     protected static function newFactory(): PaymentFactory
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Accounting\Tests\Unit;
 
+use Mockery;
 use Modules\Accounting\Entities\JournalEntry;
 use Modules\Accounting\Repositories\Contracts\AccountRepositoryInterface;
 use Modules\Accounting\Repositories\Contracts\FiscalPeriodRepositoryInterface;
@@ -11,14 +12,17 @@ use Modules\Accounting\Repositories\Contracts\JournalEntryLineRepositoryInterfac
 use Modules\Accounting\Repositories\Contracts\JournalEntryRepositoryInterface;
 use Modules\Accounting\Services\JournalEntryService;
 use PHPUnit\Framework\TestCase;
-use Mockery;
 
 class JournalEntryServiceTest extends TestCase
 {
     protected JournalEntryService $journalEntryService;
+
     protected $journalEntryRepository;
+
     protected $lineRepository;
+
     protected $accountRepository;
+
     protected $fiscalPeriodRepository;
 
     protected function setUp(): void
@@ -28,7 +32,7 @@ class JournalEntryServiceTest extends TestCase
         $this->lineRepository = Mockery::mock(JournalEntryLineRepositoryInterface::class);
         $this->accountRepository = Mockery::mock(AccountRepositoryInterface::class);
         $this->fiscalPeriodRepository = Mockery::mock(FiscalPeriodRepositoryInterface::class);
-        
+
         $this->journalEntryService = new JournalEntryService(
             $this->journalEntryRepository,
             $this->lineRepository,

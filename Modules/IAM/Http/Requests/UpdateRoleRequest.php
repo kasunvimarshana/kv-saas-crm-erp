@@ -36,7 +36,7 @@ class UpdateRoleRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('roles')->ignore($roleId)
+                Rule::unique('roles')->ignore($roleId),
             ],
             'description' => ['nullable', 'string', 'max:1000'],
             'parent_id' => ['nullable', 'exists:roles,id'],

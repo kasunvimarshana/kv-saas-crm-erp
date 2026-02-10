@@ -15,7 +15,7 @@ class JournalEntryFactory extends Factory
     {
         return [
             'tenant_id' => 1,
-            'entry_number' => 'JE-' . $this->faker->unique()->numerify('######'),
+            'entry_number' => 'JE-'.$this->faker->unique()->numerify('######'),
             'entry_date' => $this->faker->date(),
             'reference' => $this->faker->word(),
             'description' => $this->faker->sentence(),

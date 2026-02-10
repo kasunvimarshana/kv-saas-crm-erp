@@ -19,8 +19,6 @@ class PaymentReceived
 
     /**
      * Create a new event instance.
-     *
-     * @param Payment $payment
      */
     public function __construct(
         public Payment $payment

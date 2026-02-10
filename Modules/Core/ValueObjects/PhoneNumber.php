@@ -8,27 +8,26 @@ use Modules\Core\Exceptions\ValidationException;
 
 /**
  * Phone Number Value Object
- * 
+ *
  * Represents a phone number with basic validation
  * Immutable - once created, cannot be changed
  */
 final class PhoneNumber
 {
     private readonly string $value;
+
     private readonly ?string $countryCode;
 
     /**
      * Create a new phone number value object
      *
-     * @param string $phoneNumber
-     * @param string|null $countryCode
      * @throws ValidationException
      */
     public function __construct(string $phoneNumber, ?string $countryCode = null)
     {
         $phoneNumber = $this->sanitize($phoneNumber);
-        
-        if (!$this->isValid($phoneNumber)) {
+
+        if (! $this->isValid($phoneNumber)) {
             throw ValidationException::forField(
                 'phone_number',
                 'Invalid phone number format'
@@ -41,9 +40,6 @@ final class PhoneNumber
 
     /**
      * Sanitize phone number
-     *
-     * @param string $phoneNumber
-     * @return string
      */
     private function sanitize(string $phoneNumber): string
     {
@@ -53,9 +49,6 @@ final class PhoneNumber
 
     /**
      * Validate phone number format
-     *
-     * @param string $phoneNumber
-     * @return bool
      */
     private function isValid(string $phoneNumber): bool
     {
@@ -65,8 +58,6 @@ final class PhoneNumber
 
     /**
      * Get the phone number value
-     *
-     * @return string
      */
     public function getValue(): string
     {
@@ -75,8 +66,6 @@ final class PhoneNumber
 
     /**
      * Get the country code
-     *
-     * @return string|null
      */
     public function getCountryCode(): ?string
     {
@@ -85,8 +74,6 @@ final class PhoneNumber
 
     /**
      * Format phone number for display
-     *
-     * @return string
      */
     public function format(): string
     {
@@ -100,9 +87,6 @@ final class PhoneNumber
 
     /**
      * Check if phone number equals another
-     *
-     * @param PhoneNumber $other
-     * @return bool
      */
     public function equals(PhoneNumber $other): bool
     {
@@ -111,8 +95,6 @@ final class PhoneNumber
 
     /**
      * String representation
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -122,14 +104,11 @@ final class PhoneNumber
     /**
      * Create from string
      *
-     * @param string $phoneNumber
-     * @param string|null $countryCode
-     * @return static
      * @throws ValidationException
      */
     public static function fromString(string $phoneNumber, ?string $countryCode = null): static
     {
-        return new static($phoneNumber, $countryCode);
+        return new self($phoneNumber, $countryCode);
     }
 
     /**

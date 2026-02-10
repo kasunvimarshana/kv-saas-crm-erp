@@ -16,6 +16,7 @@ class UpdateJournalEntryRequest extends FormRequest
     public function rules(): array
     {
         $entryId = $this->route('id');
+
         return [
             'entry_date' => ['sometimes', 'required', 'date'],
             'reference' => ['nullable', 'string', 'max:255'],

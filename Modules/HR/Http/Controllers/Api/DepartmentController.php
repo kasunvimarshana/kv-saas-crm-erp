@@ -23,48 +23,55 @@ class DepartmentController extends Controller
     {
         $perPage = $request->input('per_page', 15);
         $departments = $this->departmentRepository->paginate($perPage);
+
         return DepartmentResource::collection($departments)->response();
     }
 
     public function store(StoreDepartmentRequest $request): JsonResponse
     {
         $department = $this->departmentRepository->create($request->validated());
+
         return (new DepartmentResource($department))->response()->setStatusCode(201);
     }
 
     public function show(int $id): JsonResponse
     {
         $department = $this->departmentRepository->find($id);
-        if (!$department) {
+        if (! $department) {
             return response()->json(['message' => 'Department not found'], 404);
         }
+
         return (new DepartmentResource($department->load(['parent', 'manager', 'children'])))->response();
     }
 
     public function update(UpdateDepartmentRequest $request, int $id): JsonResponse
     {
         $department = $this->departmentRepository->update($id, $request->validated());
+
         return (new DepartmentResource($department))->response();
     }
 
     public function destroy(int $id): JsonResponse
     {
         $deleted = $this->departmentRepository->delete($id);
-        if (!$deleted) {
+        if (! $deleted) {
             return response()->json(['message' => 'Department not found'], 404);
         }
+
         return response()->json(['message' => 'Department deleted successfully'], 200);
     }
 
     public function tree(): JsonResponse
     {
         $tree = $this->departmentRepository->getTree();
+
         return DepartmentResource::collection($tree)->response();
     }
 
     public function employees(int $id): JsonResponse
     {
         $employees = $this->employeeRepository->getByDepartment($id);
+
         return EmployeeResource::collection($employees)->response();
     }
 }

@@ -8,7 +8,7 @@ use Exception;
 
 /**
  * Base exception for domain-level errors
- * 
+ *
  * Domain exceptions represent violations of business rules or invariants
  * They should be caught and handled appropriately in the application layer
  */
@@ -17,12 +17,12 @@ class DomainException extends Exception
     /**
      * Create a new domain exception instance
      *
-     * @param string $message The exception message
-     * @param int $code The exception code
-     * @param \Throwable|null $previous Previous exception for exception chaining
+     * @param  string  $message  The exception message
+     * @param  int  $code  The exception code
+     * @param  \Throwable|null  $previous  Previous exception for exception chaining
      */
     public function __construct(
-        string $message = "Domain rule violation",
+        string $message = 'Domain rule violation',
         int $code = 0,
         ?\Throwable $previous = null
     ) {
@@ -41,10 +41,6 @@ class DomainException extends Exception
 
     /**
      * Create exception for business rule violation
-     *
-     * @param string $rule
-     * @param string $details
-     * @return static
      */
     public static function businessRuleViolation(string $rule, string $details = ''): static
     {
@@ -52,16 +48,12 @@ class DomainException extends Exception
         if ($details) {
             $message .= ". {$details}";
         }
-        
+
         return new static($message);
     }
 
     /**
      * Create exception for invalid state
-     *
-     * @param string $entity
-     * @param string $state
-     * @return static
      */
     public static function invalidState(string $entity, string $state): static
     {
@@ -70,9 +62,6 @@ class DomainException extends Exception
 
     /**
      * Create exception for invariant violation
-     *
-     * @param string $invariant
-     * @return static
      */
     public static function invariantViolation(string $invariant): static
     {

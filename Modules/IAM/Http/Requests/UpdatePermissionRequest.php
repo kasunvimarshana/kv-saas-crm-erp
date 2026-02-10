@@ -31,7 +31,7 @@ class UpdatePermissionRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('permissions')->ignore($permissionId)
+                Rule::unique('permissions')->ignore($permissionId),
             ],
             'module' => ['nullable', 'string', 'max:100'],
             'resource' => ['nullable', 'string', 'max:100'],

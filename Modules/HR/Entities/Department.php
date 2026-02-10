@@ -115,7 +115,7 @@ class Department extends Model
     public function getFullNameAttribute(): string
     {
         if ($this->parent) {
-            return $this->parent->full_name . ' / ' . $this->name;
+            return $this->parent->full_name.' / '.$this->name;
         }
 
         return $this->name;

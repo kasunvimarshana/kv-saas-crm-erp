@@ -13,12 +13,9 @@ class ConflictException extends Exception
 {
     /**
      * Create a new conflict exception
-     *
-     * @param string $message
-     * @param \Throwable|null $previous
      */
     public function __construct(
-        string $message = "Resource conflict",
+        string $message = 'Resource conflict',
         ?\Throwable $previous = null
     ) {
         parent::__construct($message, 409, $previous);
@@ -26,11 +23,6 @@ class ConflictException extends Exception
 
     /**
      * Create exception for duplicate resource
-     *
-     * @param string $resourceType
-     * @param string $field
-     * @param string|int $value
-     * @return static
      */
     public static function duplicate(string $resourceType, string $field, string|int $value): static
     {
@@ -41,10 +33,6 @@ class ConflictException extends Exception
 
     /**
      * Create exception for resource already in use
-     *
-     * @param string $resourceType
-     * @param string|int $identifier
-     * @return static
      */
     public static function inUse(string $resourceType, string|int $identifier): static
     {
@@ -55,11 +43,6 @@ class ConflictException extends Exception
 
     /**
      * Create exception for state conflict
-     *
-     * @param string $resource
-     * @param string $currentState
-     * @param string $requiredState
-     * @return static
      */
     public static function stateConflict(
         string $resource,

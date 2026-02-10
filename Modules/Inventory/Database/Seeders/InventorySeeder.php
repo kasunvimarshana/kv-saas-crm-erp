@@ -31,16 +31,16 @@ class InventorySeeder extends Seeder
             ['code' => 'M', 'name' => 'Meter', 'category' => 'length', 'ratio' => 1.0, 'is_base' => true],
             ['code' => 'CM', 'name' => 'Centimeter', 'category' => 'length', 'ratio' => 0.01, 'is_base' => false],
             ['code' => 'KM', 'name' => 'Kilometer', 'category' => 'length', 'ratio' => 1000.0, 'is_base' => false],
-            
+
             // Weight
             ['code' => 'KG', 'name' => 'Kilogram', 'category' => 'weight', 'ratio' => 1.0, 'is_base' => true],
             ['code' => 'G', 'name' => 'Gram', 'category' => 'weight', 'ratio' => 0.001, 'is_base' => false],
             ['code' => 'T', 'name' => 'Tonne', 'category' => 'weight', 'ratio' => 1000.0, 'is_base' => false],
-            
+
             // Volume
             ['code' => 'L', 'name' => 'Liter', 'category' => 'volume', 'ratio' => 1.0, 'is_base' => true],
             ['code' => 'ML', 'name' => 'Milliliter', 'category' => 'volume', 'ratio' => 0.001, 'is_base' => false],
-            
+
             // Unit
             ['code' => 'UNIT', 'name' => 'Unit', 'category' => 'unit', 'ratio' => 1.0, 'is_base' => true],
             ['code' => 'DOZEN', 'name' => 'Dozen', 'category' => 'unit', 'ratio' => 12.0, 'is_base' => false],

@@ -67,8 +67,6 @@ class InvoiceLine extends Model
 
     /**
      * Get the invoice.
-     *
-     * @return BelongsTo
      */
     public function invoice(): BelongsTo
     {
@@ -77,8 +75,6 @@ class InvoiceLine extends Model
 
     /**
      * Get the product.
-     *
-     * @return BelongsTo
      */
     public function product(): BelongsTo
     {
@@ -87,8 +83,6 @@ class InvoiceLine extends Model
 
     /**
      * Get the revenue account.
-     *
-     * @return BelongsTo
      */
     public function account(): BelongsTo
     {
@@ -97,8 +91,6 @@ class InvoiceLine extends Model
 
     /**
      * Calculate line totals.
-     *
-     * @return void
      */
     public function calculateTotals(): void
     {
@@ -122,8 +114,6 @@ class InvoiceLine extends Model
 
     /**
      * Boot method.
-     *
-     * @return void
      */
     protected static function boot(): void
     {
@@ -136,8 +126,6 @@ class InvoiceLine extends Model
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return InvoiceLineFactory
      */
     protected static function newFactory(): InvoiceLineFactory
     {

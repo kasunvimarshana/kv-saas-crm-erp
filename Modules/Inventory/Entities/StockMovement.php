@@ -64,8 +64,6 @@ class StockMovement extends Model
 
     /**
      * Get the product.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product(): BelongsTo
     {
@@ -74,8 +72,6 @@ class StockMovement extends Model
 
     /**
      * Get the warehouse.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function warehouse(): BelongsTo
     {
@@ -84,8 +80,6 @@ class StockMovement extends Model
 
     /**
      * Get the stock location.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function stockLocation(): BelongsTo
     {
@@ -94,8 +88,6 @@ class StockMovement extends Model
 
     /**
      * Get the source warehouse (for transfers).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function fromWarehouse(): BelongsTo
     {
@@ -104,8 +96,6 @@ class StockMovement extends Model
 
     /**
      * Get the source location (for transfers).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function fromLocation(): BelongsTo
     {
@@ -114,8 +104,6 @@ class StockMovement extends Model
 
     /**
      * Get the destination warehouse (for transfers).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function toWarehouse(): BelongsTo
     {
@@ -124,8 +112,6 @@ class StockMovement extends Model
 
     /**
      * Get the destination location (for transfers).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function toLocation(): BelongsTo
     {

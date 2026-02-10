@@ -8,7 +8,7 @@ use Modules\Core\Events\DomainEvent;
 
 /**
  * Aggregate Root
- * 
+ *
  * An aggregate root is an entity that acts as the entry point to an aggregate
  * All domain events should be raised through aggregate roots
  */
@@ -23,9 +23,6 @@ abstract class AggregateRoot extends Entity
 
     /**
      * Raise a domain event
-     *
-     * @param DomainEvent $event
-     * @return void
      */
     protected function raise(DomainEvent $event): void
     {
@@ -41,14 +38,12 @@ abstract class AggregateRoot extends Entity
     {
         $events = $this->domainEvents;
         $this->domainEvents = [];
-        
+
         return $events;
     }
 
     /**
      * Check if aggregate has pending events
-     *
-     * @return bool
      */
     public function hasDomainEvents(): bool
     {
@@ -57,8 +52,6 @@ abstract class AggregateRoot extends Entity
 
     /**
      * Clear all domain events
-     *
-     * @return void
      */
     public function clearDomainEvents(): void
     {

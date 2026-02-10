@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Modules\Sales\Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Sales\Entities\Customer;
 use Modules\Sales\Entities\SalesOrder;
+use Tests\TestCase;
 
 class CustomerApiTest extends TestCase
 {
@@ -49,8 +49,8 @@ class CustomerApiTest extends TestCase
                         'type',
                         'status',
                         'created_at',
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -137,7 +137,7 @@ class CustomerApiTest extends TestCase
             ->getJson('/api/v1/sales/customers?filter[status]=active');
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(2, $data);
     }
@@ -152,7 +152,7 @@ class CustomerApiTest extends TestCase
             ->getJson('/api/v1/sales/customers?filter[type]=business');
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(2, $data);
     }
@@ -166,7 +166,7 @@ class CustomerApiTest extends TestCase
             ->getJson('/api/v1/sales/customers?search=Acme');
 
         $response->assertStatus(200);
-        
+
         $data = $response->json('data');
         $this->assertCount(1, $data);
         $this->assertEquals('Acme Corporation', $data[0]['name']);

@@ -16,7 +16,7 @@ class UpdateProductCategoryRequest extends FormRequest
     public function rules(): array
     {
         $categoryId = $this->route('id');
-        
+
         return [
             'parent_id' => ['nullable', 'integer', 'exists:product_categories,id'],
             'name' => ['sometimes', 'string', 'max:255'],

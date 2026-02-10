@@ -30,8 +30,6 @@ class AccountingServiceProvider extends ServiceProvider
 {
     /**
      * Boot the application events.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -44,8 +42,6 @@ class AccountingServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -55,8 +51,6 @@ class AccountingServiceProvider extends ServiceProvider
 
     /**
      * Register config.
-     *
-     * @return void
      */
     protected function registerConfig(): void
     {
@@ -71,8 +65,6 @@ class AccountingServiceProvider extends ServiceProvider
 
     /**
      * Register routes.
-     *
-     * @return void
      */
     protected function registerRoutes(): void
     {
@@ -83,8 +75,6 @@ class AccountingServiceProvider extends ServiceProvider
 
     /**
      * Register migrations.
-     *
-     * @return void
      */
     protected function registerMigrations(): void
     {
@@ -93,8 +83,6 @@ class AccountingServiceProvider extends ServiceProvider
 
     /**
      * Register translations.
-     *
-     * @return void
      */
     protected function registerTranslations(): void
     {
@@ -109,8 +97,6 @@ class AccountingServiceProvider extends ServiceProvider
 
     /**
      * Register views.
-     *
-     * @return void
      */
     protected function registerViews(): void
     {
@@ -126,8 +112,6 @@ class AccountingServiceProvider extends ServiceProvider
 
     /**
      * Register repositories.
-     *
-     * @return void
      */
     protected function registerRepositories(): void
     {
@@ -159,8 +143,8 @@ class AccountingServiceProvider extends ServiceProvider
     {
         $paths = [];
         foreach ($this->app['config']->get('view.paths') as $path) {
-            if (is_dir($path . '/modules/accounting')) {
-                $paths[] = $path . '/modules/accounting';
+            if (is_dir($path.'/modules/accounting')) {
+                $paths[] = $path.'/modules/accounting';
             }
         }
 

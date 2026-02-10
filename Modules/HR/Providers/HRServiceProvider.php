@@ -161,8 +161,6 @@ class HRServiceProvider extends ServiceProvider
 
     /**
      * Get publishable view paths.
-     *
-     * @return array
      */
     private function getPublishableViewPaths(): array
     {

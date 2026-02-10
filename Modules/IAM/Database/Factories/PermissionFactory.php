@@ -28,8 +28,8 @@ class PermissionFactory extends Factory
         $action = $this->faker->randomElement($actions);
 
         return [
-            'name' => ucfirst($action) . ' ' . ucfirst($resource),
-            'slug' => $module . '.' . $resource . '.' . $action . '.' . $this->faker->unique()->numberBetween(1, 10000),
+            'name' => ucfirst($action).' '.ucfirst($resource),
+            'slug' => $module.'.'.$resource.'.'.$action.'.'.$this->faker->unique()->numberBetween(1, 10000),
             'module' => $module,
             'resource' => $resource,
             'action' => $action,

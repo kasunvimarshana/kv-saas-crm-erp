@@ -9,7 +9,7 @@ use Illuminate\Queue\SerializesModels;
 
 /**
  * Base Domain Event
- * 
+ *
  * All domain events should extend this class
  * Domain events represent something significant that happened in the domain
  */
@@ -27,13 +27,11 @@ abstract class DomainEvent
      */
     public function __construct()
     {
-        $this->occurredAt = new \DateTimeImmutable();
+        $this->occurredAt = new \DateTimeImmutable;
     }
 
     /**
      * Get the time when event occurred
-     *
-     * @return \DateTimeImmutable
      */
     public function occurredAt(): \DateTimeImmutable
     {
@@ -42,8 +40,6 @@ abstract class DomainEvent
 
     /**
      * Get event name for logging/debugging
-     *
-     * @return string
      */
     public function eventName(): string
     {

@@ -14,7 +14,7 @@ class LeaveTypeFactory extends Factory
         return [
             'tenant_id' => 1,
             'name' => $this->faker->randomElement(['Annual Leave', 'Sick Leave', 'Personal Leave', 'Maternity Leave']),
-            'code' => 'LT-' . strtoupper($this->faker->unique()->lexify('???')),
+            'code' => 'LT-'.strtoupper($this->faker->unique()->lexify('???')),
             'description' => $this->faker->sentence(),
             'max_days_per_year' => $this->faker->numberBetween(5, 30),
             'is_paid' => $this->faker->boolean(80),

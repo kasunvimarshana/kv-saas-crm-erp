@@ -17,8 +17,11 @@ use Tests\TestCase;
 class CreatePayrollJournalListenerTest extends TestCase
 {
     private $journalEntryRepository;
+
     private $journalEntryLineRepository;
+
     private $accountRepository;
+
     private $listener;
 
     protected function setUp(): void
@@ -227,6 +230,7 @@ class CreatePayrollJournalListenerTest extends TestCase
             ->andReturnUsing(function ($data) use (&$totalDebits, &$totalCredits) {
                 $totalDebits += $data['debit_amount'];
                 $totalCredits += $data['credit_amount'];
+
                 return Mockery::mock();
             });
 

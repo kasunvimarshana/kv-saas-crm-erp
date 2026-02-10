@@ -19,7 +19,7 @@ class InvoiceLineFactory extends Factory
         $taxRate = 10;
         $taxAmount = $subtotal * ($taxRate / 100);
         $total = $subtotal + $taxAmount;
-        
+
         return [
             'tenant_id' => 1,
             'invoice_id' => 1,

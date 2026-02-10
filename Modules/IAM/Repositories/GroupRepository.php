@@ -61,6 +61,7 @@ class GroupRepository implements GroupRepositoryInterface
     public function update(Group $group, array $data): Group
     {
         $group->update($data);
+
         return $group->fresh();
     }
 

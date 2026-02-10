@@ -13,12 +13,9 @@ class UnauthorizedException extends Exception
 {
     /**
      * Create a new unauthorized exception
-     *
-     * @param string $message
-     * @param \Throwable|null $previous
      */
     public function __construct(
-        string $message = "Unauthorized action",
+        string $message = 'Unauthorized action',
         ?\Throwable $previous = null
     ) {
         parent::__construct($message, 403, $previous);
@@ -26,9 +23,6 @@ class UnauthorizedException extends Exception
 
     /**
      * Create exception for missing permission
-     *
-     * @param string $permission
-     * @return static
      */
     public static function missingPermission(string $permission): static
     {
@@ -37,9 +31,6 @@ class UnauthorizedException extends Exception
 
     /**
      * Create exception for missing role
-     *
-     * @param string $role
-     * @return static
      */
     public static function missingRole(string $role): static
     {
@@ -48,9 +39,6 @@ class UnauthorizedException extends Exception
 
     /**
      * Create exception for tenant access violation
-     *
-     * @param string $resourceType
-     * @return static
      */
     public static function tenantAccessViolation(string $resourceType): static
     {
@@ -59,10 +47,6 @@ class UnauthorizedException extends Exception
 
     /**
      * Create exception for action not allowed
-     *
-     * @param string $action
-     * @param string $resource
-     * @return static
      */
     public static function actionNotAllowed(string $action, string $resource): static
     {

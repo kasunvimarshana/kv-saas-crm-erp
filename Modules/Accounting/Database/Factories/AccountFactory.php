@@ -15,7 +15,7 @@ class AccountFactory extends Factory
     {
         $types = ['asset', 'liability', 'equity', 'revenue', 'expense'];
         $type = $this->faker->randomElement($types);
-        
+
         return [
             'tenant_id' => 1,
             'account_number' => $this->faker->unique()->numerify('####'),

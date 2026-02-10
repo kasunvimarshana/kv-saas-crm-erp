@@ -21,8 +21,6 @@ class AccountController extends Controller
 {
     /**
      * AccountController constructor.
-     *
-     * @param AccountService $accountService
      */
     public function __construct(
         protected AccountService $accountService
@@ -30,9 +28,6 @@ class AccountController extends Controller
 
     /**
      * Display a listing of accounts.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -44,9 +39,6 @@ class AccountController extends Controller
 
     /**
      * Store a newly created account.
-     *
-     * @param StoreAccountRequest $request
-     * @return JsonResponse
      */
     public function store(StoreAccountRequest $request): JsonResponse
     {
@@ -59,9 +51,6 @@ class AccountController extends Controller
 
     /**
      * Display the specified account.
-     *
-     * @param int $id
-     * @return JsonResponse
      */
     public function show(int $id): JsonResponse
     {
@@ -78,15 +67,12 @@ class AccountController extends Controller
 
     /**
      * Update the specified account.
-     *
-     * @param UpdateAccountRequest $request
-     * @param int $id
-     * @return JsonResponse
      */
     public function update(UpdateAccountRequest $request, int $id): JsonResponse
     {
         try {
             $account = $this->accountService->update($id, $request->validated());
+
             return (new AccountResource($account))->response();
         } catch (\Exception $e) {
             return response()->json([
@@ -97,14 +83,12 @@ class AccountController extends Controller
 
     /**
      * Remove the specified account.
-     *
-     * @param int $id
-     * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
     {
         try {
             $this->accountService->delete($id);
+
             return response()->json(null, 204);
         } catch (\Exception $e) {
             return response()->json([
@@ -115,37 +99,32 @@ class AccountController extends Controller
 
     /**
      * Get chart of accounts in hierarchical structure.
-     *
-     * @return JsonResponse
      */
     public function chartOfAccounts(): JsonResponse
     {
         $accounts = $this->accountService->getChartOfAccounts();
+
         return AccountResource::collection($accounts)->response();
     }
 
     /**
      * Get accounts by type.
-     *
-     * @param string $type
-     * @return JsonResponse
      */
     public function byType(string $type): JsonResponse
     {
         $accounts = $this->accountService->getByType($type);
+
         return AccountResource::collection($accounts)->response();
     }
 
     /**
      * Search accounts.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function search(Request $request): JsonResponse
     {
         $query = $request->input('q', '');
         $accounts = $this->accountService->search($query);
+
         return AccountResource::collection($accounts)->response();
     }
 }
