@@ -1,3 +1,14 @@
+---
+applyTo:
+  - "**/*.php"
+  - "**/*.vue"
+  - "**/*.js"
+  - "**/*.ts"
+  - "**/composer.json"
+  - "**/package.json"
+  - "**/*.md"
+---
+
 # GitHub Copilot Instructions
 
 ---
@@ -793,6 +804,23 @@ onMounted(() => {
 - [RESOURCE_ANALYSIS.md](../RESOURCE_ANALYSIS.md) - Analysis of 15+ industry resources
 - [CONCEPTS_REFERENCE.md](../CONCEPTS_REFERENCE.md) - Pattern encyclopedia
 - [openapi-template.yaml](../openapi-template.yaml) - API specification template
+
+---
+
+## Pattern-Specific Instructions
+
+This repository uses specialized instruction files for specific code patterns. These files provide detailed guidelines when working with particular file types:
+
+<a href="instructions/api-controllers.instructions.md">API Controllers</a> - Apply to: `**/Modules/**/Http/Controllers/**/*.php`
+<a href="instructions/event-driven.instructions.md">Event-Driven Architecture</a> - Apply to: `**/Events/**/*.php`, `**/Listeners/**/*.php`, `**/Observers/**/*.php`
+<a href="instructions/form-requests.instructions.md">Form Request Validation</a> - Apply to: `**/Http/Requests/**/*.php`
+<a href="instructions/migrations.instructions.md">Database Migrations</a> - Apply to: `**/Database/Migrations/**/*.php`
+<a href="instructions/module-tests.instructions.md">Module Tests</a> - Apply to: `**/Modules/**/Tests/**/*.php`
+<a href="instructions/repository-pattern.instructions.md">Repository Pattern</a> - Apply to: `**/Repositories/**/*.php`
+<a href="instructions/service-layer.instructions.md">Service Layer</a> - Apply to: `**/Services/**/*.php`
+<a href="instructions/vue-components.instructions.md">Vue.js Components</a> - Apply to: `**/*.vue`
+
+These pattern-specific instructions are automatically applied when you work with files matching their patterns.
 
 ---
 
