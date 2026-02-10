@@ -14,8 +14,12 @@ use Modules\IAM\Policies\PermissionPolicy;
 use Modules\IAM\Policies\RolePolicy;
 use Modules\IAM\Repositories\Contracts\GroupRepositoryInterface;
 use Modules\IAM\Repositories\Contracts\PermissionRepositoryInterface;
+use Modules\IAM\Repositories\Contracts\RoleRepositoryInterface;
+use Modules\IAM\Repositories\Contracts\UserRepositoryInterface;
 use Modules\IAM\Repositories\GroupRepository;
 use Modules\IAM\Repositories\PermissionRepository;
+use Modules\IAM\Repositories\RoleRepository;
+use Modules\IAM\Repositories\UserRepository;
 
 class IAMServiceProvider extends ServiceProvider
 {
@@ -51,6 +55,16 @@ class IAMServiceProvider extends ServiceProvider
         $this->app->bind(
             GroupRepositoryInterface::class,
             GroupRepository::class
+        );
+
+        $this->app->bind(
+            RoleRepositoryInterface::class,
+            RoleRepository::class
+        );
+
+        $this->app->bind(
+            UserRepositoryInterface::class,
+            UserRepository::class
         );
     }
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\IAM\Http\Controllers\PermissionController;
 use Modules\IAM\Http\Controllers\RoleController;
+use Modules\IAM\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +12,23 @@ use Modules\IAM\Http\Controllers\RoleController;
 */
 
 Route::prefix('v1/iam')->middleware(['auth:sanctum'])->group(function () {
+
+    // User routes
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'index']);
+        Route::post('/', [UserController::class, 'store']);
+        Route::get('/search', [UserController::class, 'search']);
+        Route::get('/{user}', [UserController::class, 'show']);
+        Route::put('/{user}', [UserController::class, 'update']);
+        Route::delete('/{user}', [UserController::class, 'destroy']);
+
+        // User-specific actions
+        Route::post('/{user}/activate', [UserController::class, 'activate']);
+        Route::post('/{user}/deactivate', [UserController::class, 'deactivate']);
+        Route::post('/{user}/roles', [UserController::class, 'assignRoles']);
+        Route::post('/{user}/permissions', [UserController::class, 'assignPermissions']);
+        Route::get('/{user}/permissions', [UserController::class, 'permissions']);
+    });
 
     // Role routes
     Route::prefix('roles')->group(function () {
