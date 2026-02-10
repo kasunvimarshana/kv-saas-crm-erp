@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\IAM\Http\Controllers\AuthController;
 use Modules\IAM\Http\Controllers\PermissionController;
 use Modules\IAM\Http\Controllers\RoleController;
 use Modules\IAM\Http\Controllers\UserController;
@@ -11,7 +12,24 @@ use Modules\IAM\Http\Controllers\UserController;
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('v1/iam')->middleware(['auth:sanctum'])->group(function () {
+// Authentication routes (public)
+Route::prefix('v1/auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::post('/password/reset', [AuthController::class, 'initiatePasswordReset']);
+    Route::post('/password/reset/confirm', [AuthController::class, 'resetPassword']);
+    
+    // Protected auth routes
+    Route::middleware(['jwt.auth'])->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/logout-all', [AuthController::class, 'logoutAll']);
+        Route::get('/me', [AuthController::class, 'me']);
+    });
+});
+
+// IAM routes (protected)
+Route::prefix('v1/iam')->middleware(['jwt.auth'])->group(function () {
 
     // User routes
     Route::prefix('users')->group(function () {
