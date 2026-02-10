@@ -13,6 +13,8 @@ The Organization module provides comprehensive multi-level organizational struct
 - **Address Management**: Comprehensive address handling with geocoding support
 - **Settings & Configuration**: Organization-level settings and configuration management
 - **Status Management**: Lifecycle management (active, inactive, suspended)
+- **Full CRUD API**: Complete REST API for all entities
+- **Test Coverage**: 20+ comprehensive unit and feature tests
 
 ## Entities
 
@@ -21,6 +23,7 @@ The Organization module provides comprehensive multi-level organizational struct
 - Supports parent-child hierarchies
 - Configurable settings and features
 - Contact information and addresses
+- Status: active, inactive, suspended
 
 ### Location
 - Represents physical or virtual locations (offices, branches, warehouses)
@@ -28,12 +31,14 @@ The Organization module provides comprehensive multi-level organizational struct
 - Supports location hierarchy
 - Geocoding support (latitude/longitude)
 - Operating hours and contact information
+- Status: active, inactive, under_construction, closed
 
 ### OrganizationalUnit
 - Represents departments, divisions, or teams
 - Links to organizations and locations
 - Manager assignment
 - Hierarchical structure
+- Status: active, inactive, suspended
 
 ## Architecture
 
@@ -45,11 +50,12 @@ organizations
 ├── tenant_id (FK)
 ├── parent_id (FK, self-reference)
 ├── code (unique per tenant)
-├── name (translatable)
+├── name (translatable JSON)
 ├── legal_name
 ├── tax_id
-├── status
+├── status (enum)
 ├── settings (JSON)
+├── level, path (hierarchy tracking)
 └── timestamps
 
 locations
@@ -58,10 +64,12 @@ locations
 ├── organization_id (FK)
 ├── parent_location_id (FK, self-reference)
 ├── code (unique per tenant)
-├── name (translatable)
-├── location_type
+├── name (translatable JSON)
+├── location_type (enum)
 ├── address fields
 ├── latitude, longitude
+├── operating_hours (JSON)
+├── level, path (hierarchy tracking)
 └── timestamps
 
 organizational_units
@@ -71,8 +79,10 @@ organizational_units
 ├── location_id (FK)
 ├── parent_unit_id (FK, self-reference)
 ├── code (unique per tenant)
-├── name (translatable)
+├── name (translatable JSON)
+├── unit_type (enum)
 ├── manager_id (FK to users)
+├── level, path (hierarchy tracking)
 └── timestamps
 ```
 
@@ -88,7 +98,7 @@ $organizationService = app(OrganizationService::class);
 // Create parent organization
 $parentOrg = $organizationService->createOrganization([
     'code' => 'HQ',
-    'name' => 'Headquarters',
+    'name' => ['en' => 'Headquarters', 'es' => 'Sede Central'],
     'legal_name' => 'Company Inc.',
     'tax_id' => 'TAX123456',
     'status' => 'active',
@@ -98,7 +108,7 @@ $parentOrg = $organizationService->createOrganization([
 $subsidiary = $organizationService->createOrganization([
     'parent_id' => $parentOrg->id,
     'code' => 'SUB-01',
-    'name' => 'Regional Subsidiary',
+    'name' => ['en' => 'Regional Subsidiary'],
     'legal_name' => 'Subsidiary LLC',
     'status' => 'active',
 ]);
@@ -114,13 +124,30 @@ $locationService = app(LocationService::class);
 $location = $locationService->createLocation([
     'organization_id' => $parentOrg->id,
     'code' => 'NYC-01',
-    'name' => 'New York Office',
+    'name' => ['en' => 'New York Office'],
     'location_type' => 'office',
     'address_line1' => '123 Main St',
     'city' => 'New York',
     'state' => 'NY',
     'postal_code' => '10001',
     'country' => 'US',
+]);
+```
+
+### Creating Organizational Units
+
+```php
+use Modules\Organization\Services\OrganizationalUnitService;
+
+$unitService = app(OrganizationalUnitService::class);
+
+$unit = $unitService->createUnit([
+    'organization_id' => $parentOrg->id,
+    'code' => 'ENG-DEPT',
+    'name' => ['en' => 'Engineering Department'],
+    'unit_type' => 'department',
+    'status' => 'active',
+    'manager_id' => $userId,
 ]);
 ```
 
@@ -141,6 +168,9 @@ $root = $organization->root();
 
 // Check if organization is descendant of another
 $isChild = $organization->isDescendantOf($parentOrg);
+
+// Build tree structure
+$tree = Organization::buildTree(Organization::all());
 ```
 
 ## Integration with Other Modules
@@ -163,6 +193,7 @@ The Organization module is designed to integrate with all other modules:
 - `DELETE /api/v1/organizations/{id}` - Delete organization
 - `GET /api/v1/organizations/{id}/children` - Get child organizations
 - `GET /api/v1/organizations/{id}/hierarchy` - Get full hierarchy
+- `GET /api/v1/organizations/{id}/descendants` - Get all descendants
 
 ### Locations
 - `GET /api/v1/locations` - List all locations
@@ -171,12 +202,60 @@ The Organization module is designed to integrate with all other modules:
 - `PUT /api/v1/locations/{id}` - Update location
 - `DELETE /api/v1/locations/{id}` - Delete location
 - `GET /api/v1/locations/{id}/children` - Get child locations
+- `GET /api/v1/organizations/{orgId}/locations` - Get by organization
+
+### Organizational Units (NEW)
+- `GET /api/v1/organizational-units` - List all units
+- `POST /api/v1/organizational-units` - Create unit
+- `GET /api/v1/organizational-units/{id}` - Get unit details
+- `PUT /api/v1/organizational-units/{id}` - Update unit
+- `DELETE /api/v1/organizational-units/{id}` - Delete unit
+- `GET /api/v1/organizational-units/{id}/children` - Get child units
+- `GET /api/v1/organizational-units/{id}/hierarchy` - Get full tree
+- `GET /api/v1/organizational-units/{id}/descendants` - Get all descendants
+- `GET /api/v1/organizations/{orgId}/units` - Get organization's unit tree
 
 ## Testing
 
-Run module tests:
+### Run Module Tests
 ```bash
+# Run all Organization module tests
 php artisan test --testsuite=Organization
+
+# Run unit tests only
+php artisan test Modules/Organization/Tests/Unit
+
+# Run feature tests only
+php artisan test Modules/Organization/Tests/Feature
+
+# Run with coverage
+php artisan test --testsuite=Organization --coverage
+```
+
+### Test Coverage
+- **Unit Tests**: 9 test cases covering service layer business logic
+- **Feature Tests**: 11 test cases covering API endpoints
+- **Total**: 20+ comprehensive test cases
+
+### Factories
+Test data can be generated using factories:
+
+```php
+use Modules\Organization\Entities\Organization;
+use Modules\Organization\Entities\Location;
+use Modules\Organization\Entities\OrganizationalUnit;
+
+// Create test organizations
+$org = Organization::factory()->headquarters()->active()->create();
+$subsidiary = Organization::factory()->subsidiary()->create(['parent_id' => $org->id]);
+
+// Create test locations
+$location = Location::factory()->warehouse()->create(['organization_id' => $org->id]);
+
+// Create test units
+$unit = OrganizationalUnit::factory()->department()->active()->create([
+    'organization_id' => $org->id,
+]);
 ```
 
 ## Dependencies

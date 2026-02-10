@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Traits\Auditable;
 use Modules\Core\Traits\Tenantable;
 use Modules\Core\Traits\Translatable;
+use Modules\Organization\Database\Factories\OrganizationFactory;
 use Modules\Organization\Traits\Hierarchical;
 
 /**
@@ -220,5 +221,13 @@ class Organization extends Model
         }
 
         return $this->getTranslation('name');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): OrganizationFactory
+    {
+        return OrganizationFactory::new();
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Traits\Auditable;
 use Modules\Core\Traits\Tenantable;
 use Modules\Core\Traits\Translatable;
+use Modules\Organization\Database\Factories\OrganizationalUnitFactory;
 use Modules\Organization\Traits\Hierarchical;
 
 /**
@@ -185,5 +186,13 @@ class OrganizationalUnit extends Model
     public function getParentKeyName(): string
     {
         return 'parent_unit_id';
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): OrganizationalUnitFactory
+    {
+        return OrganizationalUnitFactory::new();
     }
 }
