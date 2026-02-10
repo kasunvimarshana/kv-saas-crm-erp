@@ -247,7 +247,16 @@ class AuthService
             ]
         );
         
-        // TODO: Send password reset email
+        // TODO: Implement email sending in production
+        // For now, log the reset token (REMOVE IN PRODUCTION)
+        if (config('app.debug')) {
+            Log::info('Password reset token (DEBUG ONLY)', [
+                'email' => $email,
+                'token' => $resetToken,
+            ]);
+        }
+        
+        // In production, uncomment this and remove debug logging:
         // Mail::to($user->email)->send(new PasswordResetMail($resetToken));
         
         Log::info('Password reset initiated', ['email' => $email]);
@@ -308,16 +317,38 @@ class AuthService
         $user = User::find($userId);
         
         if (!$user) {
-            return false;
+            throw new AuthenticationException('User not found.');
         }
         
         if ($user->email_verified_at) {
             return true; // Already verified
         }
         
-        // TODO: Verify token matches
-        // For now, just mark as verified
+        // Verify token from database
+        $storedToken = DB::table('email_verification_tokens')
+            ->where('user_id', $userId)
+            ->first();
+        
+        if (!$storedToken) {
+            throw new AuthenticationException('Invalid verification token.');
+        }
+        
+        // Check if token is expired (24 hours)
+        if (now()->diffInHours($storedToken->created_at) > 24) {
+            DB::table('email_verification_tokens')->where('user_id', $userId)->delete();
+            throw new AuthenticationException('Verification token has expired.');
+        }
+        
+        // Verify token matches
+        if (!Hash::check($verificationToken, $storedToken->token)) {
+            throw new AuthenticationException('Invalid verification token.');
+        }
+        
+        // Mark email as verified
         $user->update(['email_verified_at' => now()]);
+        
+        // Delete verification token
+        DB::table('email_verification_tokens')->where('user_id', $userId)->delete();
         
         Log::info('Email verified', ['user_id' => $user->id]);
         

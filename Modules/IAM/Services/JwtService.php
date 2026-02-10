@@ -251,7 +251,7 @@ class JwtService
     /**
      * Base64 URL encode
      */
-    private function base64UrlEncode($data): string
+    private function base64UrlEncode(string $data): string
     {
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
