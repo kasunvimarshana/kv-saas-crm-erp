@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\IAM\Http\Controllers\AuthController;
+use Modules\IAM\Http\Controllers\GroupController;
 use Modules\IAM\Http\Controllers\PermissionController;
 use Modules\IAM\Http\Controllers\RoleController;
 use Modules\IAM\Http\Controllers\UserController;
@@ -77,5 +78,23 @@ Route::prefix('v1/iam')->middleware(['jwt.auth'])->group(function () {
         // Assign permissions
         Route::post('/assign/role/{roleId}', [PermissionController::class, 'assignToRole']);
         Route::post('/assign/user/{userId}', [PermissionController::class, 'assignToUser']);
+    });
+
+    // Group routes
+    Route::prefix('groups')->group(function () {
+        Route::get('/', [GroupController::class, 'index']);
+        Route::post('/', [GroupController::class, 'store']);
+        Route::get('/active', [GroupController::class, 'active']);
+        Route::get('/tree', [GroupController::class, 'tree']);
+        Route::get('/roots', [GroupController::class, 'roots']);
+        Route::get('/{group}', [GroupController::class, 'show']);
+        Route::put('/{group}', [GroupController::class, 'update']);
+        Route::delete('/{group}', [GroupController::class, 'destroy']);
+
+        // Group-specific actions
+        Route::post('/{group}/users', [GroupController::class, 'addUser']);
+        Route::delete('/{group}/users', [GroupController::class, 'removeUser']);
+        Route::post('/{group}/roles', [GroupController::class, 'assignRole']);
+        Route::delete('/{group}/roles', [GroupController::class, 'removeRole']);
     });
 });
