@@ -38,6 +38,9 @@
         <testsuite name="Procurement">
             <directory suffix="Test.php">./Modules/Procurement/Tests</directory>
         </testsuite>
+        <testsuite name="Organization">
+            <directory suffix="Test.php">./Modules/Organization/Tests</directory>
+        </testsuite>
     </testsuites>
     <coverage>
         <report>

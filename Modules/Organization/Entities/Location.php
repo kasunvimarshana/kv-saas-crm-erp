@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Traits\Auditable;
 use Modules\Core\Traits\Tenantable;
 use Modules\Core\Traits\Translatable;
+use Modules\Organization\Database\Factories\LocationFactory;
 use Modules\Organization\Traits\Hierarchical;
 
 /**
@@ -234,5 +235,13 @@ class Location extends Model
     public function getParentKeyName(): string
     {
         return 'parent_location_id';
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): LocationFactory
+    {
+        return LocationFactory::new();
     }
 }
