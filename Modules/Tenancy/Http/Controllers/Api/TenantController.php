@@ -63,7 +63,7 @@ class TenantController extends Controller
     {
         $tenant = $this->tenantService->findById($id);
 
-        if (!$tenant) {
+        if (! $tenant) {
             return response()->json(['message' => 'Tenant not found'], 404);
         }
 
@@ -79,7 +79,7 @@ class TenantController extends Controller
     {
         $tenant = $this->tenantService->findById($id);
 
-        if (!$tenant) {
+        if (! $tenant) {
             return response()->json(['message' => 'Tenant not found'], 404);
         }
 
@@ -97,7 +97,7 @@ class TenantController extends Controller
     {
         $tenant = $this->tenantService->findById($id);
 
-        if (!$tenant) {
+        if (! $tenant) {
             return response()->json(['message' => 'Tenant not found'], 404);
         }
 
@@ -105,7 +105,7 @@ class TenantController extends Controller
 
         $deleted = $this->tenantService->delete($id);
 
-        if (!$deleted) {
+        if (! $deleted) {
             return response()->json(['message' => 'Failed to delete tenant'], 500);
         }
 
@@ -144,7 +144,7 @@ class TenantController extends Controller
     {
         $tenant = $this->tenantService->findById($id);
 
-        if (!$tenant) {
+        if (! $tenant) {
             return response()->json(['message' => 'Tenant not found'], 404);
         }
 
@@ -162,7 +162,7 @@ class TenantController extends Controller
     {
         $tenant = $this->tenantService->findById($id);
 
-        if (!$tenant) {
+        if (! $tenant) {
             return response()->json(['message' => 'Tenant not found'], 404);
         }
 
@@ -180,7 +180,7 @@ class TenantController extends Controller
     {
         $tenant = $this->tenantService->findById($id);
 
-        if (!$tenant) {
+        if (! $tenant) {
             return response()->json(['message' => 'Tenant not found'], 404);
         }
 
